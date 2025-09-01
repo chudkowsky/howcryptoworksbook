@@ -84,7 +84,7 @@ The **Pendle protocol** introduces a novel mechanism for tokenizing and trading 
 
 This allows for sophisticated yield strategies; for instance, a user can **lock in a fixed yield** by depositing an asset into Pendle and immediately selling the YT component.
 
-**PT discounts** imply a fixed yield to maturity; risks include **YT liquidity**, **interest-rate path dependency**, and **unwind slippage** before maturity.
+**PT discounts** imply a fixed yield to maturity; key risks include **YT liquidity**, **interest-rate path dependency**, and **unwind slippage** before maturity.
 
 ### Diverse Sources of Crypto Yield
 
@@ -108,7 +108,7 @@ Yield in the crypto ecosystem originates from a wide array of sources:
 - **Mechanism**: By opting in, users extend the security of Ethereum to other applications like oracles or bridges, known as **Actively Validated Services (AVSs)**
 - **Trade-off**: In return for taking on **additional slashing risk**, restakers earn **extra yield** from these services
 
-Remember **yield stacking compounds risks**: venue/custody, smart contract bugs, market/liquidity shocks, and correlated slashing or oracle failures.
+
 
 ---
 
@@ -172,7 +172,7 @@ A key risk in this process is **Impermanent Loss**, which occurs when the prices
 Many strategies employ **auto-compounding**, where smart contracts automatically reinvest earned rewards back into the pool to generate exponential returns.
 
 #### Market Growth
-The DeFi sector has seen immense growth, with its **Total Value Locked (TVL)** reaching **$129 billion in February 2025** and projections to exceed **$200 billion by the end of the year** (source: DeFiLlama).
+The DeFi sector has seen immense growth, with **Total Value Locked (TVL)** reaching **$129 billion in February 2025** and projections to exceed **$200 billion by the end of the year** (source: DeFiLlama).
 
 ### Yield Aggregators and Vault Strategies
 
@@ -207,7 +207,7 @@ A vault might sell a **$25,000 ETH call option**, earning a **2% premium** while
 - **Sustainability**: The yield is generated from traders buying the options, making it sustainable even in **bear markets**
 - **Volatility Exposure**: These vaults are effectively **shorting volatility**, which can lead to underperformance during strong **bull markets** when the options are frequently exercised
 
-**Tail risks** include **gap moves through strikes**, **volatility regime shifts**, and **liquidity at roll**; **strike selection and sizing** are critical.
+**Key risks** include **gap moves through strikes**, **volatility regime shifts**, and **liquidity at roll**; **strike selection and sizing** are critical.
 
 ---
 
@@ -222,8 +222,7 @@ Despite market volatility, the adoption and usage of stablecoins have continued 
 - **Rapid growth**: The market first crossed the **$200 billion mark in December 2024**, adding another **$10 billion in just two weeks**
 
 #### Transaction Volumes
-- **Volume estimates**: Vary significantly by methodology (many estimate **>$25T in 2024** on-chain stablecoin volume depending on definition of gross on-chain settlement vs. 'organic' volume)
-- **Total supply**: About **$252B by mid-2025**
+- **Annual volume**: Estimates vary significantly by methodology, with many estimating **>$25T in 2024** on-chain stablecoin volume
 
 #### User Adoption
 - **Address estimates**: ~**150M addresses** holding stablecoins (methodologies vary)
@@ -236,11 +235,8 @@ Despite market volatility, the adoption and usage of stablecoins have continued 
 
 
 ## Key Takeaways
-- Fiat-backed stablecoins (USDT/USDC) hold liquid reserves and rely on mint/redeem arbitrage; issuers can freeze.
-- MiCA formalizes EMT/ART regulation in the EU with 1:1 reserves and redemption at par; US rules remain fragmented.
-- Decentralized alternatives: over-collateralized (DAI, GHO) and synthetic (USDe) with delta-neutral hedges.
-- Key risks: funding-rate swings, counterparty/venue risk, depeg and redemption gates, oracle/basis risk.
-- Pendle splits principal and yield (PT + YT) enabling fixed yield or yield speculation; P(PT)+P(YT)=Underlying.
-- Yield sources: RWAs, staking/LSTs, MEV capture, and restaking; stacking yields stacks risks.
-- Terra/LUNA illustrated algorithmic fragility; FRAX pioneered fractional collateralization with AMOs.
-- Yield aggregators and DOVs automate strategies but carry market/volatility and liquidity risks.
+- **Stablecoin Models**: Fiat-backed (USDT/USDC) dominate through mint/redeem arbitrage, while decentralized alternatives include over-collateralized (DAI, GHO) and synthetic delta-neutral approaches (USDe)
+- **Regulatory Evolution**: MiCA establishes comprehensive EU framework for EMTs/ARTs; US remains fragmented across state and federal levels
+- **Yield Innovation**: Pendle tokenizes future yield (PT + YT), enabling fixed-rate strategies and yield speculation with the core relationship P(PT)+P(YT)=Underlying
+- **Risk Management**: All yield strategies compound underlying risks—venue/custody, smart contracts, market volatility, and protocol-specific failures
+- **Market Maturation**: From Terra/LUNA's algorithmic collapse to FRAX's fractional model and sophisticated yield aggregators, the space continues evolving toward sustainable mechanisms
