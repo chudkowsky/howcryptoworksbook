@@ -76,8 +76,12 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Chapter 40: Stablecoin Adoption and Infrastructure](./Part_08_Stablecoins.md#chapter-40-stablecoin-adoption-and-infrastructure)
 - [Key Takeaways](./Part_08_Stablecoins.md#key-takeaways)
 
-### Part IX — Custody
-- [Chapter 41: Custody Fundamentals](./Part_09_Custody.md#chapter-41-custody-fundamentals)
+### Part IX — Custody Fundamentals
+- [Chapter 1: Custody Core Concepts](./Part_09_Custody.md#chapter-1-custody-core-concepts)
+- [Chapter 2: Custody Models and Architecture](./Part_09_Custody.md#chapter-2-custody-models-and-architecture)
+- [Chapter 3: Controls and Security Implementation](./Part_09_Custody.md#chapter-3-controls-and-security-implementation)
+- [Chapter 4: Technical Implementation Details](./Part_09_Custody.md#chapter-4-technical-implementation-details)
+- [Chapter 5: Operations and Risk Management](./Part_09_Custody.md#chapter-5-operations-and-risk-management)
 - [Key Takeaways](./Part_09_Custody.md#key-takeaways)
 
 -### Part X — Market Structure and Trading

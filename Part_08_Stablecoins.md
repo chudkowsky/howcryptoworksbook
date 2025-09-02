@@ -12,15 +12,11 @@ Regulators have moved to formalize this category. In the EU, **MiCA** treats man
 
 Beyond fiat‑backed models, decentralized designs include **over‑collateralized** stablecoins (e.g., DAI, GHO) that mint against crypto collateral, and **synthetic** designs such as **Ethena’s USDe**, which targets stability with a **delta‑neutral** perps hedge. USDe’s backing combines crypto collateral (e.g., ETH/BTC/BNB) with corresponding short perps so that gains and losses offset; yield derives from staking rewards and funding payments, but depends on venue health, funding‑rate regimes, and basis/oracle risk. In all models, liquidity, redemption gates under stress, and counterparty risk determine real‑world robustness.
 
- 
-
 ## Chapter 39: Stablecoin Failures and Lessons Learned
 
 The collapse of **Terra/LUNA** in 2022 showcased the danger of purely algorithmic pegs. UST relied on a mint‑and‑burn loop with LUNA; when confidence faltered and redemptions surged, hyperinflation crushed LUNA’s price, breaking the peg and vaporizing tens of billions in value. Subsidized yields from **Anchor** masked fragility, demanding large daily subsidies to sustain. The “Minsky moment” arrived when LUNA’s market cap fell below UST’s supply, making full redemption mathematically impossible.
 
 Learning from this, **FRAX** introduced a **fractional‑algorithmic** model that dynamically adjusts its collateral ratio and uses **Algorithmic Market Operations (AMOs)** to deploy collateral without changing total supply. Minting requires collateral and the burning of FXS in proportions set by the current ratio, blending market discipline with protocol control. The ecosystem expanded to inflation‑linked FPI and liquid staking via frxETH. The broader lesson is to examine collateral quality, reflexivity, and the sustainability of incentives rather than headline APYs.
-
- 
 
 ## Chapter 40: Stablecoin Adoption and Infrastructure
 
