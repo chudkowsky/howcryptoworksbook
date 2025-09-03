@@ -186,30 +186,30 @@ This process became practical thanks to two soft forks: SegWit, which provided a
 
 Relay and mining policies for large inscriptions can vary, affecting inclusion and propagation.
 
-## Chapter 6: Corporate Bitcoin Treasuries and MicroStrategy
+## Chapter 6: Corporate Bitcoin Treasuries
 
 ### The Corporate Treasury Trend
 
 Beginning in 2020, a handful of public companies allocated portions of corporate cash to Bitcoin as a long‑duration, non‑sovereign monetary asset. Motivations included diversification, inflation hedging, and brand alignment with digital‑native finance. Adoption has been cyclical and remains limited relative to total corporate cash balances.
 
-### The MicroStrategy Playbook
+### The Strategy Playbook
 
-**MicroStrategy** (now Strategy Inc.) has developed a sophisticated financial mechanism that leverages corporate debt markets to accumulate Bitcoin at scale. The strategy centers on issuing **convertible senior notes** at exceptionally low interest rates—including $2 billion in 0% bonds and others ranging from 0.625% to 2.25%.
+**Strategy** (formerly known as MicroStrategy) developed a financing playbook to accumulate Bitcoin at scale. The approach centers on issuing **senior unsecured convertible notes** at low coupons—including $2B of 0% due 2030—alongside at‑the‑market (ATM) equity programs.
 
-The key insight is that MicroStrategy's extreme stock volatility (106 implied volatility versus 15 for the S&P 500) makes the embedded **conversion option** in these bonds extraordinarily valuable to institutional investors. Hedge funds purchase the bonds while simultaneously shorting the stock, profiting from price movements through **gamma trading** strategies.
+The key dynamic is that MSTR's stock volatility (variable; often markedly higher than broad equity indices) makes the embedded **conversion option** valuable to institutional investors. Convert‑arb funds buy the bonds and hedge the equity, monetizing volatility via **gamma trading**.
 
 This creates a self-reinforcing cycle: bond proceeds fund Bitcoin purchases → Bitcoin holdings increase net asset value → stock price rises → higher volatility makes future convertible issuances even cheaper → cycle repeats.
 
 ### Performance and Risk Profile
 
-The strategy has delivered exceptional results while maintaining structural protections against liquidation. MicroStrategy achieved a **74% Bitcoin yield** in 2024, increasing their Bitcoin per share despite shareholder dilution, and now holds 636,505 Bitcoin worth approximately $46.95 billion.
+The strategy has delivered notable results while maintaining structural protections against liquidation. Strategy reported ~**74% BTC Yield** for FY2024 (their KPI measuring % change in BTC per share) and holds ~**636,505 BTC**. At BTC $110,000, that stack is ≈ **≈$70B**.
 
 **Liquidation risk remains minimal** due to several factors:
-- Convertible bonds are **unsecured senior obligations** with no Bitcoin collateral requirements
-- Maturities are staggered between 2027-2031, providing refinancing flexibility
-- Many bonds are already "in the money" for conversion rather than cash repayment
-- The underlying software business generates sufficient cash flow to cover ~$35 million in annual interest payments
-- Multiple funding mechanisms available, including $21 billion in **at-the-market equity programs**
+- Convertible notes are **senior unsecured** with no BTC collateral requirements
+- Outstanding maturities are 2028, 2030 (two tranches), 2031, and 2032; the 2027 notes were settled earlier in 2025 via conversion/redemption (the company received conversion requests for substantially all of the $1.05B before the Feb 24, 2025 redemption date)
+- Most converts are currently in‑the‑money at MSTR ≈ $341 (split‑adjusted after the 10‑for‑1 split on Aug 8, 2024): 2028 ~$183, 2030A ~$150, 2031 ~$233, 2032 ~$204; 2030B (~$433.43) is out‑of‑the‑money
+- Cash interest burden on the current stack is ~**$34.6M/year** (0.625%×$1.01B + 0.625%×$800M + 0.875%×$603.75M + 2.25%×$800M)
+- Authorized capacity includes a disclosed **$21B common‑stock ATM** and a separate **$21B preferred (STRK) ATM** (e.g., ~$4.3B remaining as of Feb 5, 2025 per disclosure)
 
 ### Strategic Risks and Limitations
 
