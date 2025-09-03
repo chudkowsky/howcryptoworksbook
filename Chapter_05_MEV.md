@@ -1,14 +1,12 @@
-# Part V: MEV
+# Chapter V: MEV
 
 *This section examines Maximal Extractable Value: who extracts it, how it impacts users and markets, and the design space for mitigation across ecosystems.*
 
-## Chapter 19: The Complex World of MEV
+## Section 1: The Complex World of MEV
 
 **Maximal Extractable Value (MEV)** is the profit block producers can capture by strategically ordering, including, or excluding transactions within the blocks they create. This concept, originally called **"Miner Extractable Value"** during Ethereum's proof-of-work era, represents revenue extracted beyond standard block rewards and transaction fees. The process begins when users submit transactions to a public **"mempool,"** a waiting area where block producers can observe pending trades and leverage this advance knowledge for profit.
 
 This has fostered a sophisticated ecosystem with distinct roles. **Searchers** scan the mempool for profitable opportunities, **builders** construct optimized blocks to capture this value, and **proposers** (validators) select the most profitable blocks to add to the chain. This relationship has been formalized by systems like **MEV-Boost**, which creates a liquid market for block space.
-
-### A Quick Anecdote: The Farmers' Market Line
 
 Imagine a busy market with a big whiteboard listing everyone's pending orders — that's the public **mempool** (whiteboard = mempool). A fast **searcher** (reseller) watches the board, sees you're about to buy 10 tomatoes from a **DEX/pool** (stall), sprints ahead, buys first, then offers them back to you at a markup — a **front-run**.
 
@@ -41,7 +39,7 @@ To counter this, a decentralized block-building network called **BuilderNet** wa
 
 ### Emerging Challenges: Cross-Domain MEV
 
-A new frontier of value extraction, **Cross-Domain MEV**, is also emerging. This refers to arbitrage and other strategies executed across different blockchain networks, exploiting price differences between on-chain exchanges on separate chains. Researchers warn this could pose an **"existential risk"** to decentralization if sophisticated actors gain control over transaction ordering across multiple domains. The timing and latency of blockchain bridges are critical factors, enabling complex, multi-block MEV strategies that are even harder to mitigate. This highlights that as the blockchain ecosystem grows, the challenges of ensuring fair and decentralized value extraction will only become more complex. See also: Part II, Chapter 8 for PBS on Ethereum and rollup builder dynamics.
+A new frontier of value extraction, **Cross-Domain MEV**, is also emerging. This refers to arbitrage and other strategies executed across different blockchain networks, exploiting price differences between on-chain exchanges on separate chains. Researchers warn this could pose an **"existential risk"** to decentralization if sophisticated actors gain control over transaction ordering across multiple domains. The timing and latency of blockchain bridges are critical factors, enabling complex, multi-block MEV strategies that are even harder to mitigate. This highlights that as the blockchain ecosystem grows, the challenges of ensuring fair and decentralized value extraction will only become more complex. See also: Chapter II, Section 3 for PBS on Ethereum and rollup builder dynamics.
 
 Mitigations under study include **shared sequencing** across domains, **cross-domain batch auctions**, and **routing intents through OFAs**.
 

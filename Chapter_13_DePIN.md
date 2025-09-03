@@ -1,8 +1,8 @@
-# Part XIII: Decentralized Physical Infrastructure Networks (DePIN)
+# Chapter XIII: Decentralized Physical Infrastructure Networks (DePIN)
 
 *This section examines the emerging category of protocols that use token incentives to coordinate the deployment and operation of physical infrastructure, from wireless networks to computing resources and environmental monitoring.*
 
-## Chapter 54: DePIN Fundamentals and Architecture
+## Section 1: DePIN Fundamentals and Architecture
 
 ### Defining Decentralized Physical Infrastructure
 
@@ -33,7 +33,7 @@ For most of the internet era, open protocols were not directly monetizable. Crea
 
 ---
 
-## Chapter 55: DePIN Categories and Use Cases
+## Section 2: DePIN Categories and Use Cases
 
 ### Wireless and Connectivity Networks
 
@@ -68,7 +68,7 @@ For most of the internet era, open protocols were not directly monetizable. Crea
 
 ---
 
-## Chapter 56: Economic Models and Sustainability Challenges
+## Section 3: Economic Models and Sustainability Challenges
 
 ### Token Economics and Incentive Design
 

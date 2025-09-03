@@ -1,8 +1,8 @@
-# Part IX: Custody Fundamentals
+# Chapter IX: Custody Fundamentals
 
 *This section introduces the core ideas behind institutional crypto custody. The goal is clarity: understand what controls actually prevent loss, how policy and evidence make custody professional, and how to choose the right model for your use case.*
 
-## Chapter 1: Custody Core Concepts
+## Section 1: Custody Core Concepts
 
 ### Genesis and Philosophy
 
@@ -38,7 +38,7 @@ Produce **immutable evidence** through attestations, logs, and regular audits to
 
 ---
 
-## Chapter 2: Custody Models and Architecture
+## Section 2: Custody Models and Architecture
 
 ### Multisig (On-Chain Rules)
 
@@ -72,7 +72,7 @@ The trade-offs include contract risk (bugs in wallet logic), evolving standards 
 
 ---
 
-## Chapter 3: Controls and Security Implementation
+## Section 3: Controls and Security Implementation
 
 ### Key Generation and Hardware Security
 
@@ -104,7 +104,7 @@ Testing is critical—disaster recovery procedures that haven't been tested in r
 
 ---
 
-## Chapter 4: Technical Implementation Details
+## Section 4: Technical Implementation Details
 
 ### Mnemonic Seed Phrases vs Multisig
 
@@ -150,7 +150,7 @@ When assets sit on exchanges, custody operations inherit the exchange's solvency
 
 ---
 
-## Chapter 5: Operations and Risk Management
+## Section 5: Operations and Risk Management
 
 ### Segregation and Tiering
 

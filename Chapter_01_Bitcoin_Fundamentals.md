@@ -1,8 +1,8 @@
-# Part I: Bitcoin Fundamentals
+# Chapter I: Bitcoin Fundamentals
 
 *This section establishes the foundational concepts of Bitcoin, exploring its revolutionary approach to digital money, consensus mechanisms, and the philosophical principles that underpin the world's first successful cryptocurrency.*
 
-## Chapter 1: Bitcoin Core Concepts
+## Section 1: Bitcoin Core Concepts
 
 ### Genesis and Philosophy
 
@@ -36,7 +36,7 @@ Due to integer rounding in halvings, the terminal supply converges to ~20,999,99
 
 ---
 
-## Chapter 2: Bitcoin Technical Architecture
+## Section 2: Bitcoin Technical Architecture
 
 ### UTXO Model
 
@@ -68,7 +68,7 @@ Wallets standardize address derivation using BIP32/39/44 and output descriptors;
 
 ---
 
-## Chapter 3: Bitcoin Upgrades and Scaling
+## Section 3: Bitcoin Upgrades and Scaling
 
 ### Segregated Witness (SegWit)
 
@@ -108,7 +108,7 @@ Taproot supports **key-path** (single-sig) and **script-path** spends under **Ta
 
 ---
 
-## Chapter 4: Bitcoin Layer 2 and Extensions
+## Section 4: Bitcoin Layer 2 and Extensions
 
 ### Lightning Network
 
@@ -122,7 +122,7 @@ Think of Lightning as a canal system with locks. You can only send a boat if the
 
 ---
 
-## Chapter 5: Bitcoin Network Operations and Security Model
+## Section 5: Bitcoin Network Operations and Security Model
 
 ### Roles at a Glance
 
@@ -190,7 +190,7 @@ This process became practical thanks to two soft forks: SegWit, which provided a
 
 Relay and mining policies for large inscriptions can vary, affecting inclusion and propagation.
 
-## Chapter 6: Corporate Bitcoin Treasuries
+## Section 6: Corporate Bitcoin Treasuries
 
 ### The Corporate Treasury Trend
 

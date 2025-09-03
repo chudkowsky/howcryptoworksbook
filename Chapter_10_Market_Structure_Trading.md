@@ -1,10 +1,10 @@
-# Part 10: Crypto Market Structure & Trading
+# Chapter 10: Crypto Market Structure & Trading
 
 *This section explores the mechanics of cryptocurrency markets, from the fundamental architecture of exchanges to sophisticated trading strategies. Understanding market microstructure is essential for anyone seeking to navigate crypto markets effectively, whether as a trader, researcher, or institutional participant.*
 
 ---
 
-## Chapter 42: Exchange Architecture and Core Products
+## Section 1: Exchange Architecture and Core Products
 
 ### The Centralized Exchange Model
 
@@ -56,7 +56,7 @@ As of July 2025, the SEC permits in-kind creations/redemptions for crypto ETFs. 
 
 ---
 
-## Chapter 43: Order Management and Market Microstructure
+## Section 2: Order Management and Market Microstructure
 
 ### Order Types and Execution Strategy
 
@@ -96,7 +96,7 @@ Understanding these mechanics is essential for developing sophisticated executio
 
 ---
 
-## Chapter 44: Market Participants and Information Flow
+## Section 3: Market Participants and Information Flow
 
 ### The Role of Latency in Modern Markets
 
@@ -132,7 +132,7 @@ The primary risks include volatility spikes that can cause rapid inventory losse
 
 ---
 
-## Chapter 45: Risk Management and Margining Systems
+## Section 4: Risk Management and Margining Systems
 
 ### Understanding Margin Modes
 
@@ -164,7 +164,7 @@ Example implementation: A treasury holding 1,000 BTC for strategic purposes migh
 
 ---
 
-## Chapter 46: Pricing Mechanisms and Market Signals
+## Section 5: Pricing Mechanisms and Market Signals
 
 ### Reference Price Architecture
 
@@ -207,7 +207,7 @@ The **volatility risk premium** (IV minus RV) captures whether option sellers de
 
 ---
 
-## Chapter 47: Advanced Analytics and Market Intelligence
+## Section 6: Advanced Analytics and Market Intelligence
 
 ### On-Chain Flow Analysis
 

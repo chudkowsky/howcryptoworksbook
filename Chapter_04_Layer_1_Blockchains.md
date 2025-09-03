@@ -1,14 +1,14 @@
-# Part IV: Layer 1 Blockchains
+# Chapter IV: Layer 1 Blockchains
 
 *This section analyzes the diverse architectural approaches of Layer 1 blockchains, comparing monolithic versus modular designs and examining how different networks balance scalability, security, and decentralization.*
 
-## Chapter 17: Blockchain Architecture Paradigms
+## Section 1: Blockchain Architecture Paradigms
 
 The architecture of Layer 1 blockchains is primarily diverging into two distinct design philosophies: **monolithic** and **modular**. Understanding these approaches is key to grasping the trade-offs that different networks make in pursuit of scalability, security, and decentralization.
 
 ### Monolithic vs. Modular Design
 
-A **monolithic architecture** bundles all core blockchain functions—execution, settlement, consensus, and data availability—into a single, highly-optimized chain. Blockchains like Solana exemplify this approach (see Part III). The primary advantage of a monolithic design is its inherent simplicity and the tight integration of its components, which can streamline development and performance. However, this design comes with a significant trade-off: the entire chain must scale as a single unit, which can lead to extremely high hardware requirements for node operators and centralize the network over time.
+A **monolithic architecture** bundles all core blockchain functions—execution, settlement, consensus, and data availability—into a single, highly-optimized chain. Blockchains like Solana exemplify this approach (see Chapter III). The primary advantage of a monolithic design is its inherent simplicity and the tight integration of its components, which can streamline development and performance. However, this design comes with a significant trade-off: the entire chain must scale as a single unit, which can lead to extremely high hardware requirements for node operators and centralize the network over time.
 
 In contrast, a **modular architecture** specializes and separates these core functions across different layers. This approach prioritizes scalability and specialization, allowing each component to be optimized and scaled independently. The Ethereum ecosystem is the leading example of modular design. Its base layer is optimized to serve as a robust and secure hub for settlement, consensus, and data availability. Transaction execution, meanwhile, is largely outsourced to specialized Layer 2 scaling solutions, such as rollups. This division of labor creates a more flexible and potentially more scalable system overall.
 
@@ -28,9 +28,9 @@ Finality models differ: **Nakamoto-style probabilistic finality** vs **BFT-style
 
 ---
 
-## Chapter 18: Layer 1 Landscape Survey
+## Section 2: Layer 1 Landscape Survey
 
-For full coverage of Solana, see Part III. This chapter surveys other L1 ecosystems and cross-cutting design themes.
+For full coverage of Solana, see Chapter III. This chapter surveys other L1 ecosystems and cross-cutting design themes.
 
 ### Exploring the Broader Layer 1 Landscape
 
@@ -46,7 +46,7 @@ A survey of major L1s reveals distinct approaches, such as:
 While **EVM compatibility** is the most common approach for fostering developer adoption, alternative VMs offer different trade-offs:
 - **Move** (Aptos/Sui)
 - **WASM** (Near, Polkadot)
-- **eBPF** (Solana; see Part III)
+- **eBPF** (Solana; see Chapter III)
 
 These are designed to offer superior performance and security at the cost of a steeper learning curve for developers. The VM design also dictates state management, from account-based models to UTXO or object-oriented systems.
 
@@ -59,14 +59,14 @@ The ability for L1s to communicate is paramount. This involves studying:
 Bridges, however, remain a primary target for exploits, highlighting the immense challenges in cross-chain security. *For detailed bridge mechanisms and security analysis, see the comprehensive coverage in Chapter 19 below.*
 
 #### Data Availability Layers:
-Specialized DA chains (e.g., Celestia) decouple data from execution; *see Part V for details*.
+Specialized DA chains (e.g., Celestia) decouple data from execution; *see Chapter V for details*.
 
 #### Performance and Scalability:
 Evaluating performance requires looking beyond raw **Transactions Per Second (TPS)** numbers to understand the **scalability trilemma** (decentralization, security, scalability). Key trade-offs include:
 - Hardware requirements versus node accessibility
 - Optimizing for low latency versus high throughput
 
-For Solana’s **Sealevel** parallel execution model and **PoH/Tower** scheduling that enable low-latency throughput on a monolithic L1, see Part III.
+For Solana’s **Sealevel** parallel execution model and **PoH/Tower** scheduling that enable low-latency throughput on a monolithic L1, see Chapter III.
 
 #### Security and Governance:
 Security models differ based on consensus:
@@ -99,7 +99,7 @@ Accurate **read/write set prediction** underpins parallelism; conflicting transa
 
 ---
 
-## Chapter 19: Bridges and Cross-Chain Interoperability
+## Section 3: Bridges and Cross-Chain Interoperability
 
 ### Bridge Architecture Fundamentals
 
@@ -198,7 +198,7 @@ IBC's **connection and channel** abstraction allows chains to establish authenti
 - Differences:
   - **Sui**: Object-centric data model; parallel execution tuned around object ownership; consensus stack built for high throughput and low latency.
   - **Aptos**: HotStuff-style **AptosBFT**; parallel execution with conflict detection; aims for low-latency finality and high TPS.
-- Ecosystem: Rapid infra growth, wallets, and DeFi/NFT activity (see Part XI for NFT fundamentals); still smaller than Ethereum/Solana but attractive to developers seeking safety/perf trade-offs.
+- Ecosystem: Rapid infra growth, wallets, and DeFi/NFT activity (see Chapter XI for NFT fundamentals); still smaller than Ethereum/Solana but attractive to developers seeking safety/perf trade-offs.
 
 
 ## Key Takeaways
@@ -209,5 +209,5 @@ IBC's **connection and channel** abstraction allows chains to establish authenti
 - VMs compete on performance and safety: EVM, Move, WASM, eBPF; compatibility shapes ecosystem growth.
 - Bridge architectures (lock-and-mint, liquidity pools, native) have distinct security models; trusted vs trustless vs optimistic vs ZK-based approaches trade off security, speed, and complexity.
 - Cross-chain protocols (IBC, XCMP, LayerZero) enable interoperability but introduce new attack vectors; bridge exploits exceeded $2B in 2022.
-- Specialized DA layers (e.g., Celestia) decouple data from execution to scale rollups (see Part V).
+- Specialized DA layers (e.g., Celestia) decouple data from execution to scale rollups (see Chapter V).
 - Emerging L1s (Monad, Aptos/Sui) pursue parallel/pipelined execution while courting EVM equivalence.
