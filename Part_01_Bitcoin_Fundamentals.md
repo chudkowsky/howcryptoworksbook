@@ -102,8 +102,6 @@ The **Taproot upgrade**, activated in 2021, significantly improved privacy, effi
 
 Together, these features make complex transactions indistinguishable from simple payments, providing a major boost to privacy and scalability.
 
-On a related note, public companies have increasingly adopted Bitcoin as a treasury asset, led by MicroStrategy (MSTR), which holds the most BTC of any publicly traded firm.
-
 Taproot supports **key-path** (single-sig) and **script-path** spends under **Tapscript**, and introduced **SIGHASH_DEFAULT** for simpler signature hashing. [BIP340/341/342]
 
 ---
@@ -187,6 +185,43 @@ This process became practical thanks to two soft forks: SegWit, which provided a
 **BRC-20 tokens** are an experimental standard built on this technology, using JSON text inscriptions to signal "deploy," "mint," and "transfer" functions. An important limitation is that BRC-20s have no native token logic in consensus. Their state is not enforced by the Bitcoin protocol itself but is tracked by off-chain indexers that interpret the inscribed data.
 
 Relay and mining policies for large inscriptions can vary, affecting inclusion and propagation.
+
+## Chapter 6: Corporate Bitcoin Treasuries and MicroStrategy
+
+### The Corporate Treasury Trend
+
+Beginning in 2020, a handful of public companies allocated portions of corporate cash to Bitcoin as a long‑duration, non‑sovereign monetary asset. Motivations included diversification, inflation hedging, and brand alignment with digital‑native finance. Adoption has been cyclical and remains limited relative to total corporate cash balances.
+
+### The MicroStrategy Playbook
+
+**MicroStrategy** (now Strategy Inc.) has developed a sophisticated financial mechanism that leverages corporate debt markets to accumulate Bitcoin at scale. The strategy centers on issuing **convertible senior notes** at exceptionally low interest rates—including $2 billion in 0% bonds and others ranging from 0.625% to 2.25%.
+
+The key insight is that MicroStrategy's extreme stock volatility (106 implied volatility versus 15 for the S&P 500) makes the embedded **conversion option** in these bonds extraordinarily valuable to institutional investors. Hedge funds purchase the bonds while simultaneously shorting the stock, profiting from price movements through **gamma trading** strategies.
+
+This creates a self-reinforcing cycle: bond proceeds fund Bitcoin purchases → Bitcoin holdings increase net asset value → stock price rises → higher volatility makes future convertible issuances even cheaper → cycle repeats.
+
+### Performance and Risk Profile
+
+The strategy has delivered exceptional results while maintaining structural protections against liquidation. MicroStrategy achieved a **74% Bitcoin yield** in 2024, increasing their Bitcoin per share despite shareholder dilution, and now holds 636,505 Bitcoin worth approximately $46.95 billion.
+
+**Liquidation risk remains minimal** due to several factors:
+- Convertible bonds are **unsecured senior obligations** with no Bitcoin collateral requirements
+- Maturities are staggered between 2027-2031, providing refinancing flexibility
+- Many bonds are already "in the money" for conversion rather than cash repayment
+- The underlying software business generates sufficient cash flow to cover ~$35 million in annual interest payments
+- Multiple funding mechanisms available, including $21 billion in **at-the-market equity programs**
+
+### Strategic Risks and Limitations
+
+The flywheel mechanism faces several critical vulnerabilities:
+
+**Premium compression** represents the primary threat—if MicroStrategy's stock price converges toward its Bitcoin net asset value, the effectiveness of their accretive dilution strategy diminishes significantly.
+
+The model exhibits **diminishing returns at scale**: the company required just 2.6 Bitcoin to generate one basis point of yield in 2021 but needed 58 Bitcoin by 2025 for the same result.
+
+Long-term success depends on three key conditions: Bitcoin maintaining its upward trajectory, MicroStrategy's stock preserving high volatility to attract convertible arbitrageurs, and continued access to capital markets for refinancing operations. While these conditions persist, the company appears positioned to continue its Bitcoin accumulation strategy with structural protections against forced liquidation.
+
+---
 
 ## Key Takeaways
 - Bitcoin targets self-sovereign money with a fixed 21M cap and disinflationary issuance via halvings.
