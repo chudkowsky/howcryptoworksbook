@@ -54,7 +54,7 @@ This transparency creates multisig's greatest strength and its primary limitatio
 
 However, this visibility comes with trade-offs. Transaction fees increase due to larger transaction sizes, and the completely public policy structure reveals organizational decision-making processes that many enterprises prefer to keep private. Competitors can analyze approval patterns, and the rigid on-chain rules can prove difficult to adapt as organizational needs evolve.
 
-Implementation typically relies on Bitcoin's native multisig capabilities or Ethereum's **Safe contracts** (formerly Gnosis Safe), which have secured billions of dollars across thousands of organizations. These battle-tested implementations provide the reliability needed for high-stakes operations while maintaining the transparency that makes multisig attractive.
+Implementation typically relies on Bitcoin's native multisig capabilities or Ethereum's **Safe contracts** (formerly Gnosis Safe), which have secured billions of dollars across thousands of organizations. These battle-tested implementations provide the reliability needed for high-stakes operations while maintaining the transparency that makes multisig attractive. On Bitcoin, however, Taproot/Schnorr with MuSig2 can make multisig appear indistinguishable from a single signature on-chain, so transparency varies by chain and technique.
 
 ### MPC and Threshold Signatures: Speed with Privacy
 
@@ -64,13 +64,13 @@ The core innovation lies in distributed key generation and signing protocols tha
 
 This efficiency makes MPC ideal for **active trading desks** and **multi-chain operations** where speed and flexibility outweigh transparency benefits. A trading firm can implement complex approval workflows across Bitcoin, Ethereum, and Solana simultaneously without managing separate multisig contracts on each network.
 
-The risk profile shifts toward platform and vendor quality, making evidence and logging absolutely critical. Since cryptographic operations happen within specialized software or hardware, operators must trust that implementations are correct and that proper procedures are followed. This dependency on vendor security and operational practices requires careful due diligence and ongoing monitoring.
+The risk profile shifts toward platform and vendor quality, making evidence and logging absolutely critical. Since cryptographic operations happen within specialized software or hardware, operators must trust that implementations are correct and that proper procedures are followed. This dependency on vendor security and operational practices requires careful due diligence and ongoing monitoring. Prominent providers such as Fireblocks and Copper use MPC; security depends on their implementations and verifiable evidence logs.
 
 ### Qualified Custodians: Regulatory Compliance and Legal Protection
 
 **Regulated banks and trust companies** bring traditional custody expertise to digital assets, offering legal segregation, examiner oversight, and insurance coverage that many institutional investors require by policy or regulation. These institutions operate under established regulatory frameworks that provide legal clarity and fiduciary protections.
 
-The regulatory approach addresses risks that technical solutions cannot: bankruptcy remoteness, clear legal title, and compliance with evolving regulatory requirements. When a qualified custodian holds assets, clients benefit from established legal precedents, regulatory oversight, and often FDIC or similar insurance coverage that provides recourse in case of institutional failure.
+The regulatory approach addresses risks that technical solutions cannot: bankruptcy remoteness, clear legal title, and compliance with evolving regulatory requirements. When a qualified custodian holds assets, clients benefit from established legal precedents, regulatory oversight, and private crime/specie policies; digital assets are not FDIC-insured.
 
 Operational processes typically move slower than purely technical solutions, and DeFi composability remains limited due to regulatory constraints around permissible activities. However, fiduciaries with regulatory obligations—pension funds, insurance companies, registered investment advisors—often find this the only acceptable path forward for significant allocations.
 
@@ -84,7 +84,7 @@ The programmability advantage allows organizations to encode sophisticated appro
 
 However, this flexibility introduces contract risk through potential bugs in wallet logic, evolving standards that may change rapidly, and limited availability outside the Ethereum ecosystem. The smart contract code becomes a critical attack surface that requires formal verification and careful auditing to ensure security properties hold under all conditions.
 
-Despite these limitations, smart contract wallets offer compelling solutions for complex organizational structures that need more sophisticated policy enforcement than traditional multisig can provide while maintaining more operational flexibility than qualified custodians typically allow.
+Despite these limitations, smart contract wallets offer compelling solutions for complex organizational structures that need more sophisticated policy enforcement than traditional multisig can provide while maintaining more operational flexibility than qualified custodians typically allow. In EVM contexts, ERC-4337 currently provides the canonical account abstraction pathway.
 
 ---
 
@@ -94,7 +94,7 @@ Despite these limitations, smart contract wallets offer compelling solutions for
 
 ### Key Generation and Hardware Security
 
-Everything starts at key generation—the foundational moment that determines whether a custody system can provide genuine security or merely security theater. In institutional settings, best practice demands **Hardware Security Modules (HSMs)** or attested secure enclaves, typically targeting **FIPS 140-3 Level 3** certification or equivalent security standards.
+Everything starts at key generation—the foundational moment that determines whether a custody system can provide genuine security or merely security theater. In institutional settings, best practice demands **Hardware Security Modules (HSMs)** or attested secure enclaves, typically targeting **FIPS 140-2/-3 Level 3 or higher** certification or equivalent security standards.
 
 These hardware requirements aren't arbitrary bureaucracy—they provide the cryptographic foundation that makes all subsequent security measures meaningful. HSMs generate truly random entropy, protect keys from extraction even by privileged users, and provide measured boot capabilities that prove the system hasn't been tampered with.
 
@@ -116,7 +116,7 @@ Production environments typically operate dedicated signing networks with carefu
 
 ### Evidence and Monitoring Systems
 
-The difference between intention and reality lies in evidence—the verifiable proof that security policies were actually followed rather than merely intended. Enterprise custody systems emphasize **Write-Once-Read-Many (WORM)** immutable logs with NTP-synchronized timestamps, ensuring that evidence cannot be altered after the fact.
+The difference between intention and reality lies in evidence—the verifiable proof that security policies were actually followed rather than merely intended. Enterprise custody systems emphasize **Write-Once-Read-Many (WORM)** immutable logs with NTP-synchronized timestamps, ensuring that evidence cannot be altered after the fact. For example, S3 Object Lock can enforce WORM retention, and time sources should be NTP-synchronized per NIST guidance (e.g., SP 800-92).
 
 These comprehensive logs capture device attestations proving hardware integrity, signer participation records showing exactly who approved each transaction, and complete approval trails documenting the decision-making process. When a $50 million transaction moves from cold storage, the evidence trail shows which HSM generated the signature, which administrators provided approval, and exactly when each step occurred.
 
@@ -178,7 +178,7 @@ The **BIP-39 word list** contains 2048 words (2^11), so each word carries 11 bit
 
 When assets sit on exchanges, custody operations inherit the exchange's solvency and operational risks. The practical "plumbing" includes understanding how wallets are tiered across hot, warm, and cold storage, how margin and lending are accounted for, whether collateral faces rehypothecation risk, and how losses are socialized through insurance funds and auto-deleveraging mechanisms.
 
-**Proof-of-Reserves (PoR)** demonstrates exchange solvency through on-chain or custodian-verified asset attestations paired with client-verifiable liability proofs. Effective PoR includes clear exclusion proofs and published scope overseen by independent auditors. Asset-only snapshots or one-off announcements provide insufficient assurance for professional operations.
+**Proof-of-Reserves (PoR)** demonstrates exchange solvency through on-chain or custodian-verified asset attestations paired with client-verifiable liability proofs. Effective PoR includes clear exclusion proofs and published scope overseen by independent auditors. Asset-only snapshots or one-off announcements provide insufficient assurance for professional operations. For example, Kraken publishes Merkle-tree liabilities with per-client inclusion proofs under auditor oversight.
 
 ---
 
@@ -186,9 +186,9 @@ When assets sit on exchanges, custody operations inherit the exchange's solvency
 
 ### Segregation and Tiering
 
-Professional custody implements **segregation by value** using systematic cold/warm/hot tiering. Common targets include cold storage for ≥90% of assets, warm storage for ~5-10%, and hot storage for <5% of total holdings.
+Professional custody implements **segregation by value** using systematic cold/warm/hot tiering. Common heuristics include cold storage for ≥90% of assets, warm storage for ~5-10%, and hot storage for <5% of total holdings.
 
-Critically, these should be **ceilings, not just targets**, with continuous reconciliation ensuring compliance. Automated systems should enforce these limits and alert operators when approaching thresholds.
+Critically, these should be **ceilings, not just targets**, enforced via policy and continuous monitoring and reconciliation. Automated systems should enforce these limits and alert operators when approaching thresholds.
 
 **Tiering strategies** must account for operational requirements, fee optimization, and emergency liquidity needs while maintaining strict separation between customer and proprietary assets.
 
@@ -212,9 +212,9 @@ Custody frameworks must address **bankruptcy remoteness** and clear title establ
 
 Historical failures follow predictable patterns that inform current best practices, revealing how seemingly sophisticated operations can collapse due to fundamental custody failures.
 
-**Mt. Gox** (2014) demonstrated the catastrophic results of blurred hot/cold segregation and absent reconciliation procedures. The exchange operated for years with inadequate controls and no real-time visibility into actual versus reported balances. When the collapse finally came, investigators discovered that hackers had been slowly draining funds since 2011, while the exchange continued operating normally. The 850,000 Bitcoin loss could have been detected and limited with proper segregation and daily reconciliation procedures.
+**Mt. Gox** (2014) demonstrated the catastrophic results of blurred hot/cold segregation and absent reconciliation procedures. The exchange operated for years with inadequate controls and no real-time visibility into actual versus reported balances. When the collapse finally came, investigators discovered that hackers had been slowly draining funds since 2011, while the exchange continued operating normally. Approximately 850,000 BTC were initially reported lost; roughly 200,000 BTC were later found, leaving ~650,000 BTC missing—losses that proper segregation and daily reconciliation could have detected and limited.
 
-**Parity Multisig** (2017) revealed how shared dependencies create systemic risks in smart contract systems. A single library bug affected multiple wallets simultaneously, freezing over 500,000 ETH across hundreds of organizations. The incident emphasized that formal verification and careful dependency management aren't optional luxuries—they're essential safeguards when smart contracts control significant value.
+**Parity Multisig** (2017) revealed how shared dependencies create systemic risks in smart contract systems. A single library bug affected multiple wallets simultaneously, freezing ~513,000 ETH across hundreds of organizations. The incident emphasized that formal verification and careful dependency management aren't optional luxuries—they're essential safeguards when smart contracts control significant value.
 
 **Ronin Bridge** (2022) concentrated validator control in too few hands while missing critical anomaly detection opportunities. Attackers compromised 5 of 9 validator keys and drained $625 million over six days before anyone noticed. The incident highlighted how decentralized systems can become centralized through operational shortcuts, and why robust monitoring systems must detect unusual patterns even when they appear technically valid.
 

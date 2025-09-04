@@ -12,19 +12,19 @@ The threat becomes real through two breakthrough quantum algorithms that shatter
 
 ### Blockchain Cryptographic Landscape
 
-Most blockchain networks depend on **ECDSA** for digital signatures, utilizing elliptic curves such as **secp256k1** (Bitcoin, Ethereum) or **ed25519** (Solana, newer systems). These signature schemes derive their security from the computational difficulty of the **Elliptic Curve Discrete Logarithm Problem (ECDLP)**, which Shor's algorithm can solve efficiently on a sufficiently capable quantum computer.
+Most blockchain networks depend on elliptic-curve signatures, including **ECDSA over secp256k1** (Bitcoin, Ethereum) and **EdDSA over ed25519** (Solana, newer systems). These signature schemes derive their security from the computational difficulty of the **Elliptic Curve Discrete Logarithm Problem (ECDLP)**, which Shor's algorithm can solve efficiently on a sufficiently capable quantum computer.
 
 **Hash functions** like SHA-256 and Keccak-256 demonstrate greater resistance but remain affected. Grover's algorithm reduces their effective security from 256 bits to 128 bits—still computationally infeasible but requiring larger hash outputs for equivalent security in a post-quantum world. For hash functions, it's important to distinguish between attack types: Grover provides quadratic speedup for preimage/second-preimage attacks (reducing SHA-256 to ~128-bit effective security), while the best-known quantum collision attack (BHT) scales around 2^(n/3), offering different and weaker speedup than Grover's preimage results.
 
 Shor is a master locksmith who, given the lock’s face (your public key), reverse-engineers the blueprint and cuts the matching key directly—catastrophic for RSA/ECDSA once his tools are good enough. Grover is a superhuman librarian who still must search the stacks, but runs the aisles twice as fast; a 256-bit shelf becomes effectively 128-bit, still vast but no longer overbuilt. One breaks structure, the other accelerates search.
 
-**Address generation** in most blockchains involves hashing public keys, providing some inherent protection through this additional layer. However, **address reuse** and **public key exposure** create vulnerabilities where quantum attackers could derive private keys from exposed public keys.
+**Address generation** in many systems hashes public keys (e.g., Bitcoin P2PKH/P2WPKH, Ethereum addresses), providing some inherent protection through this additional layer. Exceptions: Bitcoin **P2TR** and legacy **P2PK** embed the public key directly rather than hashing it. In Ethereum, public keys are not on-chain until an account sends a transaction, after which they are recoverable via `ecrecover`. However, **address reuse** and **public key exposure** create vulnerabilities where quantum attackers could derive private keys from exposed public keys.
 
 ### Timeline and Standards Development
 
-Current expert estimates suggest that **cryptographically relevant quantum computers (CRQCs)** capable of breaking 2048-bit RSA or 256-bit ECDSA may emerge within 10-30 years, though this timeline remains highly uncertain. Under optimistic assumptions, resource estimates suggest approximately 20 million physical qubits would be required to factor RSA-2048 in roughly 8 hours; ECC of comparable classical strength presents similar difficulty.
+Current expert estimates suggest that **cryptographically relevant quantum computers (CRQCs)** capable of breaking 2048-bit RSA or 256-bit ECDSA may emerge within 10-30 years, though this timeline remains highly uncertain. Under optimistic assumptions, resource estimates suggest approximately 20 million physical qubits would be required to factor RSA-2048 in roughly 8 hours; ECC of comparable classical strength presents similar difficulty. Newer analyses (2025) suggest that fewer than one million noisy physical qubits might achieve RSA-2048 factoring in under a week under similar assumptions, underscoring the uncertainty in timelines.
 
-The **NIST Post-Quantum Cryptography** program finalized standards on August 13, 2024, establishing three primary algorithms: **ML-KEM (Kyber)** for key encapsulation, **ML-DSA (CRYSTALS-Dilithium)** for signatures, and **SLH-DSA (SPHINCS+)** for hash-based signatures. In March 2025, **HQC** was selected as an additional KEM standard. **Falcon** is expected as a future signature standard but remains under development.
+The **NIST Post-Quantum Cryptography** program finalized standards on August 13, 2024, establishing three primary algorithms: **ML-KEM (Kyber)** for key encapsulation, **ML-DSA (CRYSTALS-Dilithium)** for signatures, and **SLH-DSA (SPHINCS+)** for hash-based signatures. In March 2025, **HQC** was selected as an additional KEM standard. **Falcon** is expected as a future signature standard (NIST "FN-DSA", planned FIPS 206) but remains under development.
 
 This timeline puts immense pressure on the entire ecosystem—migration to quantum-resistant cryptography will require extensive coordination across all participants. The practical risk today centers on **harvest-now, forge-later** attacks against data and signatures that expose public keys.
 
@@ -36,7 +36,7 @@ This timeline puts immense pressure on the entire ecosystem—migration to quant
 
 With the quantum threat timeline established, we can now assess which parts of the blockchain ecosystem face the greatest risk. Vulnerability correlates primarily with **public key exposure patterns** rather than wallet vintage or user awareness levels. Different script types and usage patterns create varying degrees of vulnerability:
 
-**Bitcoin's UTXO Model** provides some protection through address formats that hide public keys until spending occurs. **P2PKH (Pay-to-Public-Key-Hash)** and **P2WPKH** addresses only reveal public keys when creating spending transactions. **P2TR (Taproot)** offers enhanced privacy by making script-path spends indistinguishable from key-path spends until executed.
+**Bitcoin's UTXO Model** can hide public keys until spending for some address types. **P2PKH (Pay-to-Public-Key-Hash)** and **P2WPKH** addresses only reveal public keys when creating spending transactions. By contrast, **P2TR (Taproot)** publishes the x-only public key in the output itself (pattern `OP_1 <32-byte key>`), so the key is exposed before spending (though Taproot still improves script-path privacy by making script-path spends indistinguishable from key-path spends until executed).
 
 **Ethereum's Account Model** creates different exposure dynamics. Every transaction from an Ethereum EOA (Externally Owned Account) exposes a recoverable public key through the `ecrecover` mechanism, making exposure more prevalent than in UTXO systems. However, EOAs that have never sent transactions maintain public key privacy until their first outbound transaction.
 
@@ -46,7 +46,7 @@ A Bitcoin P2PKH address is a safe whose combination isn't revealed until you ope
 
 Beyond these architectural differences, certain address types face particularly acute quantum risk. **Early Bitcoin addresses** created during 2009-2012 face elevated quantum risk due to several compounding factors:
 
-**P2PK (Pay-to-Public-Key) outputs** directly expose public keys on the blockchain without any hashing protection. Early Bitcoin transactions frequently used this format, and on-chain analyses estimate approximately 1.7-2.0 million BTC remain in legacy P2PK outputs, though exact figures vary by methodology. It's important to note that ownership of these outputs remains unverified—they should not be assumed to belong to Satoshi or any specific entity.
+**P2PK (Pay-to-Public-Key) outputs** directly expose public keys on the blockchain without any hashing protection. Early Bitcoin transactions frequently used this format, and on-chain analyses estimate approximately 1.7-2.0 million BTC remain in legacy P2PK outputs, though exact figures vary by methodology. Widely cited dashboards have shown roughly 8–9% of UTXO value in P2PK (~1.7–1.9M BTC at current supply); treat these figures as estimates. It's important to note that ownership of these outputs remains unverified—they should not be assumed to belong to Satoshi or any specific entity.
 
 **Address reuse patterns** significantly compound this vulnerability. As established with our safe analogy, spending from an address exposes the underlying public key, making any remaining balance vulnerable to quantum attack. Early Bitcoin adoption preceded the development of best practices recommending single-use addresses.
 
@@ -108,9 +108,9 @@ For users wondering how to protect themselves within these constraints, several 
 
 Beyond these transitional measures, the cryptographic community has been developing permanent solutions. **Quantum-resistant signature schemes** are being developed and standardized through rigorous academic and industry collaboration:
 
-Among the emerging quantum-resistant options, two signature schemes stand out for different reasons. **ML-DSA (CRYSTALS-Dilithium)** prioritizes proven security but demands larger signatures—approximately 2.4 KB signatures with 1.3 KB public keys. **Falcon** offers remarkable compactness at 650-700 byte signatures, but this efficiency comes at the cost of implementation complexity and more challenging security analysis.
+Among the emerging quantum-resistant options, two signature schemes stand out for different reasons. **ML-DSA (CRYSTALS-Dilithium)** prioritizes proven security with signatures of **2420 / 3309 / 4627 bytes** (parameter sets 44/65/87) and public keys of **1312 / 1952 / 2592 bytes**. **Falcon-512** offers remarkable compactness with signatures of roughly **~666 bytes** and public keys of **~897 bytes** (and **Falcon-1024** signatures around **~1280 bytes**), but this efficiency comes at the cost of implementation complexity and more challenging security analysis.
 
-For those preferring maximum security conservatism, **SLH-DSA (SPHINCS+)** provides hash-based signatures with rock-solid security assumptions, though at the cost of significantly larger signature sizes—typically 8-30 KB depending on parameter selection. Meanwhile, **ML-KEM (Kyber)** addresses key encapsulation needs, while **HQC** provides an additional KEM option built on different mathematical foundations for diversified security.
+For those preferring maximum security conservatism, **SLH-DSA (SPHINCS+)** provides hash-based signatures with rock-solid security assumptions, with sizes varying by parameter set—for example, roughly **~7.9 KB (128s)** up to **~49 KB (256f)**. Meanwhile, **ML-KEM (Kyber)** addresses key encapsulation needs, while **HQC** provides an additional KEM option built on different mathematical foundations for diversified security.
 
 **Stateful hash-based signatures** such as **XMSS/LMS** (standardized in NIST SP 800-208) are available for immediate deployment. While bulky and requiring careful state management, they can provide immediate post-quantum protection in constrained use cases or as alternative script paths.
 
@@ -156,7 +156,7 @@ The race against quantum computers continues on multiple fronts. **Ongoing crypt
 
 **Performance optimization** efforts focus on the practical challenges: reducing signature sizes, improving verification speeds, and minimizing computational requirements for resource-constrained devices. **Hardware acceleration** for post-quantum algorithms could significantly improve adoption feasibility, potentially making the difference between smooth migration and network congestion during the transition.
 
-Meanwhile, **zero-knowledge proof systems** require special consideration. Many current SNARKs are not quantum-resistant, while STARKs are hash-based and likely quantum-resistant—creating a divergence in the privacy-preserving landscape. **Layer 2 scaling solutions** must account for post-quantum cryptography in their long-term technical roadmaps, as retrofitting quantum resistance into complex rollup systems could prove far more challenging than building it in from the start.
+Meanwhile, **zero-knowledge proof systems** require special consideration. Many current pairing-based SNARKs are not quantum-resistant, while STARKs are hash-based and plausibly quantum-resistant—creating a divergence in the privacy-preserving landscape. **Layer 2 scaling solutions** must account for post-quantum cryptography in their long-term technical roadmaps, as retrofitting quantum resistance into complex rollup systems could prove far more challenging than building it in from the start.
 
 ### Long-term Ecosystem Evolution
 
@@ -171,13 +171,13 @@ Meanwhile, **zero-knowledge proof systems** require special consideration. Many 
 ### **For Users: Immediate Actions**
 - Practice address hygiene with single-use addresses and avoid address reuse
 - Migrate funds from any address that has exposed its public key through spending
-- Understand your exposure: Bitcoin P2PKH/P2WPKH hide keys until spend; Ethereum EOAs expose keys after any transaction
+- Understand your exposure: Bitcoin P2PKH/P2WPKH hide keys until spend; Bitcoin **P2TR** publishes the x-only pubkey in the output (key exposed pre-spend); Ethereum EOAs expose recoverable pubkeys after any outbound transaction
 - Consider multi-signature schemes for transitional protection during quantum emergence
 
 ### **For Developers: Technical Preparation**
-- NIST standardized ML-KEM, ML-DSA, SLH-DSA with HQC as additional KEM; Falcon expected later for signatures
-- Signature sizes vary significantly: Falcon (~700B), Dilithium (~2.4KB), SPHINCS+ (~8-30KB)
-- SNARK systems need quantum-resistant alternatives; STARK systems appear more resilient
+- NIST standardized ML-KEM, ML-DSA, SLH-DSA with HQC as additional KEM; Falcon expected later (NIST FN-DSA)
+- Signature sizes (examples): ML-DSA **2420/3309/4627 B** (PK **1312/1952/2592 B**); Falcon-512 **~666 B** (PK **~897 B**); SLH-DSA **~7.9–49 KB**
+- SNARK systems need quantum-resistant alternatives (pairing-based SNARKs break under Shor); STARK systems appear more resilient
 - Plan hybrid schemes, soft fork integration, and hash-based alternatives as migration paths
 
 ### **For Organizations: Strategic Planning**

@@ -4,7 +4,7 @@
 
 Imagine Bitcoin as a sophisticated calculator—reliable, secure, and perfect for its intended purpose of digital money. Now imagine Ethereum as a smartphone: more complex, certainly, but capable of running entire applications, from games to productivity tools to social networks. Both devices serve their users well, but they represent fundamentally different approaches to what digital infrastructure can be.
 
-Where Bitcoin gave us digital gold with simple programmable rules, Ethereum gave us a world computer. It preserved Bitcoin's core promises—anyone can verify the system's state, and no one needs permission to participate—but traded Bitcoin's elegant simplicity for something far more ambitious: a platform where developers could build stateful applications that live entirely on-chain.
+Where Bitcoin gave us digital gold with simple programmable rules, Ethereum gave us a computer. It preserved Bitcoin's core promises—anyone can verify the system's state, and no one needs permission to participate—but traded Bitcoin's elegant simplicity for something far more ambitious: a platform where developers could build stateful applications that live entirely on-chain.
 
 This transformation required fundamental changes. Bitcoin's UTXO model, perfect for tracking coin ownership, gave way to Ethereum's account system that could maintain complex application state. The result is a system where decentralized exchanges, lending protocols, and NFT marketplaces don't just exist—they thrive, composing with each other in ways their creators never imagined.
 
@@ -16,7 +16,7 @@ Every computation has a cost. In the physical world, we measure energy in joules
 
 Think of gas as the fuel that powers Ethereum's world computer. Every operation, from sending ETH to your friend to executing a complex smart contract, consumes a specific amount of this computational fuel. A simple transfer burns through 21,000 units of gas, while more complex operations require proportionally more.
 
-When discussing fees, Ethereum users work with specific denominations. While **wei** represents the smallest possible unit of ether (like a penny to a dollar), most fee discussions happen in **gwei**—a more practical unit that's one billionth of an ether. This makes gas prices easier to discuss without drowning in decimal places.
+When discussing fees, Ethereum users work with specific denominations. While **wei** represents the smallest possible unit of ether (1e-18 ETH), most fee discussions happen in **gwei**—a more practical unit that's one billionth of an ether. This makes gas prices easier to discuss without drowning in decimal places.
 
 The real breakthrough came with **EIP-1559**, which fundamentally transformed how Ethereum handles fees. Before this upgrade, users participated in a chaotic auction system, constantly trying to outbid each other for block space. EIP-1559 introduced a more elegant solution with two components:
 
@@ -26,7 +26,7 @@ Here's where it gets interesting. The **base fee** is set algorithmically based 
 
 Imagine a city toll road where the city sets a posted toll that rises during rush hour and falls when traffic eases. That posted toll gets set on fire at the gate—no one pockets it—so drivers stop trying to outbid each other just to get in. When too many cars arrive, the system opens more lanes for the next time window; when traffic is light, it narrows back down. Only a small tip to the attendant changes your place in line. That's EIP-1559: a burned base fee that discovers the real price of block space, elastic block sizes that smooth out demand spikes, and tips that preserve priority without waste.
 
-This system also introduced **inclusion lists**—a powerful tool for preventing censorship. These lists ensure that certain transactions must be included within a specific timeframe, regardless of who's processing blocks. It's Ethereum's way of maintaining its permissionless promise even as the network grows more complex.
+These changes reduced fee volatility and improved UX without altering consensus rules or introducing censorship-resistance mechanisms like inclusion lists (a separate, still-evolving proposal).
 
 ### How Ethereum Identifies Accounts and Assets
 
@@ -64,7 +64,7 @@ Time in Ethereum moves in precise intervals: every 12 seconds marks a **slot**, 
 
 The path to **finality**—the point where a transaction becomes irreversible—follows a two-step process. First, a block becomes **justified** when it receives attestations from at least two-thirds of validators. Then, in the following epoch, if another supermajority confirms that justification, the block becomes **finalized**. This process typically takes about 12.8 minutes, after which reversing a transaction would require destroying billions of dollars worth of staked ETH.
 
-Becoming a validator requires staking exactly **32 ETH** as collateral. This specific amount isn't arbitrary—it's designed to encourage decentralization. While you can stake more ETH to the same validator, rewards are capped at the 32 ETH level, incentivizing large stakers to run multiple validators rather than concentrating power in single nodes.
+Becoming a validator still requires staking exactly **32 ETH** to activate. Since the Pectra hard fork (EIP-7251), however, a validator’s maximum effective balance was raised to **2048 ETH**, allowing operators to concentrate stake on fewer validators and changing the prior incentive to spin up many 32 ETH validators.
 
 The system's efficiency comes from clever cryptographic techniques. Ethereum uses **BLS signatures**, which allow thousands of individual validator signatures to be compressed into a single, compact proof. Instead of processing thousands of separate attestations, the network can verify the collective opinion of all validators with minimal computational overhead.
 
@@ -126,7 +126,7 @@ This security model creates an interesting trade-off. While users enjoy fast, ch
 
 **ZK-rollups**, including **Starknet**, **zkSync Era**, and **Scroll**, take a fundamentally different approach. Instead of assuming validity and waiting for challenges, they use **validity proofs**—advanced cryptographic techniques that mathematically prove the correctness of every batch of transactions before submitting anything to Layer 1.
 
-These **zero-knowledge proofs** are remarkable pieces of mathematics: they allow a rollup to prove that thousands of transactions were processed correctly without revealing the details of those transactions or requiring Layer 1 to re-execute them. The proof itself is tiny—just a few hundred bytes—but it provides ironclad mathematical certainty about the validity of an entire batch.
+These **zero-knowledge proofs** are remarkable pieces of mathematics: they allow a rollup to prove that thousands of transactions were processed correctly without revealing the details of those transactions or requiring Layer 1 to re-execute them. The proof itself is tiny for SNARK-based systems—often a few hundred bytes—while STARK proofs are much larger (tens of kilobytes); in either case, the proof provides ironclad mathematical certainty about the validity of an entire batch.
 
 The advantage is compelling: ZK-rollups avoid the lengthy withdrawal delays that plague optimistic systems. Once a validity proof is verified on Layer 1, users can immediately access their funds. However, this mathematical certainty comes at a cost—the cryptographic machinery required to generate these proofs is significantly more complex and computationally intensive than optimistic approaches.
 
@@ -170,7 +170,7 @@ The biggest expense for rollups isn't computation—it's proving to Ethereum tha
 
 The system maintains security through **KZG commitments**—cryptographic fingerprints that uniquely identify each blob's contents. Think of rollups renting billboard space on mainnet: they paste a huge poster (the blob) that stays up for roughly 18 days, then the city takes it down. The city keeps only a sealed, signed thumbnail that uniquely commits to the poster (the KZG commitment). Later, anyone can verify a specific square of that poster with a tiny receipt (a proof) without the city storing the full poster forever.
 
-This approach creates two separate fee markets: blob space operates with its own base fee mechanism (similar to regular gas pricing), while normal transaction fees continue unchanged. The **Pectra upgrade** expanded capacity from 6 to 9 blobs per block, further reducing costs for rollups while maintaining the temporary storage model.
+This approach creates two separate fee markets: blob space operates with its own base fee mechanism (similar to regular gas pricing), while normal transaction fees continue unchanged. With Pectra, **EIP-7691** raised blob limits (target 3→6, max 6→9 per block), further reducing costs for rollups while maintaining the temporary storage model.
 
 This design represents the first step toward **"full danksharding"**—Ethereum's long-term vision for massive data availability scaling. The KZG commitment system allows light clients to verify data availability by checking small proofs rather than downloading entire blobs, creating a foundation for even more ambitious scaling in the future.
 
@@ -234,7 +234,7 @@ Ethereum's evolution from a simple smart contract platform to a comprehensive ec
 
 **Standardization** enabled Ethereum's composability revolution. ERC-20 tokens, ERC-721/1155 NFTs, and the Ethereum Name Service created interoperable building blocks that developers could combine in unexpected ways, leading to the DeFi explosion and beyond.
 
-**The Merge** transformed Ethereum from energy-intensive mining to elegant proof-of-stake, where validators stake 32 ETH to participate in consensus through slots and epochs. Economic finality typically occurs within about 12.8 minutes, while slashing mechanisms ensure honest behavior. **Restaking** through EigenLayer extends this security to additional protocols, though it introduces correlated risks that users must carefully consider.
+**The Merge** transformed Ethereum from energy-intensive mining to elegant proof-of-stake, where validators activate with 32 ETH and, since Pectra (EIP-7251), can have a maximum effective balance of 2048 ETH per validator. Economic finality typically occurs within about 12.8 minutes, while slashing mechanisms ensure honest behavior. **Restaking** through EigenLayer extends this security to additional protocols, though it introduces correlated risks that users must carefully consider.
 
 **Scaling** happens primarily through rollups—optimistic systems that use fraud proofs with seven-day exit delays, and ZK systems that use validity proofs for immediate finality. EIP-4844's blob transactions dramatically reduced data availability costs, paving the way toward full danksharding. Alternative data availability solutions like Celestia and EigenDA provide additional options with different trust assumptions.
 

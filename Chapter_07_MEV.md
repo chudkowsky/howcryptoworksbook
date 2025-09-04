@@ -22,13 +22,11 @@ This creates the core tension we'll explore: how transaction ordering, designed 
 
 The strategies that emerge from this environment follow a predictable escalation. The simplest is **arbitrage**—our resellers buying tomatoes cheap at one stall to sell them expensive at another. This actually helps the market by keeping prices aligned, but when competition heats up, searchers get more aggressive.
 
-They start **front-running**, copying your order but paying the market manager extra to go first. Then comes the **sandwich attack**: they buy before you (driving up the price), let you buy at the inflated rate, then immediately sell at the higher price you created, capturing a risk-free profit from your own trade.
+They start **front-running**, copying your order but paying the market manager extra to go first. Then comes the **sandwich attack**: they buy before you (driving up the price), let you buy at the inflated rate, then immediately sell at the higher price you created, capturing a near‑riskless profit when their bundle lands as planned.
 
 **Liquidations** represent another category—when someone's borrowed too much against their collateral, searchers race to claim the reward for closing out the position. Unlike sandwiching, liquidations serve a necessary function, but the race to claim them still inflates costs for everyone.
 
-The market impact creates a fundamental tension between efficiency and fairness. While arbitrage enhances price discovery and liquidations maintain protocol health, the overall MEV ecosystem extracts an **"invisible tax"** from users. Competition inflates gas prices as bots bid aggressively for transaction priority, and users receive worse execution prices from front-running and sandwich attacks.
-
-This isn't just theoretical harm. Every sandwich attack represents value directly transferred from a user to a sophisticated actor, while the gas price inflation affects everyone using the network. The market mechanisms that should serve users instead systematically disadvantage them.
+The market impact creates a fundamental tension between efficiency and fairness. While arbitrage enhances price discovery and liquidations maintain protocol health, the overall MEV ecosystem extracts an **"invisible tax"** from users. Priority‑gas‑auction bidding historically spiked gas costs as bots competed for transaction priority; today much of that competition has shifted off‑chain into order‑flow and builder auctions—reducing broad mempool fee spikes but often shifting costs into worse execution for users or rebates captured by intermediaries. This isn't just theoretical harm. Every sandwich attack represents value directly transferred from a user to a sophisticated actor, even if the fee externalities now appear less in the public mempool and more in private routing markets.
 
 The response has been innovation in execution methods. **Frequent batch auctions** and **intent-based settlement** (like CoW Swap and Uniswap X) remove the continuous-time priority that enables sandwiching. Instead of processing trades one-by-one in a race, these systems collect orders and execute them together, eliminating the timing games that create MEV opportunities.
 
@@ -36,7 +34,7 @@ The response has been innovation in execution methods. **Frequent batch auctions
 
 This dynamic creates a brutal reality: success in MEV requires both deep pockets and technical expertise. You need capital to compete in liquidation auctions, sophisticated infrastructure to detect opportunities faster than competitors, and the technical knowledge to navigate an increasingly complex landscape. The result? Dangerous centralization.
 
-Recent data reveals the scope of this concentration. Titan controlled roughly 32% of blocks containing specific interactions, while about 19% of all blocks came from sanction-enforcing producers. These numbers fluctuate, but the pattern is clear: a small number of sophisticated actors dominate MEV extraction, undermining the decentralized ethos of blockchain networks.
+Recent data reveals the scope of this concentration. In late 2024, block building was highly concentrated—for example, two builders produced roughly 80–90% of blocks over multi‑week windows—with daily shares fluctuating materially. Over the same period, a sizable share of blocks were relayed via OFAC‑compliant infrastructure, varying by measurement window (often around ~30–50%). The pattern is clear: a small number of sophisticated actors dominate MEV extraction, undermining the decentralized ethos of blockchain networks.
 
 This concentration sparked innovation. In 2024, major players announced **BuilderNet**, a decentralized block-building network developed by Flashbots, Beaverbuild, and Nethermind. BuilderNet uses **Trusted Execution Environments (TEEs)** to allow multiple operators to share transaction order flow and coordinate block building while keeping contents private until finalized. Think of it as allowing multiple market managers to collaborate on organizing the optimal serving order without revealing their strategies to competitors.
 
@@ -52,8 +50,10 @@ The response has been a toolkit approach, with different participants using diff
 | --- | --- | --- | --- |
 | Users | Hide orderflow; constrain execution | Private RPCs (MEV‑Share, CoWSwap RPC), RFQ/intent routers (CoW Swap, Uniswap X), tight slippage + fill‑or‑kill, batch auctions | Less immediate execution on long‑tail pairs; routing trust; failed txs if constraints too tight |
 | dApps / Protocols | Remove continuous‑time priority; internalize or rebate MEV | Frequent batch auctions, RFQ flows, intents + solver competitions, on‑chain hooks with anti‑sandwich checks, OFAs with rebates | Added complexity; potential latency; relies on robust solver markets and simulation guards |
-| Builders | Privacy + fairness; reduce censorship | PBS compliance, encrypted mempools/TEE builders, fair ordering within bundles, no‑sandwich policies, BuilderNet participation | Throughput/latency overhead; trust in TEEs/attestations; competitive pressure vs permissive builders |
+| Builders | Privacy + integrity; fairness goals | PBS compliance, privacy‑preserving builders (TEE/encrypted), fair ordering within bundles, no‑sandwich policies, BuilderNet participation | Throughput/latency overhead; trust in TEEs/attestations; competitive pressure vs permissive builders |
 | Validators / Proposers | Safe inclusion + value sharing | Use reputable relays, inclusion lists/inclusion guarantees, OFA revenue‑sharing, MEV‑smoothing pools, enshrined PBS (research) | Relay trust; potential revenue variance; policy constraints vs profit maximization |
+
+Status notes: Inclusion lists (FOCIL/COMIS), enshrined PBS, and MEV‑smoothing are active research/proposals or pool‑level constructs; they are not deployed as protocol features on Ethereum mainnet.
 
 **Operational notes:** Prefer intent/batch‑auction settlement for retail orderflow to eliminate sandwich windows. Enforce simulation, slippage bounds, and pause hooks at the protocol level to reduce exploit surfaces.
 

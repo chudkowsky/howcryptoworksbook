@@ -1,6 +1,6 @@
 # Chapter XII: Governance, Token Economics & DAO Operations
 
-*September 15, 2020. Uniswap's anonymous team drops the ultimate surprise: 400 UNI tokens to every wallet that had ever used their protocol. Overnight, a college student who swapped $20 worth of tokens six months earlier wakes up to find $6,000 in their wallet. A DeFi whale who provided millions in liquidity gets the same 400 tokens. Democracy or chaos?*
+*September 16, 2020. Uniswap's team drops the ultimate surprise: 400 UNI tokens to every wallet that had ever used their protocol (with additional allocations for historical LPs and SOCKS users). On day one, those 400 UNI were worth roughly $1,300–$2,000; months later, when UNI neared $15, the same grant briefly looked like ~$6,000. Democracy or chaos?*
 
 This single moment crystallized the central tension of decentralized governance: How do you coordinate thousands of strangers to make billion-dollar decisions without traditional management, boards of directors, or even legal entities? How do you prevent the wealthy from simply buying control while still rewarding meaningful participation?
 
@@ -40,7 +40,7 @@ But here's what happens in practice: In 2021, a single whale holding 10% of Unis
 
 What if buying votes got exponentially more expensive? That's quadratic voting's elegant solution. Want 100 votes? Pay for 10,000 tokens. Want 1,000 votes? Now you need 1,000,000 tokens. The math is simple: cost = votes², but the implications are profound.
 
-Suddenly, it's cheaper for 100 people to cast 10 votes each (total cost: 10,000 tokens) than for one whale to cast 1,000 votes alone (cost: 1,000,000 tokens). The system naturally encourages broader participation while making whale manipulation prohibitively expensive. Gitcoin has used this mechanism to distribute millions in grants, proving it works at scale.
+Suddenly, it's cheaper for 100 people to cast 10 votes each (total cost: 10,000 tokens) than for one whale to cast 1,000 votes alone (cost: 1,000,000 tokens). The system naturally encourages broader participation while making whale manipulation prohibitively expensive. In practice, quadratic voting has been piloted in smaller settings; Gitcoin, however, has distributed millions via quadratic funding, which matches donations to amplify broad community support.
 
 #### 3. Reputation-Based Systems: Earning Your Voice
 
@@ -108,20 +108,20 @@ The challenge starts with a fundamental question: What should your token actuall
 Compound's COMP token started simple: hold it, vote with it, hope the protocol succeeds. No immediate utility, no guaranteed returns—just the right to shape a protocol's future. It's like owning shares in a company that might never pay dividends, where your only value comes from other people wanting to buy your voting rights. Risky? Absolutely. But when governance decisions can unlock billions in value (like enabling fee switches), those voting rights become incredibly valuable.
 
 **Revenue-Sharing Tokens: The Dividend Play**
-Some tokens cut straight to the chase: hold them, earn money. When GMX generates trading fees, it distributes them directly to token stakers in ETH and USDC. No complex governance required—just stake your tokens and collect your share of protocol revenue. It's the closest thing to traditional dividend-paying stocks in DeFi, but with the added complexity of smart contract risk and token price volatility.
+Some tokens cut straight to the chase: hold them, earn money. When GMX generates trading fees, it distributes them directly to token stakers (v1: ETH on Arbitrum or AVAX on Avalanche; v2 mechanics differ). No complex governance required—just stake your tokens and collect your share of protocol revenue. It's the closest thing to traditional dividend-paying stocks in DeFi, but with the added complexity of smart contract risk and token price volatility.
 
 **Buyback-and-Burn Tokens: The Scarcity Game**
 MakerDAO takes a different approach with MKR. Instead of distributing profits, the protocol uses revenue to buy MKR tokens from the market and burn them forever. Each burned token makes the remaining supply scarcer, theoretically increasing value for holders. It's like a stock buyback program on steroids—the supply literally shrinks over time, assuming the protocol stays profitable.
 
 **Utility Tokens: Pay-to-Play**
-Chainlink's LINK token serves a clear function: you need it to pay for oracle services. No LINK, no data feeds. This creates natural demand regardless of governance participation. Users buy LINK because they need it, not because they want to vote on proposals. The downside? If someone builds a better oracle, your token's utility—and value—could evaporate overnight.
+Chainlink's LINK token serves a clear function: it is used to pay for many oracle services. Today, Data Streams supports payment in assets other than LINK (with a surcharge), while Functions bills in LINK. Holding LINK isn't universally required across all services. This creates natural demand regardless of governance participation, but with payment flexibility. The downside? If someone builds a better oracle, your token's utility—and value—could evaporate overnight.
 
 #### The Supply Dilemma: Scarcity vs. Sustainability
 
 Every token designer faces the same impossible choice: create scarcity to drive value, or ensure enough tokens exist to fund long-term development. It's like trying to be both Bitcoin and the Federal Reserve simultaneously.
 
 **Fixed Supply: The Bitcoin Approach**
-Some protocols launch with a hard cap—say, 100 million tokens, never to be increased. This creates artificial scarcity and can drive price appreciation, but it also creates a funding problem. How do you pay developers in year five when the initial token allocation is exhausted? Uniswap initially tried this approach with 1 billion UNI tokens, then realized they'd need ongoing inflation to fund development. Four years later, they introduced 2% annual inflation—proving that even "fixed" supplies aren't always fixed.
+Some protocols launch with a hard cap—say, 100 million tokens, never to be increased. This creates artificial scarcity and can drive price appreciation, but it also creates a funding problem. How do you pay developers in year five when the initial token allocation is exhausted? Uniswap's initial tokenomics included 1 billion UNI plus a perpetual 2% annual inflation beginning after the initial four-year distribution schedule—designed from day one to fund ongoing development and ecosystem growth.
 
 **Inflation: The Central Bank Model**
 Other protocols embrace inflation from the start. New tokens are minted continuously to fund development, liquidity incentives, and governance participation. It's sustainable but dilutive—every new token reduces the percentage ownership of existing holders. The key is keeping inflation low enough that protocol growth outpaces token dilution.
@@ -157,15 +157,15 @@ This approach lets protocols mature before facing the chaos of full decentraliza
 
 #### Retroactive Airdrops: Rewarding the Faithful
 
-Uniswap's 2020 airdrop remains the gold standard: 400 UNI tokens to every wallet that had ever used the protocol. It rewarded early adopters, created instant community ownership, and generated massive attention. The message was clear: "You helped build this protocol, now you own part of it."
+Uniswap's 2020 airdrop remains the gold standard: 400 UNI tokens to most wallets that had used the protocol, with additional allocations for historical LPs and SOCKS users. It rewarded early adopters, created instant community ownership, and generated massive attention. The message was clear: "You helped build this protocol, now you own part of it."
 
-But airdrop design matters enormously. Uniswap's equal distribution (same amount to everyone) felt fair but didn't reward larger users proportionally. Later airdrops like ENS weighted distributions by usage, creating more nuanced incentive structures. Get the criteria wrong, and you reward farmers who gamed the system rather than genuine users.
+But airdrop design matters enormously. Uniswap's base allocation was flat per eligible address and didn't reward larger users proportionally. Later airdrops like ENS weighted distributions by usage, creating more nuanced incentive structures. Get the criteria wrong, and you reward farmers who gamed the system rather than genuine users.
 
 #### Liquidity Mining: The Mercenary Magnet
 
 "Yield farming" exploded in 2020 when protocols started distributing tokens to liquidity providers. Compound pioneered this by giving COMP tokens to anyone who borrowed or lent on the platform. Suddenly, providing liquidity wasn't just about earning fees—you also earned governance tokens that could be worth more than the underlying yield.
 
-Liquidity mining can bootstrap usage incredibly quickly. Compound's TVL exploded from $100 million to $2 billion in weeks. But it attracts "mercenary capital"—users who farm tokens and immediately sell them, providing no long-term value. The challenge is designing programs that attract sticky, committed users rather than extractive farmers.
+Liquidity mining can bootstrap usage incredibly quickly. Compound's TVL jumped from roughly $100 million to over $600 million within a few days of COMP farming, reaching multi‑billion levels in the subsequent period. But it attracts "mercenary capital"—users who farm tokens and immediately sell them, providing no long-term value. The challenge is designing programs that attract sticky, committed users rather than extractive farmers.
 
 ### When Democracy Goes Wrong: The Dark Side of Token Governance
 
@@ -294,11 +294,11 @@ Imagine trying to run a global company where each office operates under differen
 
 #### Message Passing: The Cross-Chain Telephone
 
-The most elegant solution uses message-passing protocols like LayerZero and Axelar to relay governance decisions across chains. Here's how it works: token holders vote on Ethereum (where liquidity and tooling are mature), and the results are automatically transmitted to update contracts on other chains.
+The most elegant solution uses message-passing protocols like Wormhole and Axelar to relay governance decisions across chains, often combined via Multiple Message Aggregation (MMA). Here's how it works: token holders vote on Ethereum (where liquidity and tooling are mature), and the results are automatically transmitted to update contracts on other chains.
 
 When Uniswap wants to change fees across all its deployments, the process looks like this:
 1. **Vote on Ethereum** using UNI tokens and established governance infrastructure
-2. **Pass the message** through LayerZero to Polygon, Arbitrum, and other chains
+2. **Pass the message** via Wormhole (with Axelar aggregated under MMA) to Polygon, Arbitrum, and other chains
 3. **Execute automatically** on each chain through pre-deployed governance contracts
 4. **Maintain consistency** across all deployments without manual intervention
 
@@ -346,7 +346,7 @@ This creates a flexible hierarchy of expertise where decisions flow to the most 
 
 #### Delegate Incentives: Paying for Quality Representation
 
-Good delegation requires incentives. Why should experts spend hours researching proposals and explaining their votes if there's no compensation? Many DAOs now provide delegate stipends—maybe $5,000-$10,000 per month for active delegates who meet participation requirements and provide detailed vote rationales.
+Good delegation requires incentives. Why should experts spend hours researching proposals and explaining their votes if there's no compensation? Many DAOs now provide delegate stipends—maybe $5,000-$10,000 per month for active delegates who meet participation requirements and provide detailed vote rationales. For example, Uniswap's Delegate Reward Initiative budgets about $6,000 per month per delegate for a small cohort, and Arbitrum operates a funded Delegate Incentives Program.
 
 Platforms like **Tally** and **Boardroom** make delegation transparent by tracking delegate performance: participation rates, vote explanations, and community engagement. This creates accountability—delegates who phone it in lose delegations to more engaged alternatives.
 
@@ -404,7 +404,7 @@ Commit-reveal schemes solve this by hiding votes during the voting period. Voter
 
 #### Shielded Voting: Privacy in Production
 
-While MACI and commit-reveal schemes remain experimental, Snapshot has deployed practical privacy through Shutter's threshold encryption. Votes are encrypted during the voting period and automatically decrypted when voting closes, providing privacy during voting with transparency of results.
+While MACI and commit-reveal schemes remain experimental, Snapshot's Shielded Voting uses Shutter's threshold encryption. Votes are encrypted during the voting period and automatically decrypted when voting closes, providing privacy during voting with transparency of results.
 
 It's not perfect—sophisticated attackers might still find ways to verify votes—but it raises the bar significantly compared to fully public voting. For most governance decisions, this level of privacy protection is sufficient to prevent casual manipulation while maintaining the transparency that makes DAOs trustworthy.
 
@@ -518,11 +518,11 @@ This creates terrifying liability scenarios. If the DAO gets sued, every token h
 
 Many DAOs solve this by wrapping themselves in traditional corporate structures. Wyoming pioneered DAO-specific LLCs in 2021, creating legal entities that recognize blockchain-based governance while providing standard liability protection.
 
-A Wyoming DAO LLC lets you have the best of both worlds: smart contract governance with legal liability protection. Members aren't personally liable for DAO actions, the entity can sign contracts and own assets, and governance can still happen entirely on-chain. Tennessee and Utah have followed with their own DAO-friendly legislation, creating a patchwork of crypto-friendly jurisdictions.
+A Wyoming DAO LLC lets you have the best of both worlds: smart contract governance with legal liability protection. Members aren't personally liable for DAO actions, the entity can sign contracts and own assets, and governance can still happen entirely on-chain. Tennessee (2022) and Utah's Utah DAO Act (2023/2024) have followed with DAO-friendly legislation, creating a patchwork of crypto-friendly jurisdictions.
 
 #### Foundation Structures: The Swiss Solution
 
-Many major protocols use Swiss or Cayman foundations—non-profit entities that can hold assets and fund development without creating taxable events for token holders. The Ethereum Foundation, Uniswap Foundation, and dozens of others use this structure.
+Many major protocols use Swiss or Cayman foundations—non-profit entities that can hold assets and fund development without creating taxable events for token holders. The Ethereum Foundation and many others use this structure. The Uniswap Foundation, by contrast, is a U.S. 501(c)(4) nonprofit.
 
 Foundations provide regulatory clarity and tax efficiency, but they create governance complexity. The foundation technically controls assets and makes funding decisions, while the DAO provides input through governance votes. It's a hybrid model that balances legal compliance with decentralized governance.
 
@@ -582,13 +582,13 @@ Uniswap provides a perfect example of how foundations, DAOs, and labs can work t
 
 **The Uniswap DAO**: Token holders govern the core protocol contracts, voting on parameter changes and treasury allocation. They can propose enabling fee switches that would direct trading fees to token holders, but this remains conditional on legal structuring and community approval. The DAO controls the protocol's future direction but doesn't employ anyone or operate products.
 
-**Uniswap Labs**: The for-profit company that built the original Uniswap interface and continues developing new products. Labs employees work on UniswapX (an RFQ trading protocol), mobile wallets, and new initiatives like Unichain. They raise venture capital, generate revenue through interface fees (0.15% on trades), and can route trades to whatever provides best execution—not necessarily the Uniswap AMM.
+**Uniswap Labs**: The for-profit company that built the original Uniswap interface and continues developing new products. Labs employees work on UniswapX (an RFQ trading protocol), mobile wallets, and new initiatives like Unichain. They raise venture capital, generate revenue through interface fees (0.15% on certain swaps), and can route trades to whatever provides best execution—not necessarily the Uniswap AMM. UniswapX fillers are designed to source from Uniswap pools, other AMMs, and external liquidity by design.
 
 **The Uniswap Foundation**: Runs grants programs and governance infrastructure funded by DAO treasury allocations. The Foundation focuses on ecosystem development and public goods, avoiding direct product operations.
 
-**The IP Split**: Intellectual property is distributed across entities. Uniswap Labs owns the "UNISWAP" and "UNI" trademarks, while the Foundation has filed for "UNICHAIN." This illustrates how IP can be strategically distributed rather than concentrated in a single entity.
+**The IP Split**: Intellectual property is distributed across entities. Uniswap Labs (Universal Navigation Inc.) owns the "UNISWAP" and "UNI" trademarks, while the Uniswap Foundation has filed for "UNICHAIN." This illustrates how IP can be strategically distributed rather than concentrated in a single entity.
 
-**Token Distribution Dynamics**: While 60% of UNI tokens were allocated to the community at genesis, large insider holdings (21.5% to team, 17.8% to investors) combined with low voter participation can concentrate practical control through delegation dynamics. It's democratic in theory but potentially oligarchic in practice.
+**Token Distribution Dynamics**: At genesis, 60% of UNI tokens were allocated to the community, with 21.266% to the team, 18.044% to investors, and 0.69% to advisors; a perpetual 2% annual inflation began after the initial four-year schedule. Combined with low voter participation, practical control can concentrate via delegation dynamics. It's democratic in theory but potentially oligarchic in practice.
 
 **Economic Independence**: Labs generates revenue independently through interface fees and can pursue profitable opportunities without DAO approval. Meanwhile, the DAO governs protocol parameters and could theoretically enable fee sharing with token holders, but this requires separate legal structuring and governance votes.
 

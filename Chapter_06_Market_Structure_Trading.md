@@ -22,17 +22,15 @@ Spot markets are used for portfolio rebalancing, treasury management, hedging ba
 
 Traditional finance has given us stocks, bonds, and derivatives—but crypto created something entirely new. Perpetual futures (perps) represent crypto's most significant contribution to financial markets, solving a fundamental problem that has plagued derivatives trading for centuries: the inconvenience of expiry dates. Unlike traditional futures that expire on specific dates, perps have no expiry and use an elegant mechanism to maintain price stability relative to the underlying asset.
 
-The key innovation is the **funding payment**—a periodic exchange of money between long and short positions that keeps the perp price anchored to an **index price**. When perps trade above the index, longs pay shorts; when below, shorts pay longs. 
+The key innovation is the **funding payment**—a periodic exchange of money between long and short positions that keeps the perp price anchored to fair value references. When perps trade above the index, longs pay shorts; when below, shorts pay longs. In practice, funding transfers are calculated on position notional at the contract’s **mark price**.
 
-Here's how it works mathematically: with position size `Q` (positive for longs), index price `S_t`, and funding rate per interval `f_t`, the funding cash flow over one interval is:
+Here's how it works mathematically: with position size `Q` (positive for longs), mark price `MarkPrice_t`, and funding rate per interval `f_t`, the funding cash flow over one interval is:
 
-\[ \\Delta \\text{Funding} = f_t \\cdot Q \\cdot S_t \]
+\[ \Delta \text{Funding} = f_t \cdot Q \cdot \text{MarkPrice}_t \]
 
-Venues typically derive `f_t` from the perp premium relative to the index:
+Venues typically derive `f_t` from the perp premium relative to the index (often with caps/clamps), but exact formulas and caps vary by venue. Settlement intervals also vary: 8h is common, but some contracts use 4h/2h, and venues may switch to hourly during stress. (See venue docs: [Binance](https://www.binance.com/en/support/faq/360033624711), [OKX](https://www.okx.com/help), [Coinbase](https://exchange.coinbase.com/docs))
 
-\[ f_t \\approx \\operatorname{clip}\\Big( \\kappa \\cdot \\frac{P_t - S_t}{S_t} + b, \\ f_{\\min}, \\ f_{\\max} \\Big) \]
-
-This elegant mechanism has made perps the dominant trading venue for crypto, consistently exceeding spot volumes and sometimes by large multiples during volatile periods.
+This elegant mechanism has made perps the dominant trading venue for crypto. Through 2025, derivatives—and specifically perpetuals—have consistently outpaced spot volumes and often exceeded spot by large multiples during volatility. ([Kaiko/Amberdata & CCData summaries](https://www.kaiko.com/), [CryptoSlate](https://cryptoslate.com/), [Amberdata](https://amberdata.io/blog))
 
 Why does this matter for traders? Perps enable leverage, efficient delta hedging, basis trading opportunities, and sophisticated relative-value strategies that would be impossible with traditional expiring futures. 
 
@@ -42,7 +40,7 @@ However, the primary risks include funding costs that can erode profits over tim
 
 **Dated futures** maintain the traditional structure of expiring on specific dates (typically quarterly). At expiry, they settle either physically (rare in crypto CEXs) or financially against an index price. These instruments are essential for calendar spread strategies, carry trades, and matching hedge horizons to specific time periods.
 
-**Options** provide the right, but not obligation, to buy (calls) or sell (puts) at predetermined strikes before or at expiry. In crypto, options are primarily concentrated on major exchanges like Deribit, where they serve to hedge tail events, express volatility views, create structured payoffs, and generate yield through covered strategies.
+**Options** provide the right, but not obligation, to buy (calls) or sell (puts) at predetermined strikes before or at expiry. In crypto, options are primarily concentrated on major exchanges like Deribit, where they serve to hedge tail events, express volatility views, create structured payoffs, and generate yield through covered strategies. Deribit remains the dominant venue for BTC options with >80–90% share of open interest in 2025. ([Yahoo Finance](https://finance.yahoo.com/), [The Block](https://www.theblock.co/), [ForkLog](https://forklog.com/))
 
 The options market exhibits strong **skew** patterns and liquidity concentration around popular strikes and expiries, creating both opportunities and risks for sophisticated traders.
 
@@ -56,9 +54,9 @@ Simultaneously, their primary market mechanics—where cash converts to on-chain
 
 The ETF structure has also introduced new arbitrage relationships, as ETF net asset value tracking creates cross-venue basis opportunities between ETF prices, spot indices, and futures markets. These arbitrage pathways have improved overall pricing efficiency while creating new profit opportunities for sophisticated market participants.
 
-Perhaps most significantly, persistent ETF inflows migrate Bitcoin to long-term custodial cold storage, reducing the liquid float available for trading and potentially impacting scarcity dynamics. From an operational perspective, tracking error, fee drag, and creation basket mechanics can influence execution quality, with large creation events capable of moving order books and funding rates in the short term.
+Perhaps most significantly, persistent ETF inflows migrate Bitcoin to long-term custodial cold storage, which can reduce the liquid float available for trading and potentially impact scarcity dynamics. From an operational perspective, tracking error, fee drag, and creation basket mechanics can influence execution quality, with large creation events capable of moving order books and funding rates in the short term. (Custody examples: IBIT via Coinbase Prime; FBTC via Fidelity Digital Assets.)
 
-As of July 2025, the SEC permits in-kind creations/redemptions for crypto ETFs. Early 2024 spot BTC ETFs launched cash-only; several issuers (e.g., IBIT, BITB, FBTC) have since enabled in-kind, though some funds may still use cash operationally.
+On July 29–30, 2025, the SEC authorized in-kind creations/redemptions for crypto ETPs. Early 2024 spot BTC ETFs launched cash-only; major issuers (e.g., IBIT, BITB, FBTC) subsequently moved to enable in-kind, though some funds may still use cash operationally. ([SEC](https://www.sec.gov/newsroom/press-releases/2025-101-sec-permits-kind-creations-redemptions-crypto-etps), [Dechert](https://www.dechert.com), [Katten](https://katten.com), [Mitrade](https://mitrade.com))
 
 #### Largest U.S. Bitcoin spot ETFs (as of September 2025)
 
@@ -130,7 +128,7 @@ Order mechanics matter, but they operate within an ecosystem of competing partic
 
 Here's why this matters in practice: Imagine Bitcoin's best bid is $50,000 with 10 BTC available, and news breaks that could drive prices higher. A trader with 10ms latency can place a buy order and secure that liquidity before the market moves. A trader with 100ms latency arrives to find the best bid is now $50,020, having missed the opportunity entirely. This 90-millisecond difference can mean the difference between a profitable trade and a costly miss.
 
-**Queue priority** in most exchanges follows price-time precedence, meaning earlier arrivals at the same price level receive fills first. This creates significant advantages for low-latency participants who can secure fills without paying taker fees and quickly cancel orders when market conditions change.
+**Queue priority** in most exchanges follows price-time precedence, meaning earlier arrivals at the same price level receive fills first. This creates significant advantages for low-latency participants who can secure fills without paying taker fees and quickly cancel orders when market conditions change. (See matching docs: [Coinbase](https://exchange.coinbase.com/docs/api/orders#matching), [Binance](https://www.binance.com/en/support/faq))
 
 **Adverse selection** affects slower market participants who find their resting orders hit just as prices move unfavorably. Fast participants can adjust quotes or cancel orders before being picked off by informed flow, while slower participants bear the cost of providing liquidity to better-informed traders.
 
@@ -178,7 +176,7 @@ The choice between isolated and cross margin reflects risk tolerance and trading
 
 **Liquidation processes** vary by exchange but typically follow a structured approach. When account equity falls below maintenance margin requirements (calculated using **mark price**, not last trade price), the exchange begins position reduction through market orders or incremental liquidation steps.
 
-If liquidations create losses beyond available account equity, exchanges use **insurance funds** to absorb shortfalls. In extreme cases, **auto-deleveraging (ADL)** transfers losses to opposing traders based on profit-and-risk rankings.
+If liquidations create losses beyond available account equity, exchanges use **insurance funds** to absorb shortfalls. In extreme cases, **auto-deleveraging (ADL)** transfers losses to opposing traders based on profit-and-risk rankings. (See venue docs: [Bybit](https://www.bybit.com/en/help-center/), [Binance](https://www.binance.com/en/support/faq))
 
 **Liquidity cascades** represent systemic risks where forced buying or selling pushes prices through thin order books, triggering additional liquidations and stop-losses in self-reinforcing cycles. These events typically resolve with restored liquidity but feature persistently wider spreads and elevated funding rate dispersion.
 
@@ -210,7 +208,7 @@ This distinction matters because liquidations, funding calculations, and margin 
 
 ### Perpetual Funding: Mechanics and Market Intelligence
 
-**Funding payments** represent the elegant mechanism that keeps perpetual prices anchored to spot markets. The system operates on regular intervals (commonly every 8 hours) where **longs pay shorts** when perps trade above index (positive funding), and **shorts pay longs** when perps trade below index (negative funding).
+**Funding payments** represent the elegant mechanism that keeps perpetual prices anchored to spot markets. Transfers are calculated on position notional at the contract’s **mark price**, not strictly the index price. The system operates on regular intervals (8h is common), but some venues use 4h/2h or temporarily **hourly** intervals during stress.
 
 Here's what funding rates tell you about market positioning: **High positive funding** indicates longs are paying significant premiums to hold positions, suggesting the market is positioned long or supply is constrained. **High negative funding** shows shorts paying premiums, indicating defensive positioning or high demand for hedging instruments.
 

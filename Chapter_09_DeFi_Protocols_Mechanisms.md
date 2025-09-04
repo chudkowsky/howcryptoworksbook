@@ -15,7 +15,7 @@ Imagine a financial system that never sleeps, never discriminates, and never req
 Traditional finance relies on intermediaries—banks, brokers, clearinghouses—each adding costs, delays, and potential points of failure. DeFi protocols eliminate these middlemen by encoding financial logic directly into smart contracts. The result is a system where:
 
 - **Global access**: Anyone with an internet connection can participate, regardless of geography or background
-- **24/7 operation**: Markets never close, settlements happen instantly
+- **24/7 operation**: Markets never close, settlements happen atomically on-chain
 - **Transparency**: All transactions and protocol rules are visible on-chain
 - **Composability**: Protocols snap together like "money legos," enabling innovations impossible in siloed systems
 
@@ -43,9 +43,9 @@ With this foundation in mind, let's examine how these principles play out in pra
 
 ### Aave: The Decentralized Bank
 
-Think of Aave like a global, automated bank that never closes. Instead of loan officers, smart contracts evaluate your collateral and approve loans instantly. Here's how it works:
+Think of Aave like a global, automated bank that never closes. Instead of loan officers, smart contracts evaluate your collateral and approve loans atomically on-chain. Here's how it works:
 
-**For Lenders**: You deposit assets (ETH, USDC, etc.) into shared liquidity pools and immediately start earning interest. Your deposit is represented by aTokens—special tokens that grow in value as interest accrues, like a savings account that compounds continuously.
+**For Lenders**: You deposit assets (ETH, USDC, etc.) into shared liquidity pools and immediately start earning interest. Your deposit is represented by aTokens—special tokens that accrue interest by increasing your balance at a 1:1 unit price, like a savings account that compounds continuously.
 
 **For Borrowers**: You can borrow against your deposits, but there's a catch—you must always maintain more collateral than you borrow. If you deposit $1,000 of ETH, you might be able to borrow $800 of USDC, preserving your ETH exposure while accessing stable liquidity.
 
@@ -55,9 +55,9 @@ Think of Aave like a global, automated bank that never closes. Instead of loan o
 
 **The Evolution Story**: Aave didn't start this sophisticated. Version 1 introduced the basic concept of pooled lending with interest-bearing tokens and pioneered flash loans (more on those later). Version 2 added debt tokenization and collateral swaps. Version 3 brought isolation modes for risky assets and efficiency modes for correlated assets like stablecoins.
 
-**The V4 Revolution**: The forthcoming V4 represents a fundamental redesign. Instead of separate pools for each market, Aave is moving to a **Unified Liquidity Layer**—imagine a central treasury that all markets can draw from, but with specialized risk controls (called "Spokes") for each asset type. This design dramatically improves capital efficiency while maintaining safety through compartmentalized risk management.
+**The V4 Revolution**: The forthcoming V4 represents a fundamental redesign. Instead of separate pools for each market, Aave is moving to a **Unified Liquidity Layer** with a central **Liquidity Hub** and asset‑specific **Spokes**—imagine a central treasury that all markets can draw from, with specialized risk controls per asset type. This design dramatically improves capital efficiency while maintaining safety through compartmentalized risk management. As with any modular design, custom Spokes introduce code‑specific risk on top of the shared Hub.
 
-Aave also issues **GHO**, its own over-collateralized stablecoin, turning the protocol into both a lending platform and a monetary system.
+Aave also issues **GHO**, its own over-collateralized stablecoin (live today), turning the protocol into both a lending platform and a monetary system.
 
 **Why This Matters**: Aave's evolution illustrates a key theme in DeFi—the constant push toward capital efficiency while managing risk. Each version solved real problems users faced, from capital fragmentation to gas costs to risk isolation.
 
@@ -69,7 +69,7 @@ Sky (formerly MakerDAO) operates like a decentralized central bank, but instead 
 
 **Maintaining the Peg**: To keep USDS trading at exactly $1, Sky uses two main tools. First, the **LitePSM** acts like an exchange window, allowing seamless conversion between USDS and USDC by routing through the legacy DAI system. Second, the **Sky Savings Rate** works like a traditional bank's interest rate—when demand for USDS is low, Sky raises the rate to attract depositors and reduce supply.
 
-**The Endgame Evolution**: Sky is transitioning from its original DAI system to the new USDS framework, with migration paths for existing users. The protocol increasingly backs its stablecoins with real-world assets like Treasury bills alongside crypto collateral, blending DeFi innovation with traditional finance stability.
+**The Endgame Evolution**: Sky is transitioning from its original DAI system to the new USDS framework, with migration paths for existing users. During migration, DAI and USDS will coexist, with the **LitePSM** and **Sky Savings Rate (SSR)** used to manage peg/liquidity and demand. The protocol increasingly backs its stablecoins with real-world assets like Treasury bills alongside crypto collateral, blending DeFi innovation with traditional finance stability.
 
 ### Maple Finance: Institutional Credit On-Chain
 
@@ -93,13 +93,13 @@ Uniswap pioneered a radically different approach to trading. Instead of matching
 
 **The Magic**: This system provides instant liquidity for any asset pair without requiring someone else to be trading at that exact moment. Liquidity providers deposit both tokens and earn fees from every trade. The more trading volume, the more fees they collect.
 
-**Why It Matters**: Uniswap made trading truly permissionless. Anyone can list a new token by creating a pool and providing initial liquidity. Trades settle instantly on-chain, eliminating counterparty risk. And because it's all programmable, trades can be bundled with other DeFi operations in complex, atomic transactions.
+**Why It Matters**: Uniswap made trading truly permissionless. Anyone can list a new token by creating a pool and providing initial liquidity. Trades settle atomically on-chain, eliminating counterparty risk. And because it's all programmable, trades can be bundled with other DeFi operations in complex, atomic transactions.
 
 **The Evolution Journey**: Uniswap's development tells the story of DeFi's maturation. Version 1 proved the AMM concept worked. Version 2 added direct token-to-token swaps and time-weighted average price oracles. Version 3 introduced concentrated liquidity, letting providers focus their capital on specific price ranges for higher efficiency.
 
-**The V4 Revolution**: Version 4 represents a fundamental reimagining. Instead of separate contracts for each pool, everything runs through a single "singleton" contract that manages all trading pairs. This dramatically reduces gas costs through better accounting.
+**The V4 Revolution**: Version 4 represents a fundamental reimagining. Uniswap v4 launched on Ethereum mainnet on Jan 31, 2025, introducing a single "singleton" contract that manages all trading pairs. This dramatically reduces gas costs through better accounting.
 
-But the real innovation is **Hooks**—programmable logic that can run before or after swaps and liquidity changes. This turns Uniswap into a platform where developers can build custom trading mechanisms: limit orders, dynamic fees that adjust to volatility, time-weighted average market makers, and features we haven't even imagined yet.
+But the real innovation is **Hooks**—programmable logic that can run before or after swaps and liquidity changes. This turns Uniswap into a platform where developers can build custom trading mechanisms: limit orders, dynamic fees that adjust to volatility, time-weighted average market makers, and features we haven't even imagined yet. Note that v4 deliberately ships without a built-in oracle; teams add oracle logic via hooks when needed.
 
 **The Trade-offs**: Hooks make Uniswap incredibly flexible, but they also introduce new risks. Each hooked pool is essentially running custom code, so users need to understand and trust the hook's logic. The singleton design improves efficiency but creates new upgrade and migration considerations.
 
@@ -123,7 +123,7 @@ The AMM revolution sparked further innovation in exchange design, each solving d
 
 **Request-for-Quote (RFQ)**: Professional market makers provide firm quotes off-chain, then settle on-chain at guaranteed prices. This brings traditional market-making to DeFi while maintaining atomic settlement.
 
-**Application-Specific Chains**: Protocols like **dYdX v4** run their own blockchains optimized for trading, achieving centralized exchange-like performance while maintaining decentralized settlement.
+**Application-Specific Chains**: Protocols like **dYdX v4** run their own blockchains optimized for trading (Cosmos-based), with an in-memory orderbook replicated by validators—achieving centralized exchange-like performance while maintaining decentralized settlement.
 
 **The Trade-off Spectrum**: Each model balances user protection, execution speed, and trust assumptions differently. AMMs prioritize decentralization; RFQ systems optimize for execution; app-chains maximize performance.
 
@@ -184,7 +184,7 @@ Proof-of-stake networks require users to lock up tokens to secure the network an
 
 **Lido**: The dominant player, controlling a significant portion of staked ETH through **stETH** tokens. Lido uses a curated set of validators and distributes rewards automatically. For DeFi compatibility, stETH can be wrapped as **wstETH** (wrapped staked ETH) which maintains a fixed balance while accruing value.
 
-**Rocket Pool**: Takes a more decentralized approach, allowing anyone to run validators with an **8 ETH bond plus RPL tokens**. This reduces centralization risk but requires more complex coordination between node operators and stakers.
+**Rocket Pool**: Takes a more decentralized approach, allowing anyone to run validators with an **8 ETH bond plus RPL tokens**—where RPL collateral must be ≥10% (and up to 150%) of the protocol-matched ETH (i.e., at least ~2.4 ETH worth of RPL for an 8-ETH minipool). This reduces centralization risk but requires more complex coordination between node operators and stakers.
 
 ### The Risk Spectrum
 
@@ -229,7 +229,7 @@ As DeFi matured, more sophisticated yield strategies emerged that go beyond simp
 
 ### Yield Aggregators: Set-and-Forget Farming
 
-**Yearn and Beefy** represent the evolution of yield farming into institutional-grade automation. These platforms use **ERC-4626 vaults** (a standardized interface for tokenized yield strategies) to:
+**Yearn and Beefy** represent the evolution of yield farming into institutional-grade automation. **Yearn v3** vaults are natively **ERC-4626**; **Beefy** supports **ERC-4626** via a wrapper adapter (not every Beefy vault is natively 4626). Both platforms use the **ERC-4626** interface to:
 
 - **Automate harvesting**: Compound rewards at optimal intervals based on gas costs and yields
 - **Rebalance dynamically**: Move capital between protocols as rates change
@@ -262,9 +262,9 @@ Smart contracts can't directly access external data like asset prices, weather i
 
 ### Major Oracle Networks
 
-**Chainlink**: The dominant player, using **Off-Chain Reporting (OCR)** where multiple nodes aggregate data off-chain and submit a single transaction. Updates trigger based on deviation thresholds (price moves X%) or time intervals (heartbeats). This reduces gas costs while maintaining decentralization.
+**Chainlink**: The dominant player, using **Off-Chain Reporting (OCR)** where multiple nodes aggregate data off-chain and submit a single transaction. Updates trigger based on both deviation thresholds (price moves by a set percentage) and time intervals (heartbeats). This reduces gas costs while maintaining decentralization.
 
-**Pyth**: Favors a "pull" model where users fetch price updates when needed, rather than continuous pushing. This can be more cost-effective for applications that don't need constant updates.
+**Pyth**: Favors a "pull" model where applications fetch the latest attested price on demand, rather than continuous pushing. This can be more cost-effective for applications that don't need constant updates.
 
 **RedStone and Band**: Provide alternative architectures and redundancy, important for reducing single points of failure.
 
@@ -342,25 +342,13 @@ Given the massive losses from bridge failures, understanding different security 
 
 **Optimistic Bridges**: Systems like **Across** with UMA disputes use an optimistic approach—they assume messages are valid but allow challenges during a dispute window. This separates the oracle (message verification) from the relayer (message delivery), requiring collusion between both to attack successfully.
 
-**Multisig Quorums**: The most common approach, used by bridges like **Wormhole** with its Guardian network. A threshold of trusted signers must approve cross-chain messages. Simple and fast, but security depends entirely on the honesty and operational security of the signers.
+**Multisig Quorums**: The most common approach, used by bridges like **Wormhole** with its 19‑Guardian committee. A threshold of trusted signers must approve cross-chain messages. Simple and fast, but security depends entirely on the honesty and operational security of the signers.
 
 **ZK Light-Client Bridges**: An emerging approach that uses zero-knowledge proofs to verify consensus succinctly. This combines the security of light clients with lower verification costs, though the technology is still maturing.
 
 ### The Convergence of Oracle and Bridge Security
 
 As DeFi becomes more cross-chain, oracle and bridge security increasingly intersect. Many protocols now route value across multiple domains, creating complex dependency chains where the security of the weakest link determines overall system safety.
-
-### Bridge Security Matrix
-
-| Model | Core trust assumption | Verification on destination | Finality latency | Liveness characteristics | On-chain cost | Admin/upgrade risk | Typical examples | Notable failure modes |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Light client (native) | Correct source consensus; client correctness | On-chain verification of headers + Merkle/zk proofs | Source finality (minutes to hours depending on chain) | Mirrors source chain; no external relayer trust | Higher (verification gas) | Low (no trusted committee), client upgrades are sensitive | IBC-style, Succinct Telepathy, zk light clients | Consensus bugs, light client implementation bugs |
-| Optimistic | At least one honest watcher during challenge window | Optimistic attestation with fraud‑proof disputes | Challenge window (hours–days) | Requires timely watcher participation; relayer availability | Moderate | Medium (watcher sets, dispute parameters) | Across/UMA-style, Nomad‑style optimistic bridges | Watcher collusion or censorship, misconfigured roots |
-| Multisig/committee | Threshold of signers remain honest | Committee signatures authorize messages | Fast (minutes) | Degrades with signer outages; quorum dependent | Low | High (key compromise, governance capture) | Wormhole Guardians, Ronin, Multichain/Anyswap | Key theft, signer collusion, opsec failures |
-
-Notes:
-- Prefer light‑client or zk light‑client designs where feasible; otherwise, scrutinize optimistic watcher sets and committee key management rigor.
-- Independently assess upgrade keys, pause powers, and emergency procedures; verify canonical bridge usage for rollups.
 
 ## Section XI: Flash Loans and Atomic Transactions
 

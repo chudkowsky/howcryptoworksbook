@@ -46,9 +46,9 @@ Beyond these specific examples, a comprehensive understanding of Layer 1 blockch
 
 The Layer 1 landscape reveals fascinating diversity in architectural approaches. **Cosmos** pioneered the "internet of blockchains" vision, using **Tendermint BFT** consensus as a foundation for sovereign chains that communicate through the **Inter-Blockchain Communication (IBC)** protocol. Rather than competing for a single winner-take-all network, Cosmos enables specialized chains to interoperate while maintaining their independence.
 
-**Avalanche** took a different approach with its **Subnet architecture**, allowing developers to launch custom blockchains that inherit security from the main network while optimizing for specific use cases. The platform's **multi-chain design** separates different functions across three chains: the X-Chain for asset exchange, P-Chain for platform coordination, and C-Chain for smart contracts.
+**Avalanche** took a different approach with its **Subnet architecture**, allowing developers to launch custom subnets with independent validator sets and security. Historically, subnet validators also had to validate the Primary Network (X-/P-/C-Chains), though this requirement is being relaxed (e.g., ACP-77). The platform's **multi-chain design** separates different functions across three chains: the X-Chain for asset exchange, P-Chain for platform coordination, and C-Chain for smart contracts.
 
-**Near Protocol** bet on **Nightshade sharding** to achieve scalability within a single network, while adding the **Aurora EVM compatibility layer** to attract Ethereum developers. This hybrid approach attempts to combine the benefits of sharding with the network effects of EVM compatibility.
+**Near Protocol** bet on **Nightshade sharding** to achieve scalability within a single network, while adding the **Aurora EVM runtime** to attract Ethereum developers. This hybrid approach attempts to combine the benefits of sharding with the network effects of EVM compatibility.
 
 #### Virtual Machines: The Developer Experience Battleground
 
@@ -106,7 +106,7 @@ The breakthrough lies in **parallel execution architecture**. Traditional EVMs p
 
 **Pipelining** processes different stages of multiple transactions simultaneously, like an assembly line where each station handles a different part of the manufacturing process. **Optimistic execution** assumes most transactions won't conflict and processes them in parallel, only re-executing the small percentage that actually interfere with each other.
 
-The results are impressive: ~10,000+ TPS with sub-second finality, all while maintaining the exact gas semantics and opcodes that Ethereum developers know and love. This means existing Ethereum applications can deploy on Monad without changing a single line of code—they simply run faster.
+Monad targets ~10,000+ TPS and sub-second finality, all while maintaining the exact gas semantics and opcodes that Ethereum developers know and love. This means existing Ethereum applications can deploy on Monad without changing a single line of code—they simply run faster.
 
 This approach represents a fascinating middle ground between the monolithic and modular philosophies, suggesting that the future might not require choosing sides in the architecture wars.
 
@@ -124,7 +124,7 @@ The challenge of cross-chain communication is fundamentally about trust in a tru
 
 Imagine two sovereign nations (blockchains) that want to enable their citizens to exchange valuable assets, but they have completely different legal systems, currencies, and languages. They have no direct diplomatic relations and no shared authority.
 
-A trusted bridge is like setting up an embassy staffed by a small group of diplomats (validators). Citizens deposit gold bars at the embassy in Country A, and the diplomats issue a certificate that can be redeemed for equivalent gold in Country B. This works great until the diplomats are bribed, coerced, or simply make mistakes—suddenly billions in "gold certificates" are issued without any real gold backing them. This is exactly what happened with bridges like Ronin ($600M hack) and Wormhole ($300M hack).
+A trusted bridge is like setting up an embassy staffed by a small group of diplomats (validators). Citizens deposit gold bars at the embassy in Country A, and the diplomats issue a certificate that can be redeemed for equivalent gold in Country B. This works great until the diplomats are bribed, coerced, or simply make mistakes—suddenly billions in "gold certificates" are issued without any real gold backing them. This is exactly what happened with bridges like Ronin (~$620M hack) and Wormhole (~$320M hack).
 
 A trustless bridge attempts to solve this by creating an automated verification system—like having diplomatic protocols that can cryptographically audit Country A's gold reserves and legal procedures before authorizing certificate issuance in Country B. 
 
@@ -144,7 +144,7 @@ This is why bridges remain the "weakest link" in cross-chain infrastructure, des
 
 However, liquidity pools require significant capital depth and introduce impermanent loss risks for providers. They also create arbitrage opportunities that can drain pools during volatile market conditions.
 
-**Native bridges** represent the gold standard for security—they're built and maintained by the blockchain protocols themselves, offering the strongest security guarantees. The trade-off is limited connectivity, as native bridges typically only connect specific chain pairs.
+**Native bridges** minimize additional trust assumptions by aligning with the chain's own security, though bugs can still be catastrophic. The trade-off is limited connectivity, as native bridges typically only connect specific chain pairs.
 
 **Third-party bridges** fill the connectivity gap by supporting multiple chains, but they introduce additional trust assumptions and attack vectors that protocol-native solutions avoid.
 
@@ -164,9 +164,9 @@ However, liquidity pools require significant capital depth and introduce imperma
 
 IBC's **connection and channel** abstraction allows chains to establish authenticated communication pathways. **Relayers** serve as the off-chain infrastructure that physically moves packets between chains, earning fees for their services. The protocol's **light client verification** ensures that each chain can independently verify the state of its counterparts.
 
-**Polkadot's Cross-Chain Message Passing (XCMP)** enables communication between parachains within the Polkadot ecosystem. The shared security model of the relay chain simplifies trust assumptions compared to bridges between fully sovereign chains.
+**Polkadot's XCM** is the cross-chain message format/language; transport between parachains is handled by **XCMP** under the relay chain's shared security. The shared security model of the relay chain simplifies trust assumptions compared to bridges between fully sovereign chains.
 
-**LayerZero** introduces an **omnichain** approach using **Ultra Light Nodes (ULNs)** and **oracles** plus **relayers** to verify cross-chain transactions. This architecture aims to provide the security of light clients with reduced on-chain overhead, though it introduces dependencies on oracle networks and relayer infrastructure.
+**LayerZero** introduces an **omnichain** approach using **Ultra Light Nodes (ULNs)** whose endpoints rely on a configurable oracle + relayer pair for message verification. This architecture aims to provide the security of light clients with reduced on-chain overhead, though it introduces dependencies on oracle networks and relayer infrastructure.
 
 ### Bridge Security Challenges and Attack Vectors
 
@@ -182,7 +182,7 @@ IBC's **connection and channel** abstraction allows chains to establish authenti
 
 **Cross-chain DeFi** protocols are evolving beyond simple asset transfers to enable complex financial operations across multiple chains. **Thorchain** enables native asset swaps without wrapped tokens through its **Continuous Liquidity Pool** model and **threshold signature schemes**.
 
-**Cross-chain lending** protocols like **Radix** and **Aave Arc** (institutional) explore collateral management across multiple chains. **Cross-chain yield farming** strategies automatically deploy capital across chains to optimize returns, though they introduce additional smart contract and bridge risks.
+**Cross-chain lending** protocols like **Radiant Capital** explore collateral management across multiple chains. **Cross-chain yield farming** strategies automatically deploy capital across chains to optimize returns, though they introduce additional smart contract and bridge risks.
 
 **Omnichain applications** built on protocols like **LayerZero** aim to provide unified user experiences across multiple chains. **Cross-chain governance** enables token holders on different chains to participate in unified decision-making processes.
 
@@ -203,7 +203,7 @@ IBC's **connection and channel** abstraction allows chains to establish authenti
 #### BNB Chain (BSC / opBNB)
 - Association: Closely associated with **Binance**; benefits from exchange-driven distribution, listings, and retail funnel.
 - Tech/UX: **EVM-compatible** (BNB Smart Chain) with short block times and low fees; added L2 scaling via **opBNB** (OP Stack variant).
-- Ecosystem: Large retail-facing dApp and memecoin activity; frequent forks/ports from Ethereum. Validator set is comparatively small, raising centralization discussions.
+- Ecosystem: Large retail-facing dApp and memecoin activity; frequent forks/ports from Ethereum. Validator set is comparatively small (21 active validators rotating from candidates), raising centralization discussions.
 
 #### TRON (TRC-20 USDT Rail)
 - Role: Dominant chain for **USDT transfers** thanks to consistently low fees and wide CEX support.
@@ -212,7 +212,7 @@ IBC's **connection and channel** abstraction allows chains to establish authenti
 
 #### XRP Ledger (XRPL)
 - Focus: Purpose-built for **payments and remittances**; historically limited smart-contract capability (ecosystem small), but has a **strong community and brand**.
-- Features: Native DEX/AMM primitives exist; programmability extensions are emerging but remain niche compared to EVM.
+- Features: Native DEX/AMM primitives exist; AMMs were enabled on XRPL mainnet on Mar 22, 2024 (with a later fix process in 2025); programmability extensions are emerging but remain niche compared to EVM.
 - Context: Regulatory saga shaped perception and listings; community-driven momentum persists despite limited dApp breadth.
 
 #### Cardano

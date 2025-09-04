@@ -66,11 +66,18 @@ Users can also use **Child-Pays-for-Parent (CPFP)** to boost stuck transactions 
 
 Bitcoin addresses have evolved to improve efficiency and enable new features. The primary types include:
 
-- **P2PKH (Legacy)**: start with `1`
-- **P2SH**: start with `3` (multi-sig or nested SegWit: P2SH-P2WPKH/P2WSH)
-- **Native SegWit (Bech32/Bech32m)**:
-  - Bech32 `bc1q` (v0: P2WPKH/P2WSH)
-  - Bech32m `bc1p` (v1: Taproot/P2TR)
+Legacy — starts with 1
+Oldest format. Works everywhere, but usually slightly higher fees.
+
+P2SH — starts with 3
+Compatibility format. Often used for multisig or older SegWit-in-a-wrapper. Works almost everywhere.
+Myth-buster: 3... ≠ always multisig.
+
+Native SegWit — starts with bc1q
+Modern default for most wallets. Lower fees, safer to copy (all lowercase).
+
+Taproot — starts with bc1p
+Newest format. Enables advanced features and good fee efficiency. Supported by most modern wallets; a few services may still be catching up.
 
 Wallets standardize address derivation using BIP32/39/44 and output descriptors; avoid address reuse to protect privacy.
 
@@ -83,7 +90,7 @@ Wallets standardize address derivation using BIP32/39/44 and output descriptors;
 Activated in 2017, **Segregated Witness (SegWit)** was a landmark upgrade that solved a critical problem while paving the way for future innovations.
 
 **The Problem: Transaction Malleability**
-Before SegWit, Bitcoin had a bug called **transaction malleability**. A third party could alter a transaction's signature and change its ID (TXID) before confirmation, without affecting the transaction's validity. This made it risky to build dependent transactions or second-layer protocols.
+Before SegWit, Bitcoin had a critical bug: third parties could alter a transaction's signature and change its ID (TXID) before confirmation, without affecting the transaction's validity. This **transaction malleability** made it risky to build dependent transactions or second-layer protocols.
 
 **The Solution: Separating Witness Data**
 SegWit solved this by removing the witness (signature) data from the part of the transaction used to calculate the TXID. The signatures were moved to a separate structure, making transaction IDs immutable once created.
@@ -108,11 +115,8 @@ This conservative approach means proposals undergo years of review, testing, and
 
 ### Replace-by-Fee and Standards
 
-**Replace-by-Fee (RBF)** is a feature that allows users to increase the fee on an unconfirmed transaction. Defined in BIP-125, **opt-in RBF** lets a sender mark a transaction as replaceable, giving them the option to rebroadcast it with a higher fee to ensure faster confirmation during network congestion.
-
-Another network feature is the **OP_RETURN opcode**, which allows users to embed a small amount of arbitrary data in a transaction. Bitcoin Core v30 removes the historical 80-byte relay cap; default policy allows OP_RETURN outputs up to nearly 4 MB, though peers/miners may set tighter limits. This is policy, not consensus, and behavior can vary by node and over time.
-
-Policy differs across nodes/miners; some run full-RBF, so replacement behavior can vary by peer and over time.
+**Replace-by-Fee (RBF)** is a feature that allows users to increase the fee on an unconfirmed transaction. Defined in BIP-125, **opt-in RBF** lets a sender mark a transaction as replaceable, giving them the option to rebroadcast it with a higher fee to ensure faster confirmation during network congestion. Since Core v24, nodes can optionally enable **full-RBF** via the `mempoolfullrbf` flag; replacement behavior can therefore differ by peer and pool.
+Another network feature is the **OP_RETURN opcode**, which allows users to embed a small amount of arbitrary data in a transaction. In 2025, Bitcoin Core v30's default policy removes the historical 80-byte relay cap; from v30 onward, default policy allows OP_RETURN outputs up to nearly 4 MB. Earlier Core releases retain their prior defaults, and peers/miners can set tighter limits. These are relay/policy settings, not consensus, and behavior can vary by node version and operator policy over time.
 
 ### Taproot and Advanced Features
 
@@ -122,9 +126,8 @@ The **Taproot upgrade**, activated in 2021, significantly improved privacy, effi
 
 2. **Merkleized Abstract Syntax Trees (MAST)**: This allows complex spending conditions to be structured in a way that only the condition that is met needs to be revealed.
 
-Together, these features make complex transactions indistinguishable from simple payments, providing a major boost to privacy and scalability.
-
-Taproot supports both simple single-signature payments and complex script-based conditions, making them indistinguishable on the blockchain for enhanced privacy.
+Together, these features make complex transactions indistinguishable from simple payments for key-path spends, providing a major boost to privacy and scalability; when a script-path branch is used, only the revealed branch is disclosed.
+Taproot supports both simple single-signature payments and complex script-based conditions. Key-path spends are indistinguishable from simple payments; script-path spends reveal the used branch.
 
 ---
 
@@ -228,7 +231,7 @@ This trend reflects Bitcoin's evolution from a niche digital experiment to an as
 
 ### The Strategy Playbook
 
-**Strategy** (formerly known as MicroStrategy) developed a financing playbook to accumulate Bitcoin at scale. The approach centers on issuing **senior unsecured convertible notes** at low coupons—including $2B of 0% due 2030—alongside at‑the‑market (ATM) equity programs.
+**Strategy** (formerly known as MicroStrategy; rebranded Feb 2025, ticker MSTR) developed a financing playbook to accumulate Bitcoin at scale. The approach centers on issuing **senior unsecured convertible notes** at low coupons—including $2B of 0% due 2030—alongside at‑the‑market (ATM) equity programs.
 
 The key dynamic is that MSTR's stock volatility (variable; often markedly higher than broad equity indices) makes the embedded **conversion option** valuable to institutional investors. Convert‑arb funds buy the bonds and hedge the equity, monetizing volatility via **gamma trading**.
 
@@ -238,11 +241,15 @@ This creates a self-reinforcing cycle: bond proceeds fund Bitcoin purchases → 
 
 The strategy has delivered notable results while maintaining structural protections against liquidation. Strategy reported ~**74% BTC Yield** for FY2024 (their KPI measuring % change in BTC per share) and holds ~**636,505 BTC**. At BTC $110,000, that stack is ≈ **≈$70B**.
 
-**Liquidation risk remains minimal** due to several factors:
+- **Liquidation risk remains minimal** due to several factors:
 - Convertible notes are **senior unsecured** with no BTC collateral requirements
 - Outstanding maturities are 2028, 2030 (two tranches), 2031, and 2032; the 2027 notes were settled earlier in 2025 via conversion/redemption (the company received conversion requests for substantially all of the $1.05B before the Feb 24, 2025 redemption date)
-- Most converts are currently in‑the‑money at MSTR stock price being above $300
-- Cash interest burden on the current stack is about **$35M/year** 
+- Conversion prices vary by tranche; being "in the money" depends on the strike:
+  - 2028 notes: ~$183.19/share (ITM above that)
+  - 2030 0% notes (issued Feb 2025): ~$433.43/share
+  - 2032 notes (Jun 2024): ~$2,043.32/share
+  - 2031 notes: >$2,300/share
+- Cash interest outlay depends on the mix of 0% converts (no coupon) and preferred dividends (e.g., STRK/STRF at ~8–10%). SEC filings indicated materially higher annualized interest on remaining notes prior to the 2030 0% issuance; given changes over time, avoid a point estimate without a dated source.
 - Authorized capacity includes a disclosed **$21B common‑stock ATM** and a separate **$21B preferred (STRK) ATM**
 
 ### Strategic Risks and Limitations
