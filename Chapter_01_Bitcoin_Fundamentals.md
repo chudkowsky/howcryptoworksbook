@@ -74,32 +74,63 @@ How do you upgrade a decentralized network where no one's in charge? Bitcoin has
 
 #### Activation Mechanisms
 
-**User Activated Soft Forks (UASF)** represent one activation method where economic nodes coordinate a "flag day" to start enforcing tighter rules—potentially regardless of miner signaling. If enough economic nodes and service providers participate, miners face a simple incentive: follow the new rules to get paid, or mine a chain most users won't accept.
+**Miner Activated Soft Forks (MASF)** rely on hash power signaling—miners indicate readiness by including version bits in block headers. Once a threshold (typically 95%) is reached, the soft fork activates. This was used for upgrades like SegWit (eventually) and most historical soft forks.
+
+**User Activated Soft Forks (UASF)** represent an alternative where economic nodes coordinate a "flag day" to start enforcing tighter rules—potentially regardless of miner signaling. If enough economic nodes and service providers participate, miners face a simple incentive: follow the new rules to get paid, or mine a chain most users won't accept.
+
+**Speedy Trial** combines both approaches with a shorter signaling window and lower activation threshold, followed by a mandatory activation date. This method was successfully used for Taproot activation in 2021.
 
 #### The Challenge of Change
 
 Despite backward compatibility, getting any soft fork into Bitcoin is intentionally difficult. Many developers prioritize **protocol ossification**—the idea that Bitcoin should become increasingly resistant to change as it matures. This conservative approach means proposals undergo years of review, testing, and community debate.
 
-### Bitcoin's Major Upgrades (Chronological)
+### Bitcoin's Major Upgrades
 
 #### Early Soft Forks (2010-2012)
 
 Bitcoin's earliest soft forks focused on security improvements. The **OP_CAT removal in 2010** disabled the OP_CAT opcode to prevent potential denial-of-service attacks. Various other opcode restrictions were implemented during this period to tighten script validation and improve overall security.
 
 #### Segregated Witness - SegWit (2017)
-Activated in 2017, **SegWit** was a landmark upgrade that solved transaction malleability while increasing capacity.
 
-Before SegWit, Bitcoin had a critical bug: third parties could alter a transaction's signature and change its ID (TXID) before confirmation, without affecting the transaction's validity. This made it risky to build dependent transactions or second-layer protocols like Lightning.
+The **SegWit activation saga** represents one of the most important case studies in Bitcoin's governance, demonstrating how protocol upgrades work—and sometimes don't work—in a truly decentralized system.
 
-SegWit moved signature data to a separate structure, making transaction IDs immutable once created. SegWit introduced **block weight**—a new measurement system with a 4,000,000 weight unit maximum instead of a simple 1MB limit. This effectively increased block capacity while incentivizing adoption of more efficient SegWit addresses. The weight system gives witness data a 75% discount.
+SegWit was a landmark upgrade that solved multiple critical issues. Before SegWit, Bitcoin had a critical bug: third parties could alter a transaction's signature and change its ID (TXID) before confirmation, without affecting the transaction's validity. This **transaction malleability** made it risky to build dependent transactions or second-layer protocols like Lightning.
 
-The activation process was complex and politically charged:
+SegWit moved signature data to a separate "witness" structure, making transaction IDs immutable once created. It also introduced **block weight**—a new measurement system with a 4,000,000 weight unit maximum instead of a simple 1MB limit. This effectively increased block capacity while incentivizing adoption of more efficient SegWit addresses. The weight system counts witness data as one-quarter for weight calculation (commonly described as a "75% discount"), creating a backwards-compatible blocksize increase.
 
-- **BIP 91**: Locked in July 21, 2017 → Activated July 23, 2017 (required miners to signal SegWit support)
-- **BIP 148 (UASF)**: Planned August 1, 2017 flag day to reject non-SegWit-signaling blocks
+To understand the political dynamics, it's helpful to think of pre-SegWit Bitcoin as **"Bitcoin 1.0"**—a system with a hard 1MB blocksize limit and transaction malleability issues. **SegWit represented "Bitcoin 1.1"**—mostly backwards compatible with Bitcoin 1.0, but fixing protocol bugs and enabling second-layer networks while providing a one-time capacity increase.
+
+The original activation mechanism used BIP 9 with a 95% threshold: during any 2,016-block difficulty adjustment period within the window from November 15, 2016 to November 15, 2017 (UTC), if 95% or more of mined blocks signaled SegWit readiness, the upgrade would lock in. After a grace period, SegWit would activate and the network would accept the new transaction types.
+
+However, some large miners withheld signaling, treating "SegWit Readiness" signaling as a "SegWit Willingness" indicator instead. Despite years of development work by Core developers and third-party services, and support from many economic nodes, these miners were blocking activation by refusing to signal—not because of technical concerns, but as political leverage in the broader "blocksize wars."
+
+This created an unprecedented situation: many participants in the Bitcoin ecosystem supported an upgrade they believed would benefit the network, but a group of miners could indefinitely block progress through coordinated non-signaling.
+
+**BIP 148** represented a proposed solution to this governance deadlock. BIP 148 **changed consensus rules for participating nodes by rejecting any non-signaling (bit-1) blocks after August 1st, 2017**. While it leveraged the existing BIP 141 deployment, this "reject non-signaling blocks" rule was new and could have caused a chain split if not widely adopted.
+
+The mechanism was straightforward: **BIP 148 nodes would reject any block that failed to signal SegWit support after the flag day**. This created economic pressure by making non-signaling blocks invalid for BIP 148 nodes, potentially forcing miners to choose between signaling support or mining a chain that some economic actors would reject.
+
+If enough economic nodes (exchanges, services, businesses) ran BIP 148, miners faced a stark choice: signal SegWit support and get paid in bitcoin that the broader economy would accept, or mine a chain that major economic actors would ignore.
+
+The threat of BIP 148 created powerful economic incentives that ultimately resolved the impasse:
+
+- **BIP 91**: Locked in July 21, 2017 → Activated July 23, 2017 (enforced that miners signal bit-1, enabling BIP 141 to reach its threshold)
+- **BIP 148 (UASF)**: Planned August 1, 2017 flag day to reject non-SegWit-signaling blocks  
 - **SegWit (BIP 141)**: Locked in August 9, 2017 → Activated August 24, 2017 (block 481,824)
 
-While SegWit technically activated via miner signaling, the credible UASF threat was key to achieving that outcome.
+Faced with the credible threat that many economic nodes would enforce SegWit activation regardless of miner preferences, the miners began signaling support. BIP 91 was deployed as an intermediate solution that allowed miners to signal SegWit support before the August 1st UASF deadline.
+
+The SegWit activation demonstrates several crucial principles:
+
+1. **Economic nodes can influence protocol rules** when there's sufficient coordination. Miners must produce blocks that the economic majority will accept and value.
+
+2. **Soft forks can be enforced by users** when there's sufficient economic coordination, even against miner resistance.
+
+3. **Credible threats matter more than actual deployment**. BIP 148 succeeded largely because the threat was believable, not because a majority of nodes actually ran it.
+
+4. **Bitcoin's governance is antifragile**. The system found a way to route around the blockade and activate beneficial upgrades despite coordinated resistance.
+
+While SegWit technically activated via the original miner signaling mechanism (BIP 141), the credible UASF threat (BIP 148) was a significant catalyst that helped resolve the impasse. This demonstrated that Bitcoin users and economic nodes can coordinate to influence protocol governance, even when facing miner resistance.
 
 #### Taproot (2021)
 
@@ -122,26 +153,7 @@ The **OP_RETURN opcode** allows embedding small amounts of arbitrary data in tra
 
 ### Address Types and Formats
 
-Bitcoin addresses have evolved to improve efficiency and enable new features. The primary types include:
-
-- **Legacy (starts with 1)**
-  - Oldest format
-  - Works everywhere, but usually has slightly higher fees
-
-- **P2SH (starts with 3)**
-  - Compatibility format
-  - Often used for multisig or older SegWit-in-a-wrapper
-  - Works almost everywhere
-  - Myth-buster: addresses starting with 3 don't always mean multisig
-
-- **Native SegWit (starts with bc1q)**
-  - Modern default for most wallets
-  - Lower fees and safer to copy (all lowercase)
-
-- **Taproot (starts with bc1p)**
-  - Newest format
-  - Enables advanced features and good fee efficiency
-  - Supported by most modern wallets; a few services may still be catching up
+Bitcoin addresses have evolved to improve efficiency and enable new features: Legacy (starts with 1) is the oldest and works everywhere but typically incurs slightly higher fees; P2SH (starts with 3) is a broad compatibility wrapper often used for multisig or older SegWit, and addresses starting with 3 are not necessarily multisig; Native SegWit (starts with bc1q) is the modern default with lower fees and all‑lowercase safety; and Taproot (starts with bc1p) is the newest, enabling advanced features with good fee efficiency and broad support across modern wallets (some services are still catching up).
 
 ---
 
