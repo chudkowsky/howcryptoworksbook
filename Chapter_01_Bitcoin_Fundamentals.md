@@ -225,7 +225,7 @@ Common privacy practices include avoiding address reuse and optionally leveragin
 
 ---
 
-## Section VI: Bitcoin Ordinals and Digital Artifacts
+## Section VI: Bitcoin Ordinals
 
 ### Ordinal Theory 
 

@@ -2,37 +2,37 @@
 
 ## Section I: Ethereum Core Concepts
 
-Imagine Bitcoin as a sophisticated calculator—reliable, secure, and perfect for its intended purpose of digital money. Now imagine Ethereum as a smartphone: more complex, certainly, but capable of running entire applications, from games to productivity tools to social networks. Both devices serve their users well, but they represent fundamentally different approaches to what digital infrastructure can be.
+Bitcoin solved a fundamental problem: **digital money without banks**. But Ethereum is attempting to solve something just as ambitious: **programmable applications without traditional servers**. While Bitcoin gave us digital gold with simple, reliable rules, Ethereum gave us an entire computer that anyone can use and no one can shut down.
 
-Where Bitcoin gave us digital gold with simple programmable rules, Ethereum gave us a computer. It preserved Bitcoin's core promises—anyone can verify the system's state, and no one needs permission to participate—but traded Bitcoin's elegant simplicity for something far more ambitious: a platform where developers could build stateful applications that live entirely on-chain.
+This shift unlocked possibilities that didn't exist before. **Decentralized exchanges** let people trade tokens without intermediaries. **Lending protocols** let users earn interest or borrow money using only smart contracts. **NFT marketplaces** create new forms of digital ownership. Most remarkably, these applications **compose with each other**—a lending protocol can automatically interact with an exchange, creating financial products that emerge organically from the platform itself.
 
-This transformation required fundamental changes. Bitcoin's UTXO model, perfect for tracking coin ownership, gave way to Ethereum's account system that could maintain complex application state. The result is a system where decentralized exchanges, lending protocols, and NFT marketplaces don't just exist—they thrive, composing with each other in ways their creators never imagined.
+But **power requires complexity**. Where Bitcoin's design prioritized simplicity and security above all else, Ethereum made different tradeoffs. It replaced Bitcoin's straightforward transaction model with **an account system that tracks complex application state**. It developed **a sophisticated fee system** to manage computational resources. It underwent **a massive technical transition from proof-of-work to proof-of-stake**. And it spawned **an entire ecosystem of scaling solutions** to handle real-world usage.
 
-But this power comes with complexity. Understanding Ethereum means grasping its fee system, its transition to proof-of-stake, and the scaling solutions that make it practical for everyday use. This chapter will guide you through these mechanics, showing how each piece fits into Ethereum's grand experiment in decentralized computation.
+Understanding Ethereum means grasping how these pieces fit together—how the **fee system incentivizes efficient resource use**, how **proof-of-stake secures the network**, and how **Layer 2 solutions** make the platform practical for everyday applications. This chapter will guide you through these core mechanics, showing you the engineering decisions that power today's most significant experiment in **decentralized computation**.
 
 ### Understanding Ethereum's Fee System
 
 Every computation has a cost. In the physical world, we measure energy in joules or calories. In Ethereum, we measure computational effort in **gas**—and understanding this system is crucial to using Ethereum effectively.
 
-Think of gas as the fuel that powers Ethereum's world computer. Every operation, from sending ETH to your friend to executing a complex smart contract, consumes a specific amount of this computational fuel. A simple transfer burns through 21,000 units of gas, while more complex operations require proportionally more.
+Think of gas as the fuel that powers Ethereum's world computer. Every operation, from sending ETH to your friend to executing a complex smart contract, consumes a specific amount of this computational fuel. A simple ETH transfer to an **Externally Owned Account (EOA)** burns through 21,000 units of gas, while transfers to contracts or more complex operations require proportionally more.
 
 When discussing fees, Ethereum users work with specific denominations. While **wei** represents the smallest possible unit of ether (1e-18 ETH), most fee discussions happen in **gwei**—a more practical unit that's one billionth of an ether. This makes gas prices easier to discuss without drowning in decimal places.
 
 The real breakthrough came with **EIP-1559**, which fundamentally transformed how Ethereum handles fees. Before this upgrade, users participated in a chaotic auction system, constantly trying to outbid each other for block space. EIP-1559 introduced a more elegant solution with two components:
 
-**Total Fee = Gas Used × (Base Fee + Priority Fee)**
+Users set `maxFeePerGas` and `maxPriorityFeePerGas` when submitting transactions. The **effective gas price** paid is `min(maxFeePerGas, baseFee + maxPriorityFeePerGas)`, and the **total fee** equals `gasUsed × effectiveGasPrice`.
 
-Here's where it gets interesting. The **base fee** is set algorithmically based on network congestion—when blocks are full, it rises; when they're empty, it falls. But here's the crucial part: this base fee gets burned, destroyed forever, creating deflationary pressure on ETH itself. The **priority fee** acts as a tip to validators, giving users a way to jump ahead in line during busy periods.
+Here's where it gets interesting. The **base fee** is set algorithmically based on network congestion—when blocks are full, it rises; when they're empty, it falls. But here's the crucial part: of the total fee paid, `gasUsed × baseFee` gets burned, destroyed forever, creating deflationary pressure on ETH itself. The remainder (priority fees plus any inclusion rewards) goes to validators, giving users a way to jump ahead in line during busy periods.
 
-Imagine a city toll road where the city sets a posted toll that rises during rush hour and falls when traffic eases. That posted toll gets set on fire at the gate—no one pockets it—so drivers stop trying to outbid each other just to get in. When too many cars arrive, the system opens more lanes for the next time window; when traffic is light, it narrows back down. Only a small tip to the attendant changes your place in line. That's EIP-1559: a burned base fee that discovers the real price of block space, elastic block sizes that smooth out demand spikes, and tips that preserve priority without waste.
+Imagine a city toll road where the city sets a posted toll that rises during rush hour and falls when traffic eases. That posted toll gets set on fire at the gate—no one pockets it—so drivers stop trying to outbid each other just to get in. The road has a target capacity, but can temporarily handle up to twice that target when demand spikes—the toll adjusts up or down each period based on how full the previous period was. Only a small tip to the attendant changes your place in line. That's EIP-1559: a burned base fee that discovers the real price of block space, elastic block sizes (up to 2× the target) that smooth out demand spikes, and tips that preserve priority without waste.
 
-These changes reduced fee volatility and improved UX without altering consensus rules or introducing censorship-resistance mechanisms like inclusion lists (a separate, still-evolving proposal).
+These changes reduced fee volatility and improved UX without changing the **consensus mechanism** (PoW/PoS), though EIP-1559 did add new consensus rules including the `baseFee` field and burning mechanism. It didn't introduce censorship-resistance mechanisms like inclusion lists (a separate, still-evolving proposal).
 
 ### How Ethereum Identifies Accounts and Assets
 
 While understanding gas helps users manage transaction costs, knowing how Ethereum identifies accounts and assets is equally fundamental to navigating the ecosystem effectively.
 
-Every participant in Ethereum—whether a person or a smart contract—has a unique **address** that serves as their public identifier. These addresses look like cryptographic gibberish: a 40-character string of numbers and letters such as `0x742d35Cc6634C0532925a3b844Bc454e4438f44e`. Behind this seemingly random sequence lies elegant mathematics: the address represents the last 20 bytes of a cryptographic hash of the account's public key.
+Every participant in Ethereum—whether a person or a smart contract—has a unique **address** that serves as their public identifier. These addresses look like cryptographic gibberish: a 40-character string of numbers and letters such as `0x742d35Cc6634C0532925a3b844Bc454e4438f44e`. Behind this seemingly random sequence lies elegant mathematics. For **Externally Owned Accounts (EOAs)**, the address represents the last 20 bytes of a cryptographic hash of the account's public key. For **smart contracts**, addresses are derived differently: `CREATE` uses `keccak256(rlp(sender, nonce))` while `CREATE2` uses `keccak256(0xff || sender || salt || keccak256(init_code))`—both taking the last 20 bytes.
 
 But Ethereum's real breakthrough wasn't just creating unique identifiers—it was establishing standards that allowed different applications to work together seamlessly. The most important of these is the **ERC-20 token standard**, which created a universal language for digital assets.
 
@@ -40,9 +40,11 @@ Before ERC-20, every new token was essentially a unique snowflake, requiring cus
 
 Suddenly, developers could build applications that worked with thousands of different tokens without writing custom code for each one. A decentralized exchange could list any ERC-20 token, a lending protocol could accept any ERC-20 as collateral, and users could seamlessly move assets between different applications. This composability—the ability for different protocols to work together like Lego blocks—became one of Ethereum's defining characteristics.
 
-The ecosystem continued to evolve with additional standards: **ERC-721** and **ERC-1155** for non-fungible tokens (which we'll explore in Chapter XI), **ERC-2612** for gasless approvals, and the **Ethereum Name Service (ENS)** which allows users to replace those cryptographic addresses with human-readable names like "alice.eth". These standards, combined with **EIP-55 checksums** that help prevent address typos, make Ethereum increasingly user-friendly while maintaining its technical rigor.
+The ecosystem continued to evolve with additional standards: **ERC-721** and **ERC-1155** for non-fungible tokens (which we'll explore in Chapter XI), **ERC-2612** for permit-based approvals (where token holders sign approvals off-chain so they don't spend gas, though someone still pays gas to submit the permit), and the **Ethereum Name Service (ENS)** which allows users to replace those cryptographic addresses with human-readable names like "alice.eth". These standards, combined with **EIP-55 checksums** that help prevent address typos, make Ethereum increasingly user-friendly while maintaining its technical rigor.
 
 Understanding how Ethereum processes transactions and maintains standards is just the beginning. The real magic happens in how the network reaches consensus about what transactions are valid and in what order they should be processed. This brings us to one of Ethereum's most significant transformations: its evolution from an energy-intensive mining system to an elegant proof-of-stake mechanism.
+
+Since 2024, **EIP-4844 ("proto-danksharding")** has introduced a separate, cheaper **blob** fee market specifically for rollups, which has become central to Layer 2 cost economics and scaling.
 
 ---
 
