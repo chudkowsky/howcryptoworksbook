@@ -2,7 +2,7 @@
 
 ## Section I: Architecture and Execution
 
-Ethereum scales primarily through rollups and data‑availability optimization. Solana chooses a different path: a high‑throughput, single‑state L1 with a parallel runtime (Sealevel), a distinct networking stack (QUIC, Turbine), local fee markets, and a hardware‑centric roadmap (Firedancer). We compare these choices and the implications for latency‑sensitive apps, MEV, and developer ergonomics.
+Ethereum scales primarily through rollups and data‑availability optimization. Solana chooses a different path: a high‑throughput, single‑state L1 with a parallel runtime, a distinct networking stack, local fee markets, and a hardware‑centric roadmap. We compare these choices and the implications for latency‑sensitive apps, MEV, and developer ergonomics.
 
 Solana organizes state around an account model where programs are stateless BPF executables and data lives in separate accounts owned by those programs. This separation makes composability straightforward: programs call into one another and pass accounts as inputs, while the single-shard design preserves same-slot atomicity across the entire chain. Transactions declare all read and write accounts up front. Because the runtime knows which accounts will be touched, the **Sealevel** execution engine can schedule non-overlapping transactions in parallel across CPU cores, yielding high throughput with predictable performance when account conflicts are minimized.
 
