@@ -8,15 +8,15 @@ In this final examination, we stress-test the cryptographic foundations that eve
 
 **Quantum computers** represent a paradigm shift in computational capability, leveraging quantum mechanical phenomena like **superposition** and **entanglement** to perform certain calculations exponentially faster than classical computers. While current quantum systems remain limited by noise and error rates, theoretical advances suggest that sufficiently large, fault-tolerant quantum computers could fundamentally break the cryptographic foundations underlying most blockchain networks.
 
-The threat becomes real through two breakthrough quantum algorithms that shatter our current security assumptions. **Shor's algorithm** can efficiently factor large integers and solve discrete logarithm problems—the core security assumptions behind RSA, ECDSA (Elliptic Curve Digital Signature Algorithm), and other widely-deployed cryptographic schemes. **Grover's algorithm** provides a quadratic speedup for searching unsorted databases, effectively halving the security level of symmetric cryptographic primitives like hash functions.
+The threat becomes real through two breakthrough quantum algorithms that shatter our current security assumptions. **Shor's algorithm** can efficiently factor large integers and solve discrete logarithm problems, the core security assumptions behind RSA, ECDSA (Elliptic Curve Digital Signature Algorithm), and other widely-deployed cryptographic schemes. **Grover's algorithm** provides a quadratic speedup for searching unsorted databases, effectively halving the security level of symmetric cryptographic primitives like hash functions.
 
 ### Blockchain Cryptographic Landscape
 
 Most blockchain networks depend on elliptic-curve signatures, including **ECDSA over secp256k1** (Bitcoin, Ethereum) and **EdDSA over ed25519** (Solana, newer systems). These signature schemes derive their security from the computational difficulty of the **Elliptic Curve Discrete Logarithm Problem (ECDLP)**, which Shor's algorithm can solve efficiently on a sufficiently capable quantum computer.
 
-**Hash functions** like SHA-256 and Keccak-256 demonstrate greater resistance but remain affected. Grover's algorithm reduces their effective security from 256 bits to 128 bits—still computationally infeasible but requiring larger hash outputs for equivalent security in a post-quantum world. For hash functions, it's important to distinguish between attack types: Grover provides quadratic speedup for preimage/second-preimage attacks (reducing SHA-256 to ~128-bit effective security), while the best-known quantum collision attack (BHT) scales around 2^(n/3), offering different and weaker speedup than Grover's preimage results.
+**Hash functions** like SHA-256 and Keccak-256 demonstrate greater resistance but remain affected. Grover's algorithm reduces their effective security from 256 bits to 128 bits, still computationally infeasible but requiring larger hash outputs for equivalent security in a post-quantum world. For hash functions, it's important to distinguish between attack types: Grover provides quadratic speedup for preimage/second-preimage attacks (reducing SHA-256 to ~128-bit effective security), while the best-known quantum collision attack (BHT) scales around 2^(n/3), offering different and weaker speedup than Grover's preimage results.
 
-Shor is a master locksmith who, given the lock’s face (your public key), reverse-engineers the blueprint and cuts the matching key directly—catastrophic for RSA/ECDSA once his tools are good enough. Grover is a superhuman librarian who still must search the stacks, but runs the aisles twice as fast; a 256-bit shelf becomes effectively 128-bit, still vast but no longer overbuilt. One breaks structure, the other accelerates search.
+Shor is a master locksmith who, given the lock's face (your public key), reverse-engineers the blueprint and cuts the matching key directly, catastrophic for RSA/ECDSA once his tools are good enough. Grover is a superhuman librarian who still must search the stacks, but runs the aisles twice as fast; a 256-bit shelf becomes effectively 128-bit, still vast but no longer overbuilt. One breaks structure, the other accelerates search.
 
 **Address generation** in many systems hashes public keys (e.g., Bitcoin P2PKH/P2WPKH, Ethereum addresses), providing some inherent protection through this additional layer. Exceptions: Bitcoin **P2TR** and legacy **P2PK** embed the public key directly rather than hashing it. In Ethereum, public keys are not on-chain until an account sends a transaction, after which they are recoverable via `ecrecover`. However, **address reuse** and **public key exposure** create vulnerabilities where quantum attackers could derive private keys from exposed public keys.
 
@@ -26,7 +26,7 @@ Current expert estimates suggest that **cryptographically relevant quantum compu
 
 The **NIST Post-Quantum Cryptography** program finalized standards on August 13, 2024, establishing three primary algorithms: **ML-KEM (Kyber)** for key encapsulation, **ML-DSA (CRYSTALS-Dilithium)** for signatures, and **SLH-DSA (SPHINCS+)** for hash-based signatures. In March 2025, **HQC** was selected as an additional KEM standard. **Falcon** is expected as a future signature standard (NIST "FN-DSA", planned FIPS 206) but remains under development.
 
-This timeline puts immense pressure on the entire ecosystem—migration to quantum-resistant cryptography will require extensive coordination across all participants. The practical risk today centers on **harvest-now, forge-later** attacks against data and signatures that expose public keys.
+This timeline puts immense pressure on the entire ecosystem since migration to quantum-resistant cryptography will require extensive coordination across all participants. The practical risk today centers on **harvest-now, forge-later** attacks against data and signatures that expose public keys.
 
 ---
 
@@ -40,13 +40,13 @@ With the quantum threat timeline established, we can now assess which parts of t
 
 **Ethereum's Account Model** creates different exposure dynamics. Every transaction from an Ethereum EOA (Externally Owned Account) exposes a recoverable public key through the `ecrecover` mechanism, making exposure more prevalent than in UTXO systems. However, EOAs that have never sent transactions maintain public key privacy until their first outbound transaction.
 
-A Bitcoin P2PKH address is a safe whose combination isn't revealed until you open it; an Ethereum EOA is a safe in a room full of microphones that records your combination the first time you speak it. Even if no one can open safes today, an attacker can archive the recordings now and, when quantum tools arrive, rewind the tape and let themselves in—harvest-now, forge-later.
+A Bitcoin P2PKH address is a safe whose combination isn't revealed until you open it; an Ethereum EOA is a safe in a room full of microphones that records your combination the first time you speak it. Even if no one can open safes today, an attacker can archive the recordings now and, when quantum tools arrive, rewind the tape and let themselves in: harvest-now, forge-later.
 
 ### Legacy Address Vulnerabilities
 
 Beyond these architectural differences, certain address types face particularly acute quantum risk. **Early Bitcoin addresses** created during 2009-2012 face elevated quantum risk due to several compounding factors:
 
-**P2PK (Pay-to-Public-Key) outputs** directly expose public keys on the blockchain without any hashing protection. Early Bitcoin transactions frequently used this format, and on-chain analyses estimate approximately 1.7-2.0 million BTC remain in legacy P2PK outputs, though exact figures vary by methodology. Widely cited dashboards have shown roughly 8–9% of UTXO value in P2PK (~1.7–1.9M BTC at current supply); treat these figures as estimates. It's important to note that ownership of these outputs remains unverified—they should not be assumed to belong to Satoshi or any specific entity.
+**P2PK (Pay-to-Public-Key) outputs** directly expose public keys on the blockchain without any hashing protection. Early Bitcoin transactions frequently used this format, and on-chain analyses estimate approximately 1.7-2.0 million BTC remain in legacy P2PK outputs, though exact figures vary by methodology. Widely cited dashboards have shown roughly 8-9% of UTXO value in P2PK (~1.7-1.9M BTC at current supply); treat these figures as estimates. It's important to note that ownership of these outputs remains unverified since they should not be assumed to belong to Satoshi or any specific entity.
 
 **Address reuse patterns** significantly compound this vulnerability. As established with our safe analogy, spending from an address exposes the underlying public key, making any remaining balance vulnerable to quantum attack. Early Bitcoin adoption preceded the development of best practices recommending single-use addresses.
 
@@ -68,9 +68,9 @@ While individual address management presents clear challenges, **smart contract 
 
 Building on these exposure patterns, we can now categorize the specific types of vulnerable assets across the ecosystem. **Dormant addresses** with exposed public keys represent significant systemic risk to the broader ecosystem. These vulnerable categories include:
 
-The vulnerable landscape includes **exchange hot wallets** from defunct platforms that exposed public keys through historical transactions, **early adopter addresses** with potentially lost private keys but exposed public keys from past spending activity, and **abandoned mining addresses** from Bitcoin's early era—particularly those used for early block rewards that were subsequently spent, exposing their public keys to future quantum harvest.
+The vulnerable landscape includes **exchange hot wallets** from defunct platforms that exposed public keys through historical transactions, **early adopter addresses** with potentially lost private keys but exposed public keys from past spending activity, and **abandoned mining addresses** from Bitcoin's early era, particularly those used for early block rewards that were subsequently spent, exposing their public keys to future quantum harvest.
 
-The fundamental challenge lies in distinguishing between **genuinely lost funds** and **dormant but recoverable** wallets. Quantum attackers could potentially recover funds from addresses presumed permanently lost—imagine the market chaos if millions of "lost" Bitcoin suddenly became recoverable, creating unexpected supply shocks and complex ownership disputes that could destabilize the entire ecosystem.
+The fundamental challenge lies in distinguishing between **genuinely lost funds** and **dormant but recoverable** wallets. Quantum attackers could potentially recover funds from addresses presumed permanently lost: imagine the market chaos if millions of "lost" Bitcoin suddenly became recoverable, creating unexpected supply shocks and complex ownership disputes that could destabilize the entire ecosystem.
 
 **Test transactions** and **dust outputs** with exposed keys represent additional attack vectors, as quantum adversaries might target these addresses for proof-of-concept demonstrations or to fund larger attacks.
 
@@ -100,7 +100,7 @@ For users wondering how to protect themselves within these constraints, several 
 
 **Single-use address practices** minimize public key exposure by generating new addresses for each transaction. **HD wallets** implementing BIP32/44 standards facilitate this approach by deriving unlimited addresses from a single seed phrase. Users should avoid the address reuse patterns discussed earlier and immediately migrate funds from any address that has exposed its public key through spending.
 
-**Fresh address migration** involves proactively moving funds from potentially exposed addresses to new, unused addresses before quantum computers become capable of exploitation. This strategy requires careful timing—migrating too early wastes transaction fees, while waiting too long risks losing everything to quantum attackers who could drain exposed addresses within hours of achieving cryptographic relevance.
+**Fresh address migration** involves proactively moving funds from potentially exposed addresses to new, unused addresses before quantum computers become capable of exploitation. This strategy requires careful timing: migrating too early wastes transaction fees, while waiting too long risks losing everything to quantum attackers who could drain exposed addresses within hours of achieving cryptographic relevance.
 
 **Multi-signature schemes** can provide transitional protection by requiring multiple signatures for transaction authorization, increasing the computational cost of quantum attacks. However, this represents only a temporary measure as quantum computers scale in capability.
 
@@ -110,7 +110,7 @@ Beyond these transitional measures, the cryptographic community has been develop
 
 Among the emerging quantum-resistant options, two signature schemes stand out for different reasons. **ML-DSA (CRYSTALS-Dilithium)** prioritizes proven security with signatures of **2420 / 3309 / 4627 bytes** (parameter sets 44/65/87) and public keys of **1312 / 1952 / 2592 bytes**. **Falcon-512** offers remarkable compactness with signatures of roughly **~666 bytes** and public keys of **~897 bytes** (and **Falcon-1024** signatures around **~1280 bytes**), but this efficiency comes at the cost of implementation complexity and more challenging security analysis.
 
-For those preferring maximum security conservatism, **SLH-DSA (SPHINCS+)** provides hash-based signatures with rock-solid security assumptions, with sizes varying by parameter set—for example, roughly **~7.9 KB (128s)** up to **~49 KB (256f)**. Meanwhile, **ML-KEM (Kyber)** addresses key encapsulation needs, while **HQC** provides an additional KEM option built on different mathematical foundations for diversified security.
+For those preferring maximum security conservatism, **SLH-DSA (SPHINCS+)** provides hash-based signatures with rock-solid security assumptions, with sizes varying by parameter set, for example, roughly **~7.9 KB (128s)** up to **~49 KB (256f)**. Meanwhile, **ML-KEM (Kyber)** addresses key encapsulation needs, while **HQC** provides an additional KEM option built on different mathematical foundations for diversified security.
 
 **Stateful hash-based signatures** such as **XMSS/LMS** (standardized in NIST SP 800-208) are available for immediate deployment. While bulky and requiring careful state management, they can provide immediate post-quantum protection in constrained use cases or as alternative script paths.
 
@@ -126,7 +126,7 @@ Moving from individual cryptographic primitives to network-wide implementation, 
 
 Even with careful planning, the quantum transition may not proceed smoothly. **Quantum emergency procedures** should be designed and debated in advance, though current blockchain systems lack these capabilities:
 
-**Circuit breakers** could theoretically halt network activity upon quantum attack detection, providing time for coordinated emergency response. **Emergency upgrade protocols** might bypass normal governance processes under demonstrated quantum threat conditions. These proposals remain controversial and raise significant concerns about decentralization and governance precedent—but the alternative could be watching helplessly as quantum attackers systematically drain vulnerable addresses across the entire ecosystem.
+**Circuit breakers** could theoretically halt network activity upon quantum attack detection, providing time for coordinated emergency response. **Emergency upgrade protocols** might bypass normal governance processes under demonstrated quantum threat conditions. These proposals remain controversial and raise significant concerns about decentralization and governance precedent, but the alternative could be watching helplessly as quantum attackers systematically drain vulnerable addresses across the entire ecosystem.
 
 **Proof-of-quantum-attack mechanisms** could automatically trigger protective measures when quantum capabilities are conclusively demonstrated against cryptographic primitives. This requires careful design to prevent false triggers while ensuring rapid response to legitimate threats.
 
@@ -152,11 +152,11 @@ While protocol-level coordination presents challenges, institutions face their o
 
 ### Research and Development Priorities
 
-The race against quantum computers continues on multiple fronts. **Ongoing cryptographic research** continues to refine post-quantum algorithms and identify potential vulnerabilities in current standards, while **implementation security** remains critical—even theoretically secure algorithms can be compromised by side-channel attacks and implementation flaws.
+The race against quantum computers continues on multiple fronts. **Ongoing cryptographic research** continues to refine post-quantum algorithms and identify potential vulnerabilities in current standards, while **implementation security** remains critical since even theoretically secure algorithms can be compromised by side-channel attacks and implementation flaws.
 
 **Performance optimization** efforts focus on the practical challenges: reducing signature sizes, improving verification speeds, and minimizing computational requirements for resource-constrained devices. **Hardware acceleration** for post-quantum algorithms could significantly improve adoption feasibility, potentially making the difference between smooth migration and network congestion during the transition.
 
-Meanwhile, **zero-knowledge proof systems** require special consideration. Many current pairing-based SNARKs are not quantum-resistant, while STARKs are hash-based and plausibly quantum-resistant—creating a divergence in the privacy-preserving landscape. **Layer 2 scaling solutions** must account for post-quantum cryptography in their long-term technical roadmaps, as retrofitting quantum resistance into complex rollup systems could prove far more challenging than building it in from the start.
+Meanwhile, **zero-knowledge proof systems** require special consideration. Many current pairing-based SNARKs are not quantum-resistant, while STARKs are hash-based and plausibly quantum-resistant, creating a divergence in the privacy-preserving landscape. **Layer 2 scaling solutions** must account for post-quantum cryptography in their long-term technical roadmaps, as retrofitting quantum resistance into complex rollup systems could prove far more challenging than building it in from the start.
 
 ### Long-term Ecosystem Evolution
 

@@ -4,43 +4,43 @@ In practice, market structure determines how intent becomes execution and PnL. T
 
 ## Section I: Exchange Architecture and Core Products
 
-With keys, controls, and operational security in place from Chapter V (Custody), we now turn to market plumbing: exchange architectures, execution, risk, and analytics—connecting foundations from Chapters I–IV to the realities of trading.
+With keys, controls, and operational security in place from Chapter V (Custody), we now turn to market plumbing: exchange architectures, execution, risk, and analytics, connecting foundations from Chapters I-IV to the realities of trading.
 
 ### The Centralized Exchange Model
 
-When institutional traders need to execute a $100 million Bitcoin position, they don't turn to decentralized protocols—they rely on centralized exchanges (CEXs) that can handle the scale, speed, and complexity their strategies demand. Unlike their decentralized counterparts, CEXs operate as custodial trading venues that maintain internal order books, run sophisticated matching engines, and hold client collateral.
+When institutional traders need to execute a $100 million Bitcoin position, they don't turn to decentralized protocols but rather rely on centralized exchanges (CEXs) that can handle the scale, speed, and complexity their strategies demand. Unlike their decentralized counterparts, CEXs operate as custodial trading venues that maintain internal order books, run sophisticated matching engines, and hold client collateral.
 
-This architecture enables the complex financial products and high-frequency trading that characterizes modern crypto markets. The custodial model allows CEXs to offer leverage, sophisticated order types, and institutional-grade features, but introduces counterparty risk—a fundamental trade-off that shapes how different market participants engage with these platforms.
+This architecture enables the complex financial products and high-frequency trading that characterizes modern crypto markets. The custodial model allows CEXs to offer leverage, sophisticated order types, and institutional-grade features, but introduces counterparty risk, a fundamental trade-off that shapes how different market participants engage with these platforms.
 
 ### Spot Markets: The Foundation
 
-While derivatives grab headlines with their leverage and complexity, spot trading remains the bedrock of crypto markets—the immediate exchange of one asset for another, such as converting USD to BTC. When you execute a spot trade, ownership transfers on the exchange's internal ledger, with the option to withdraw assets on-chain. This seemingly simple product serves multiple critical functions in the crypto ecosystem.
+While derivatives grab headlines with their leverage and complexity, spot trading remains the bedrock of crypto markets: the immediate exchange of one asset for another, such as converting USD to BTC. When you execute a spot trade, ownership transfers on the exchange's internal ledger, with the option to withdraw assets on-chain. This seemingly simple product serves multiple critical functions in the crypto ecosystem.
 
-Spot markets are used for portfolio rebalancing, treasury management, hedging basis exposure from derivatives positions, and settling profit and loss from complex trading strategies. The main risk is exchange and custody risk—your assets are held by the exchange rather than in your own wallet. Unlevered spot has no liquidation risk; margin spot does.
+Spot markets are used for portfolio rebalancing, treasury management, hedging basis exposure from derivatives positions, and settling profit and loss from complex trading strategies. The main risk is exchange and custody risk since your assets are held by the exchange rather than in your own wallet. Unlevered spot has no liquidation risk; margin spot does.
 
 ### Perpetual Futures: The Crypto Innovation
 
-Traditional finance has given us stocks, bonds, and derivatives—but crypto created something entirely new. Perpetual futures (perps) represent crypto's most significant contribution to financial markets, solving a fundamental problem that has plagued derivatives trading for centuries: the inconvenience of expiry dates. Unlike traditional futures that expire on specific dates, perps have no expiry and use an elegant mechanism to maintain price stability relative to the underlying asset.
+Traditional finance has given us stocks, bonds, and derivatives, but crypto created something entirely new. Perpetual futures (perps) represent crypto's most significant contribution to financial markets, solving a fundamental problem that has plagued derivatives trading for centuries: the inconvenience of expiry dates. Unlike traditional futures that expire on specific dates, perps have no expiry and use an elegant mechanism to maintain price stability relative to the underlying asset.
 
-The key innovation is the **funding payment**—a periodic exchange of money between long and short positions that keeps the perp price anchored to fair value references. When perps trade above the index, longs pay shorts; when below, shorts pay longs. In practice, funding transfers are calculated on position notional at the contract’s **mark price**.
+The key innovation is the **funding payment**, a periodic exchange of money between long and short positions that keeps the perp price anchored to fair value references. When perps trade above the index, longs pay shorts; when below, shorts pay longs. In practice, funding transfers are calculated on position notional at the contract’s **mark price**.
 
 Here's how it works mathematically: with position size `Q` (positive for longs), mark price `MarkPrice_t`, and funding rate per interval `f_t`, the funding cash flow over one interval is:
 
 \[ \Delta \text{Funding} = f_t \cdot Q \cdot \text{MarkPrice}_t \]
 
-Venues typically derive `f_t` from the perp premium relative to the index (often with caps/clamps), but exact formulas and caps vary by venue. Settlement intervals also vary: 8h is common, but some contracts use 4h/2h, and venues may switch to hourly during stress. (See venue docs: [Binance](https://www.binance.com/en/support/faq/360033624711), [OKX](https://www.okx.com/help), [Coinbase](https://exchange.coinbase.com/docs))
+Venues typically derive `f_t` from the perp premium relative to the index (often with caps/clamps), but exact formulas and caps vary by venue. Settlement intervals also vary: 8h is common, but some contracts use 4h/2h, and venues may switch to hourly during stress.
 
-This elegant mechanism has made perps the dominant trading venue for crypto. Through 2025, derivatives—and specifically perpetuals—have consistently outpaced spot volumes and often exceeded spot by large multiples during volatility. ([Kaiko/Amberdata & CCData summaries](https://www.kaiko.com/), [CryptoSlate](https://cryptoslate.com/), [Amberdata](https://amberdata.io/blog))
+This elegant mechanism has made perps the dominant trading venue for crypto. Through 2025, derivatives (and specifically perpetuals) have consistently outpaced spot volumes and often exceeded spot by large multiples during volatility.
 
 Why does this matter for traders? Perps enable leverage, efficient delta hedging, basis trading opportunities, and sophisticated relative-value strategies that would be impossible with traditional expiring futures. 
 
-However, the primary risks include funding costs that can erode profits over time, liquidation risk when using leverage, and potential divergence in funding rates across different venues—making venue selection and timing crucial for strategy success.
+However, the primary risks include funding costs that can erode profits over time, liquidation risk when using leverage, and potential divergence in funding rates across different venues, making venue selection and timing crucial for strategy success.
 
 ### Traditional Futures and Options
 
 **Dated futures** maintain the traditional structure of expiring on specific dates (typically quarterly). At expiry, they settle either physically (rare in crypto CEXs) or financially against an index price. These instruments are essential for calendar spread strategies, carry trades, and matching hedge horizons to specific time periods.
 
-**Options** provide the right, but not obligation, to buy (calls) or sell (puts) at predetermined strikes before or at expiry. In crypto, options are primarily concentrated on major exchanges like Deribit, where they serve to hedge tail events, express volatility views, create structured payoffs, and generate yield through covered strategies. Deribit remains the dominant venue for BTC options with >80–90% share of open interest in 2025. ([Yahoo Finance](https://finance.yahoo.com/), [The Block](https://www.theblock.co/), [ForkLog](https://forklog.com/))
+**Options** provide the right, but not obligation, to buy (calls) or sell (puts) at predetermined strikes before or at expiry. In crypto, options are primarily concentrated on major exchanges like Deribit, where they serve to hedge tail events, express volatility views, create structured payoffs, and generate yield through covered strategies. Deribit remains the dominant venue for BTC options with >80-90% share of open interest in 2025.
 
 The options market exhibits strong **skew** patterns and liquidity concentration around popular strikes and expiries, creating both opportunities and risks for sophisticated traders.
 
@@ -50,13 +50,13 @@ The options market exhibits strong **skew** patterns and liquidity concentration
 
 These ETFs have dramatically expanded market access by opening Bitcoin exposure to retirement accounts, RIAs, and institutions previously constrained to traditional investment vehicles. This expansion has broadened the demand base beyond crypto-native participants to include mainstream institutional capital.
 
-Simultaneously, their primary market mechanics—where cash converts to on-chain BTC through authorized participants and market makers—have created new liquidity pathways that connect traditional finance flows directly to crypto order books. These authorized participants hedge their exposure across spot, futures, and perpetual markets, creating ripple effects throughout the ecosystem.
+Simultaneously, their primary market mechanics (where cash converts to on-chain BTC through authorized participants and market makers) have created new liquidity pathways that connect traditional finance flows directly to crypto order books. These authorized participants hedge their exposure across spot, futures, and perpetual markets, creating ripple effects throughout the ecosystem.
 
 The ETF structure has also introduced new arbitrage relationships, as ETF net asset value tracking creates cross-venue basis opportunities between ETF prices, spot indices, and futures markets. These arbitrage pathways have improved overall pricing efficiency while creating new profit opportunities for sophisticated market participants.
 
 Perhaps most significantly, persistent ETF inflows migrate Bitcoin to long-term custodial cold storage, which can reduce the liquid float available for trading and potentially impact scarcity dynamics. From an operational perspective, tracking error, fee drag, and creation basket mechanics can influence execution quality, with large creation events capable of moving order books and funding rates in the short term. (Custody examples: IBIT via Coinbase Prime; FBTC via Fidelity Digital Assets.)
 
-On July 29–30, 2025, the SEC authorized in-kind creations/redemptions for crypto ETPs. Early 2024 spot BTC ETFs launched cash-only; major issuers (e.g., IBIT, BITB, FBTC) subsequently moved to enable in-kind, though some funds may still use cash operationally. ([SEC](https://www.sec.gov/newsroom/press-releases/2025-101-sec-permits-kind-creations-redemptions-crypto-etps), [Dechert](https://www.dechert.com), [Katten](https://katten.com), [Mitrade](https://mitrade.com))
+On July 29-30, 2025, the SEC authorized in-kind creations/redemptions for crypto ETPs. Early 2024 spot BTC ETFs launched cash-only; major issuers (e.g., IBIT, BITB, FBTC) subsequently moved to enable in-kind, though some funds may still use cash operationally.
 
 #### Largest U.S. Bitcoin spot ETFs (as of September 2025)
 
@@ -70,7 +70,7 @@ On July 29–30, 2025, the SEC authorized in-kind creations/redemptions for cryp
 
 ## Section II: Order Management and Market Microstructure
 
-Understanding exchange products sets the foundation, but successful trading requires mastering how orders interact with market infrastructure. The mechanics of order execution—from the moment you decide to trade until your position is confirmed—determine whether your strategy succeeds or fails.
+Understanding exchange products sets the foundation, but successful trading requires mastering how orders interact with market infrastructure. The mechanics of order execution, from the moment you decide to trade until your position is confirmed, determine whether your strategy succeeds or fails.
 
 ### Order Types and Execution Strategy
 
@@ -84,15 +84,15 @@ Understanding **time-in-force** instructions is crucial: Good-Till-Canceled (GTC
 
 ### Order Book Dynamics and Liquidity Assessment
 
-An **order book** reveals the supply and demand structure of a market by displaying resting limit orders ranked by price and size. The **best bid and offer (BBO)** represents the highest buy order and lowest sell order, with their difference forming the **bid-ask spread**—a key measure of market liquidity and trading costs.
+An **order book** reveals the supply and demand structure of a market by displaying resting limit orders ranked by price and size. The **best bid and offer (BBO)** represents the highest buy order and lowest sell order, with their difference forming the **bid-ask spread**, a key measure of market liquidity and trading costs.
 
-**Depth** measures the quantity of resting orders at or near the top of book. "Depth at 10 basis points" counts all size within ±0.10% of the midpoint. However, quantity alone doesn't determine liquidity quality—**order stability** and **cancel/replace rates** significantly impact whether displayed liquidity will be available when you need it.
+**Depth** measures the quantity of resting orders at or near the top of book. "Depth at 10 basis points" counts all size within ±0.10% of the midpoint. However, quantity alone doesn't determine liquidity quality since **order stability** and **cancel/replace rates** significantly impact whether displayed liquidity will be available when you need it.
 
 **Heatmap visualizations** show where large orders rest over time, helping identify potential support and resistance levels. However, these require careful interpretation as displayed liquidity can be pulled before prices arrive, and high order-to-trade ratios mean many displayed orders never actually execute.
 
 ### Slippage: The Hidden Cost of Trading
 
-Your order to buy $2 million in Bitcoin shows an expected price of $50,000. By the time it executes, you've paid an average of $50,250—costing an extra $10,000. This gap between expectation and reality is slippage, and understanding its sources can save significant money over time.
+Your order to buy $2 million in Bitcoin shows an expected price of $50,000. By the time it executes, you've paid an average of $50,250, costing an extra $10,000. This gap between expectation and reality is slippage, and understanding its sources can save significant money over time.
 
 **Spread crossing** occurs when market orders pay the bid-ask spread by definition. **Market impact** happens when large orders walk through multiple price levels in the order book.
 
@@ -108,7 +108,7 @@ Beyond basic market and limit orders lies a sophisticated toolkit for managing l
 
 **Partial fills** occur when limit orders execute in pieces as opposing liquidity arrives. Your average price becomes size-weighted across all fills, making execution timing crucial during volatile periods. For example, a 10 BTC buy order at $50,000 might fill 3 BTC immediately, then 4 BTC an hour later at $50,050, and the final 3 BTC the next day at $49,980, resulting in a volume-weighted average price of $50,017.
 
-**Iceberg orders** display only a portion of your total size, refreshing as the displayed quantity trades. Consider a 100 BTC sell order structured as an iceberg showing only 5 BTC at a time. As each 5 BTC portion trades, the system automatically refreshes with another 5 BTC at the same price level. This reduces market signaling—preventing other traders from seeing your full size—at the cost of potentially slower fills and the risk that prices move away from your level.
+**Iceberg orders** display only a portion of your total size, refreshing as the displayed quantity trades. Consider a 100 BTC sell order structured as an iceberg showing only 5 BTC at a time. As each 5 BTC portion trades, the system automatically refreshes with another 5 BTC at the same price level. This reduces market signaling by preventing other traders from seeing your full size, at the cost of potentially slower fills and the risk that prices move away from your level.
 
 **Post-only** orders ensure you add liquidity and avoid taker fees by canceling if they would cross the spread. These orders are particularly valuable for market makers and systematic strategies where fee structures significantly impact profitability. If you place a post-only buy order at $50,000 when the best offer is $50,001, it will rest in the order book. But if the best offer drops to $49,999 while your order is being processed, the system will cancel your order rather than execute it as a taker.
 
@@ -120,15 +120,15 @@ Understanding these mechanics is essential for developing sophisticated executio
 
 ## Section III: Market Participants and Information Flow
 
-Order mechanics matter, but they operate within an ecosystem of competing participants, each with different advantages, constraints, and objectives. The interplay between these participants—and the information that drives their decisions—shapes the market structure you're trading within.
+Order mechanics matter, but they operate within an ecosystem of competing participants, each with different advantages, constraints, and objectives. The interplay between these participants (and the information that drives their decisions) shapes the market structure you're trading within.
 
 ### The Role of Latency in Modern Markets
 
-**Latency**—the end-to-end delay from decision to trade acknowledgment—shapes market dynamics in ways that extend far beyond high-frequency trading. In CEX environments, latency includes network transmission, gateway processing, risk checks, and matching engine cycles.
+**Latency**, the end-to-end delay from decision to trade acknowledgment, shapes market dynamics in ways that extend far beyond high-frequency trading. In CEX environments, latency includes network transmission, gateway processing, risk checks, and matching engine cycles.
 
 Here's why this matters in practice: Imagine Bitcoin's best bid is $50,000 with 10 BTC available, and news breaks that could drive prices higher. A trader with 10ms latency can place a buy order and secure that liquidity before the market moves. A trader with 100ms latency arrives to find the best bid is now $50,020, having missed the opportunity entirely. This 90-millisecond difference can mean the difference between a profitable trade and a costly miss.
 
-**Queue priority** in most exchanges follows price-time precedence, meaning earlier arrivals at the same price level receive fills first. This creates significant advantages for low-latency participants who can secure fills without paying taker fees and quickly cancel orders when market conditions change. (See matching docs: [Coinbase](https://exchange.coinbase.com/docs/api/orders#matching), [Binance](https://www.binance.com/en/support/faq))
+**Queue priority** in most exchanges follows price-time precedence, meaning earlier arrivals at the same price level receive fills first. This creates significant advantages for low-latency participants who can secure fills without paying taker fees and quickly cancel orders when market conditions change.
 
 **Adverse selection** affects slower market participants who find their resting orders hit just as prices move unfavorably. Fast participants can adjust quotes or cancel orders before being picked off by informed flow, while slower participants bear the cost of providing liquidity to better-informed traders.
 
@@ -140,13 +140,13 @@ The **maker-taker model** forms the economic foundation of most CEXs. **Makers**
 
 This structure creates powerful incentives that shape market behavior. **Fee schedules** typically offer tiered pricing based on monthly trading volume, VIP status, or market-maker programs. However, the effective cost of trading includes explicit fees, bid-ask spreads, market impact, and financing costs like funding rates.
 
-Consider a concrete example: You want to buy $1 million worth of Bitcoin when it's trading at $50,000 (20 BTC). The best offer is $50,010, creating a 1 basis point half-spread cost ($100). Your exchange charges 5 basis points in taker fees ($500). If your trade pushes through additional liquidity levels up to $50,025, you might pay an average of $50,015, adding another $300 in market impact. Your total execution cost is $900, or 9 basis points—meaning you need Bitcoin to appreciate by at least 0.09% just to break even, before considering any funding costs if you're using leverage.
+Consider a concrete example: You want to buy $1 million worth of Bitcoin when it's trading at $50,000 (20 BTC). The best offer is $50,010, creating a 1 basis point half-spread cost ($100). Your exchange charges 5 basis points in taker fees ($500). If your trade pushes through additional liquidity levels up to $50,025, you might pay an average of $50,015, adding another $300 in market impact. Your total execution cost is $900, or 9 basis points, meaning you need Bitcoin to appreciate by at least 0.09% just to break even, before considering any funding costs if you're using leverage.
 
 A practical rule: if you're paying a 5 basis point taker fee plus crossing a 2 basis point half-spread, you need at least 7 basis points of edge just to break even before considering market impact and other costs.
 
 ### Market Makers: The Liquidity Providers
 
-Behind every tight bid-ask spread and deep order book stands a market maker—sophisticated trading firms that profit from small edges while providing the liquidity that makes modern crypto trading possible. Unlike directional traders betting on price movements, market makers earn money by continuously offering to both buy and sell, managing the complex dance of inventory and risk that keeps markets functioning smoothly.
+Behind every tight bid-ask spread and deep order book stands a market maker: sophisticated trading firms that profit from small edges while providing the liquidity that makes modern crypto trading possible. Unlike directional traders betting on price movements, market makers earn money by continuously offering to both buy and sell, managing the complex dance of inventory and risk that keeps markets functioning smoothly.
 
 Market maker revenue streams are diverse and sophisticated:
 
@@ -162,7 +162,7 @@ The primary risks include volatility spikes that can cause rapid inventory losse
 
 ## Section IV: Risk Management and Margining Systems
 
-Understanding market participants and their motivations provides crucial context, but successful trading ultimately depends on managing risk effectively. The margining systems and risk controls that exchanges implement—and how you navigate them—often determine whether profitable strategies remain viable over time.
+Understanding market participants and their motivations provides crucial context, but successful trading ultimately depends on managing risk effectively. The margining systems and risk controls that exchanges implement (and how you navigate them) often determine whether profitable strategies remain viable over time.
 
 ### Understanding Margin Modes
 
@@ -176,7 +176,7 @@ The choice between isolated and cross margin reflects risk tolerance and trading
 
 **Liquidation processes** vary by exchange but typically follow a structured approach. When account equity falls below maintenance margin requirements (calculated using **mark price**, not last trade price), the exchange begins position reduction through market orders or incremental liquidation steps.
 
-If liquidations create losses beyond available account equity, exchanges use **insurance funds** to absorb shortfalls. In extreme cases, **auto-deleveraging (ADL)** transfers losses to opposing traders based on profit-and-risk rankings. (See venue docs: [Bybit](https://www.bybit.com/en/help-center/), [Binance](https://www.binance.com/en/support/faq))
+If liquidations create losses beyond available account equity, exchanges use **insurance funds** to absorb shortfalls. In extreme cases, **auto-deleveraging (ADL)** transfers losses to opposing traders based on profit-and-risk rankings.
 
 **Liquidity cascades** represent systemic risks where forced buying or selling pushes prices through thin order books, triggering additional liquidations and stop-losses in self-reinforcing cycles. These events typically resolve with restored liquidity but feature persistently wider spreads and elevated funding rate dispersion.
 
@@ -200,7 +200,7 @@ Risk management provides the foundation for sustainable trading, but generating 
 
 ### Reference Price Architecture
 
-Understanding the difference between various price references is crucial for avoiding unpleasant surprises. **Market price** or **last price** represents the most recent trade on a specific venue—this can be noisy and manipulable in thin markets.
+Understanding the difference between various price references is crucial for avoiding unpleasant surprises. **Market price** or **last price** represents the most recent trade on a specific venue, which can be noisy and manipulable in thin markets.
 
 **Index price** serves as the authoritative reference, typically calculated as a weighted average across multiple spot venues to represent fair value. **Mark price** is used internally for PnL accounting, margin calculations, and liquidations, often derived from the index with additional smoothing mechanisms.
 
@@ -244,7 +244,7 @@ This trend reflects Bitcoin's evolution from a niche digital experiment to an as
 
 ### The Strategy Playbook
 
-**Strategy** (formerly known as MicroStrategy; rebranded Feb 2025, ticker MSTR) developed a financing playbook to accumulate Bitcoin at scale. The approach centers on issuing **senior unsecured convertible notes** at low coupons—including $2B of 0% due 2030—alongside at‑the‑market (ATM) equity programs.
+**Strategy** (formerly known as MicroStrategy; rebranded Feb 2025, ticker MSTR) developed a financing playbook to accumulate Bitcoin at scale. The approach centers on issuing **senior unsecured convertible notes** at low coupons, including $2B of 0% due 2030, alongside at-the-market (ATM) equity programs.
 
 The key dynamic is that MSTR's stock volatility (variable; often markedly higher than broad equity indices) makes the embedded **conversion option** valuable to institutional investors. Convert‑arb funds buy the bonds and hedge the equity, monetizing volatility via **gamma trading**.
 
@@ -262,14 +262,14 @@ The strategy has delivered notable results while maintaining structural protecti
   - 2030 0% notes (issued Feb 2025): ~$433.43/share
   - 2032 notes (Jun 2024): ~$2,043.32/share
   - 2031 notes: >$2,300/share
-- Cash interest outlay depends on the mix of 0% converts (no coupon) and preferred dividends (e.g., STRK/STRF at ~8–10%). SEC filings indicated materially higher annualized interest on remaining notes prior to the 2030 0% issuance; given changes over time, avoid a point estimate without a dated source.
-- Authorized capacity includes a disclosed **$21B common‑stock ATM** and a separate **$21B preferred (STRK) ATM**
+- Cash interest outlay depends on the mix of 0% converts (no coupon) and preferred dividends (e.g., STRK/STRF at ~8-10%). SEC filings indicated materially higher annualized interest on remaining notes prior to the 2030 0% issuance; given changes over time, avoid a point estimate without a dated source.
+- Authorized capacity includes a disclosed **$21B common-stock ATM** and a separate **$21B preferred (STRK) ATM**
 
 ### Strategic Risks and Limitations
 
 The flywheel mechanism faces several critical vulnerabilities:
 
-**Premium compression** represents the primary threat—if MicroStrategy's stock price converges toward its Bitcoin net asset value, the effectiveness of their accretive dilution strategy diminishes significantly.
+**Premium compression** represents the primary threat: if MicroStrategy's stock price converges toward its Bitcoin net asset value, the effectiveness of their accretive dilution strategy diminishes significantly.
 
 The model exhibits **diminishing returns at scale**: the company required just 2.6 Bitcoin to generate one basis point of yield in 2021 but needed 58 Bitcoin by 2025 for the same result.
 
@@ -301,6 +301,6 @@ The key principle: treat on-chain flows as **contextual information** rather tha
 
 **Vesting schedules** control the release of locked tokens to teams, investors, and other stakeholders over time. Understanding these mechanics is crucial for anticipating supply-side pressures.
 
-**Cliff periods** represent initial lockup phases with zero token releases, followed by **linear vesting** over subsequent periods. The notation **"1+3"** indicates a 1-year cliff followed by 3 years of linear releases—meaning no tokens unlock in Year 1, then approximately 1/36th of the allocation unlocks monthly throughout Years 2-4.
+**Cliff periods** represent initial lockup phases with zero token releases, followed by **linear vesting** over subsequent periods. The notation **"1+3"** indicates a 1-year cliff followed by 3 years of linear releases, meaning no tokens unlock in Year 1, then approximately 1/36th of the allocation unlocks monthly throughout Years 2-4.
 
 **Supply overhang** models combine vesting calendars with holder behavior analysis and exchange inventory tracking to anticipate potential selling pressure. Not all unlocked tokens hit markets immediately, as recipients may have different time preferences and price sensitivities.

@@ -1,18 +1,18 @@
 # Chapter IX: DeFi Protocols and Mechanisms
 
-Now that we have stable settlement assets from Chapter VIII, we can build the financial services that make crypto truly powerful. This is where DeFi protocols transform basic tokens into a complete financial system—enabling anyone to lend, trade, and earn yield without traditional intermediaries.
+Now that we have stable settlement assets from Chapter VIII, we can build the financial services that make crypto truly powerful. This is where DeFi protocols transform basic tokens into a complete financial system, enabling anyone to lend, trade, and earn yield without traditional intermediaries.
 
 Think of this chapter as a journey through an emerging financial ecosystem. We'll start with the most fundamental service (lending), then explore how trading evolved beyond simple swaps, and finally examine the sophisticated yield strategies and infrastructure that make it all possible. Each protocol we encounter builds on previous innovations, creating an interconnected web of financial services that operates 24/7 across global markets.
 
 ## Section I: Why DeFi?
 
-Before diving into specific protocols, let's understand what makes decentralized finance fundamentally different—and why it matters for the future of money.
+Before diving into specific protocols, let's understand what makes decentralized finance fundamentally different and why it matters for the future of money.
 
 ### The Promise of Programmable Finance
 
 Imagine a financial system that never sleeps, never discriminates, and never requires permission to access. This is DeFi's core promise: financial services built on public blockchains that anyone can use, audit, and build upon.
 
-Traditional finance relies on intermediaries—banks, brokers, clearinghouses—each adding costs, delays, and potential points of failure. DeFi protocols eliminate these middlemen by encoding financial logic directly into smart contracts. The result is a system where:
+Traditional finance relies on intermediaries (banks, brokers, clearinghouses), each adding costs, delays, and potential points of failure. DeFi protocols eliminate these middlemen by encoding financial logic directly into smart contracts. The result is a system where:
 
 - **Global access**: Anyone with an internet connection can participate, regardless of geography or background
 - **24/7 operation**: Markets never close, settlements happen atomically on-chain
@@ -23,11 +23,11 @@ Traditional finance relies on intermediaries—banks, brokers, clearinghouses—
 
 The demand for decentralized financial services stems from real economic needs that traditional systems often serve poorly.
 
-**Lending and borrowing** solve the fundamental problem of capital allocation. Crypto holders want to earn yield on idle assets, while traders and institutions need leverage for market activities. In DeFi, you can deposit volatile crypto assets and borrow stable dollars without selling your position—preserving upside exposure while accessing liquidity.
+**Lending and borrowing** solve the fundamental problem of capital allocation. Crypto holders want to earn yield on idle assets, while traders and institutions need leverage for market activities. In DeFi, you can deposit volatile crypto assets and borrow stable dollars without selling your position, preserving upside exposure while accessing liquidity.
 
 **Decentralized exchanges** address the custody and access problems of centralized platforms. When you trade on a DEX, you never give up control of your assets. Trades settle atomically on-chain, eliminating counterparty risk. This also enables permissionless listing of new assets and the bundling of complex transactions (trade + lend + stake) in a single operation.
 
-**Yield generation** mechanisms unlock new forms of return that don't exist in traditional finance—from liquidity provision fees to governance token rewards to MEV sharing.
+**Yield generation** mechanisms unlock new forms of return that don't exist in traditional finance, from liquidity provision fees to governance token rewards to MEV sharing.
 
 ### The Trade-offs
 
@@ -35,7 +35,7 @@ DeFi isn't without costs. Users face gas fees, slippage, and various forms of ME
 
 The fundamental trade-off is clear: DeFi substitutes counterparty risk (trusting institutions) for protocol risk (trusting code and economic mechanisms). For many users, especially those excluded from traditional finance or seeking uncorrelated returns, this trade-off is worthwhile.
 
-Understanding these mechanisms quantitatively—how AMMs price assets, how liquidation engines work, how oracles can be manipulated—is essential for professional participation in DeFi markets. Many MEV opportunities arise directly from these protocol mechanics, making this knowledge valuable for both users and searchers.
+Understanding these mechanisms quantitatively (how AMMs price assets, how liquidation engines work, how oracles can be manipulated) is essential for professional participation in DeFi markets. Many MEV opportunities arise directly from these protocol mechanics, making this knowledge valuable for both users and searchers.
 
 ## Section II: Lending and Borrowing Platforms
 
@@ -45,29 +45,29 @@ With this foundation in mind, let's examine how these principles play out in pra
 
 Think of Aave like a global, automated bank that never closes. Instead of loan officers, smart contracts evaluate your collateral and approve loans atomically on-chain. Here's how it works:
 
-**For Lenders**: You deposit assets (ETH, USDC, etc.) into shared liquidity pools and immediately start earning interest. Your deposit is represented by aTokens—special tokens that accrue interest by increasing your balance at a 1:1 unit price, like a savings account that compounds continuously.
+**For Lenders**: You deposit assets (ETH, USDC, etc.) into shared liquidity pools and immediately start earning interest. Your deposit is represented by aTokens, special tokens that accrue interest by increasing your balance at a 1:1 unit price, like a savings account that compounds continuously.
 
-**For Borrowers**: You can borrow against your deposits, but there's a catch—you must always maintain more collateral than you borrow. If you deposit $1,000 of ETH, you might be able to borrow $800 of USDC, preserving your ETH exposure while accessing stable liquidity.
+**For Borrowers**: You can borrow against your deposits, but there's a catch: you must always maintain more collateral than you borrow. If you deposit $1,000 of ETH, you might be able to borrow $800 of USDC, preserving your ETH exposure while accessing stable liquidity.
 
-**Interest Rate Magic**: As more people borrow from a pool, interest rates automatically rise to balance supply and demand. This happens through mathematical curves that adjust rates based on how much of the pool is being used—elegant supply and demand economics encoded in software.
+**Interest Rate Magic**: As more people borrow from a pool, interest rates automatically rise to balance supply and demand. This happens through mathematical curves that adjust rates based on how much of the pool is being used, elegant supply and demand economics encoded in software.
 
 **Risk Management**: Several key parameters keep the system safe: how much you can borrow against your collateral (loan-to-value ratio), when positions become too risky (liquidation thresholds), and what happens when they do (liquidation bonuses for repayers). If your position's health factor falls below 1, liquidators can step in to repay your debt and claim discounted collateral, keeping the system solvent.
 
 **The Evolution Story**: Aave didn't start this sophisticated. Version 1 introduced the basic concept of pooled lending with interest-bearing tokens and pioneered flash loans (more on those later). Version 2 added debt tokenization and collateral swaps. Version 3 brought isolation modes for risky assets and efficiency modes for correlated assets like stablecoins.
 
-**The V4 Revolution**: The forthcoming V4 represents a fundamental redesign. Instead of separate pools for each market, Aave is moving to a **Unified Liquidity Layer** with a central **Liquidity Hub** and asset‑specific **Spokes**—imagine a central treasury that all markets can draw from, with specialized risk controls per asset type. This design dramatically improves capital efficiency while maintaining safety through compartmentalized risk management. As with any modular design, custom Spokes introduce code‑specific risk on top of the shared Hub.
+**The V4 Revolution**: The forthcoming V4 represents a fundamental redesign. Instead of separate pools for each market, Aave is moving to a **Unified Liquidity Layer** with a central **Liquidity Hub** and asset-specific **Spokes**: imagine a central treasury that all markets can draw from, with specialized risk controls per asset type. This design dramatically improves capital efficiency while maintaining safety through compartmentalized risk management. As with any modular design, custom Spokes introduce code-specific risk on top of the shared Hub.
 
 Aave also issues **GHO**, its own over-collateralized stablecoin (live today), turning the protocol into both a lending platform and a monetary system.
 
-**Why This Matters**: Aave's evolution illustrates a key theme in DeFi—the constant push toward capital efficiency while managing risk. Each version solved real problems users faced, from capital fragmentation to gas costs to risk isolation.
+**Why This Matters**: Aave's evolution illustrates a key theme in DeFi: the constant push toward capital efficiency while managing risk. Each version solved real problems users faced, from capital fragmentation to gas costs to risk isolation.
 
 ### Sky (MakerDAO): The Decentralized Central Bank
 
 Sky (formerly MakerDAO) operates like a decentralized central bank, but instead of printing money backed by government bonds, it issues USDS stablecoins backed by crypto collateral and real-world assets.
 
-**The Vault System**: Users deposit collateral into "Vaults" to mint USDS stablecoins, always backing each dollar with more than $1 of assets. This over-collateralization protects against price volatility—if your ETH drops in value, you might need to add more collateral or repay some debt to avoid liquidation.
+**The Vault System**: Users deposit collateral into "Vaults" to mint USDS stablecoins, always backing each dollar with more than $1 of assets. This over-collateralization protects against price volatility; if your ETH drops in value, you might need to add more collateral or repay some debt to avoid liquidation.
 
-**Maintaining the Peg**: To keep USDS trading at exactly $1, Sky uses two main tools. First, the **LitePSM** acts like an exchange window, allowing seamless conversion between USDS and USDC by routing through the legacy DAI system. Second, the **Sky Savings Rate** works like a traditional bank's interest rate—when demand for USDS is low, Sky raises the rate to attract depositors and reduce supply.
+**Maintaining the Peg**: To keep USDS trading at exactly $1, Sky uses two main tools. First, the **LitePSM** acts like an exchange window, allowing seamless conversion between USDS and USDC by routing through the legacy DAI system. Second, the **Sky Savings Rate** works like a traditional bank's interest rate: when demand for USDS is low, Sky raises the rate to attract depositors and reduce supply.
 
 **The Endgame Evolution**: Sky is transitioning from its original DAI system to the new USDS framework, with migration paths for existing users. During migration, DAI and USDS will coexist, with the **LitePSM** and **Sky Savings Rate (SSR)** used to manage peg/liquidity and demand. The protocol increasingly backs its stablecoins with real-world assets like Treasury bills alongside crypto collateral, blending DeFi innovation with traditional finance stability.
 
@@ -75,11 +75,11 @@ Sky (formerly MakerDAO) operates like a decentralized central bank, but instead 
 
 While Aave and Sky require over-collateralization, Maple Finance brings traditional credit relationships on-chain. Think of it as connecting institutional borrowers (market makers, hedge funds) with crypto lenders who want higher yields.
 
-**The Pool Delegate Model**: Each lending pool is managed by a **Pool Delegate**—essentially an on-chain credit manager who underwrites borrowers and sets terms. These delegates put their own capital at risk and use their reputation and expertise to evaluate creditworthiness.
+**The Pool Delegate Model**: Each lending pool is managed by a **Pool Delegate**, essentially an on-chain credit manager who underwrites borrowers and sets terms. These delegates put their own capital at risk and use their reputation and expertise to evaluate creditworthiness.
 
-**Higher Risk, Higher Reward**: Because loans are under-collateralized, yields can be significantly higher than over-collateralized protocols. However, this comes with explicit counterparty credit risk—if a borrower defaults, lenders can lose money. Various pools offer different risk profiles through junior tranches, insurance, and delegate capital requirements.
+**Higher Risk, Higher Reward**: Because loans are under-collateralized, yields can be significantly higher than over-collateralized protocols. However, this comes with explicit counterparty credit risk: if a borrower defaults, lenders can lose money. Various pools offer different risk profiles through junior tranches, insurance, and delegate capital requirements.
 
-**Real-World Lessons**: Maple has experienced defaults, highlighting that bringing traditional credit on-chain doesn't eliminate credit risk—it just makes it more transparent and programmable. Due diligence on both borrowers and pool delegates remains essential.
+**Real-World Lessons**: Maple has experienced defaults, highlighting that bringing traditional credit on-chain doesn't eliminate credit risk but rather just makes it more transparent and programmable. Due diligence on both borrowers and pool delegates remains essential.
 
 ## Section III: Decentralized Exchange Innovation
 
@@ -89,7 +89,7 @@ Now that we understand how DeFi enables lending and borrowing, let's explore how
 
 Uniswap pioneered a radically different approach to trading. Instead of matching buy and sell orders like traditional exchanges, it uses **Automated Market Makers (AMMs)** that price assets mathematically.
 
-**How It Works**: Imagine a pool containing equal values of two tokens—say ETH and USDC. The pool uses a simple rule: the product of the two quantities must remain constant (x × y = k). When someone buys ETH with USDC, they add USDC to the pool and remove ETH, automatically adjusting the price based on the new ratio.
+**How It Works**: Imagine a pool containing equal values of two tokens, say ETH and USDC. The pool uses a simple rule: the product of the two quantities must remain constant (x × y = k). When someone buys ETH with USDC, they add USDC to the pool and remove ETH, automatically adjusting the price based on the new ratio.
 
 **The Magic**: This system provides instant liquidity for any asset pair without requiring someone else to be trading at that exact moment. Liquidity providers deposit both tokens and earn fees from every trade. The more trading volume, the more fees they collect.
 
@@ -99,11 +99,11 @@ Uniswap pioneered a radically different approach to trading. Instead of matching
 
 **The V4 Revolution**: Version 4 represents a fundamental reimagining. Uniswap v4 launched on Ethereum mainnet on Jan 31, 2025, introducing a single "singleton" contract that manages all trading pairs. This dramatically reduces gas costs through better accounting.
 
-But the real innovation is **Hooks**—programmable logic that can run before or after swaps and liquidity changes. This turns Uniswap into a platform where developers can build custom trading mechanisms: limit orders, dynamic fees that adjust to volatility, time-weighted average market makers, and features we haven't even imagined yet. Note that v4 deliberately ships without a built-in oracle; teams add oracle logic via hooks when needed.
+But the real innovation is **Hooks**: programmable logic that can run before or after swaps and liquidity changes. This turns Uniswap into a platform where developers can build custom trading mechanisms: limit orders, dynamic fees that adjust to volatility, time-weighted average market makers, and features we haven't even imagined yet. Note that v4 deliberately ships without a built-in oracle; teams add oracle logic via hooks when needed.
 
 **The Trade-offs**: Hooks make Uniswap incredibly flexible, but they also introduce new risks. Each hooked pool is essentially running custom code, so users need to understand and trust the hook's logic. The singleton design improves efficiency but creates new upgrade and migration considerations.
 
-**Why This Matters**: V4 transforms Uniswap from a specific AMM implementation into a programmable exchange substrate—a platform for building the next generation of trading mechanisms.
+**Why This Matters**: V4 transforms Uniswap from a specific AMM implementation into a programmable exchange substrate, a platform for building the next generation of trading mechanisms.
 
 ### Curve Finance: The Stablecoin Specialist
 
@@ -111,7 +111,7 @@ While Uniswap excels at trading volatile assets, Curve Finance recognized that a
 
 **The Innovation**: Instead of Uniswap's constant product curve, Curve uses a hybrid invariant that acts like a constant sum (x + y = k) near parity but transitions to constant product behavior at extremes. This provides incredibly tight spreads for normal trading while maintaining stability during depegs.
 
-**Incentive Alignment**: Curve pioneered **veTokenomics**—users lock CRV tokens for voting power and boosted rewards. The longer you lock, the more influence you have over which pools receive CRV emissions. This creates strong incentives for long-term participation and governance engagement.
+**Incentive Alignment**: Curve pioneered **veTokenomics**: users lock CRV tokens for voting power and boosted rewards. The longer you lock, the more influence you have over which pools receive CRV emissions. This creates strong incentives for long-term participation and governance engagement.
 
 **Beyond Stablecoins**: Curve has expanded beyond pegged assets. **Cryptoswap/TriCrypto-NG** handles volatile asset pairs, while **crvUSD** (Curve's stablecoin) uses innovative **LLAMMA** soft-liquidation bands that gradually liquidate positions instead of sudden, harsh liquidations.
 
@@ -123,11 +123,11 @@ The AMM revolution sparked further innovation in exchange design, each solving d
 
 **Request-for-Quote (RFQ)**: Professional market makers provide firm quotes off-chain, then settle on-chain at guaranteed prices. This brings traditional market-making to DeFi while maintaining atomic settlement.
 
-**Application-Specific Chains**: Protocols like **dYdX v4** run their own blockchains optimized for trading (Cosmos-based), with an in-memory orderbook replicated by validators—achieving centralized exchange-like performance while maintaining decentralized settlement.
+**Application-Specific Chains**: Protocols like **dYdX v4** run their own blockchains optimized for trading (Cosmos-based), with an in-memory orderbook replicated by validators, achieving centralized exchange-like performance while maintaining decentralized settlement.
 
 **The Trade-off Spectrum**: Each model balances user protection, execution speed, and trust assumptions differently. AMMs prioritize decentralization; RFQ systems optimize for execution; app-chains maximize performance.
 
-Beyond spot DEXs, decentralized perpetual exchanges have grown rapidly, bringing on‑chain leverage with AMM–orderbook hybrids and full on‑chain orderbooks. See Chapter X for detailed coverage.
+Beyond spot DEXs, decentralized perpetual exchanges have grown rapidly, bringing on-chain leverage with AMM-orderbook hybrids and full on-chain orderbooks. See Chapter X for detailed coverage.
 
 *For market microstructure and execution considerations, see Chapter VI, Section II.*
 
@@ -168,9 +168,9 @@ Crypto yield comes from fundamentally different sources than traditional finance
 
 **MEV Sharing**: Platforms like **Jito** on Solana distribute MEV profits to token holders, letting users earn from the value extraction they would otherwise lose to searchers.
 
-## Section VI: Yield Optimization and Aggregation
+## Section V: Yield Optimization and Aggregation
 
-Individual yield farming can be profitable, but it requires constant attention—monitoring rates, harvesting rewards, rebalancing positions, and managing gas costs. This operational complexity led to the rise of automated yield strategies.
+Individual yield farming can be profitable, but it requires constant attention: monitoring rates, harvesting rewards, rebalancing positions, and managing gas costs. This operational complexity led to the rise of automated yield strategies.
 
 ### The Automation Challenge
 
@@ -182,7 +182,7 @@ Individual yield farming can be profitable, but it requires constant attention�
 
 **The Solution**: Automated vaults that handle the operational complexity while users focus on strategy selection and risk management.
 
-## Section VII: Advanced Yield Generation Strategies
+## Section VI: Advanced Yield Generation Strategies
 
 As DeFi matured, more sophisticated yield strategies emerged that go beyond simple staking and liquidity provision.
 
@@ -201,19 +201,19 @@ As DeFi matured, more sophisticated yield strategies emerged that go beyond simp
 
 **Decentralized Options Vaults (DOVs)** like Ribbon's strategies systematically sell options to generate income, essentially running automated "theta" strategies.
 
-**How They Work**: These vaults typically sell covered calls on deposited assets—collecting premium in exchange for capping upside potential. For example, a vault might sell weekly ETH calls 10% out-of-the-money, earning premium while limiting gains if ETH rallies strongly.
+**How They Work**: These vaults typically sell covered calls on deposited assets, collecting premium in exchange for capping upside potential. For example, a vault might sell weekly ETH calls 10% out-of-the-money, earning premium while limiting gains if ETH rallies strongly.
 
 **The Trade-off**: DOVs are effectively short volatility strategies. They generate steady income in sideways or mildly bullish markets but can underperform significantly during strong rallies when options are frequently exercised.
 
 **Risk Management**: Success depends on strike selection (how much upside to give up), position sizing (concentration risk), and regime awareness (recognizing when market conditions favor or hurt the strategy).
 
-## Section VIII: Oracle Networks and Price Feeds
+## Section VII: Oracle Networks and Price Feeds
 
-All the sophisticated DeFi mechanisms we've explored share a critical dependency: they need accurate, real-time price data to function safely. This is where oracles come in—and where some of DeFi's biggest risks lie hidden.
+All the sophisticated DeFi mechanisms we've explored share a critical dependency: they need accurate, real-time price data to function safely. This is where oracles come in, and where some of DeFi's biggest risks lie hidden.
 
 ### The Oracle Problem
 
-Smart contracts can't directly access external data like asset prices, weather information, or sports scores. They need **oracles**—services that bring off-chain data on-chain in a trustworthy way. For DeFi, price oracles are absolutely critical:
+Smart contracts can't directly access external data like asset prices, weather information, or sports scores. They need **oracles**: services that bring off-chain data on-chain in a trustworthy way. For DeFi, price oracles are absolutely critical:
 
 - **Lending protocols** need prices to calculate collateral ratios and trigger liquidations
 - **Stablecoin systems** need prices to maintain pegs and manage collateral
@@ -249,7 +249,7 @@ Robust protocols implement multiple layers of protection:
 
 **The Bottom Line**: Oracle security is often the weakest link in DeFi protocols. Understanding oracle design and failure modes is essential for both users and developers.
 
-## Section IX: Cross‑Chain Infrastructure and Interoperability
+## Section VIII: Cross‑Chain Infrastructure and Interoperability
 
 DeFi's success created a new problem: liquidity became fragmented across multiple blockchains. Users want to access the best yields and protocols regardless of which chain they're on, but moving assets between chains safely remains one of crypto's hardest problems.
 
@@ -261,11 +261,11 @@ Different blockchains offer different advantages:
 - **Arbitrum/Optimism**: Ethereum security with lower costs
 - **Polygon**: EVM compatibility with different trade-offs
 
-Users naturally want to access opportunities across all these chains, creating demand for **bridges**—protocols that move tokens and data between blockchains.
+Users naturally want to access opportunities across all these chains, creating demand for **bridges**: protocols that move tokens and data between blockchains.
 
 ### Bridge Architectures and Trade-offs
 
-**Lock-and-Mint Bridges**: Lock tokens on the source chain and mint wrapped versions on the destination. Simple but creates wrapped asset risk—the wrapped token is only as secure as the bridge.
+**Lock-and-Mint Bridges**: Lock tokens on the source chain and mint wrapped versions on the destination. Simple but creates wrapped asset risk since the wrapped token is only as secure as the bridge.
 
 **Native Messaging**: Protocols like **LayerZero** and **Wormhole** pass arbitrary messages between chains, enabling more complex cross-chain applications beyond simple token transfers.
 
@@ -278,7 +278,7 @@ Like blockchain's scalability trilemma, bridges face fundamental trade-offs betw
 2. **Unified liquidity**: Whether assets remain native or become wrapped
 3. **Minimal trust**: How much users must trust bridge operators
 
-No bridge perfectly solves all three—each makes different compromises.
+No bridge perfectly solves all three; each makes different compromises.
 
 ### The Security Challenge
 
@@ -291,7 +291,7 @@ Cross-chain bridges have been DeFi's most targeted attack vector, with billions 
 
 These failures highlight that bridges often become the weakest security link in cross-chain DeFi strategies.
 
-## Section X: Bridge and Oracle Security
+## Section IX: Bridge and Oracle Security
 
 Given the massive losses from bridge failures, understanding different security models is crucial for anyone using cross-chain DeFi. Bridge security exists on a spectrum from fully trust-minimized to committee-based systems.
 
@@ -299,7 +299,7 @@ Given the massive losses from bridge failures, understanding different security 
 
 **Light-Client Bridges**: The gold standard for security. These bridges (like **Succinct Telepathy**) verify blockchain headers and Merkle proofs directly on-chain, requiring no trust in external parties. They're mathematically as secure as the underlying blockchains but are complex to implement and expensive to operate.
 
-**Optimistic Bridges**: Systems like **Across** with UMA disputes use an optimistic approach—they assume messages are valid but allow challenges during a dispute window. This separates the oracle (message verification) from the relayer (message delivery), requiring collusion between both to attack successfully.
+**Optimistic Bridges**: Systems like **Across** with UMA disputes use an optimistic approach: they assume messages are valid but allow challenges during a dispute window. This separates the oracle (message verification) from the relayer (message delivery), requiring collusion between both to attack successfully.
 
 **Multisig Quorums**: The most common approach, used by bridges like **Wormhole** with its 19‑Guardian committee. A threshold of trusted signers must approve cross-chain messages. Simple and fast, but security depends entirely on the honesty and operational security of the signers.
 
@@ -309,9 +309,9 @@ Given the massive losses from bridge failures, understanding different security 
 
 As DeFi becomes more cross-chain, oracle and bridge security increasingly intersect. Many protocols now route value across multiple domains, creating complex dependency chains where the security of the weakest link determines overall system safety.
 
-## Section XI: Flash Loans and Atomic Transactions
+## Section X: Flash Loans and Atomic Transactions
 
-Flash loans represent one of DeFi's most innovative and dangerous features. They enable anyone to borrow massive amounts of capital for a single transaction—but they've also powered some of the ecosystem's largest exploits.
+Flash loans represent one of DeFi's most innovative and dangerous features. They enable anyone to borrow massive amounts of capital for a single transaction, but they've also powered some of the ecosystem's largest exploits.
 
 ### The Flash Loan Concept
 
@@ -346,11 +346,11 @@ Robust protocols implement multiple safeguards:
 
 Flash loans exemplify DeFi's core tension: the same composability that enables innovation also amplifies risks. They're a powerful tool for capital efficiency and market correction, but they require careful protocol design to prevent abuse.
 
-**The Bottom Line**: Flash loans don't create vulnerabilities—they amplify existing ones. Protocols must be designed to be secure even when attackers have unlimited capital for a single transaction.
+**The Bottom Line**: Flash loans don't create vulnerabilities but rather amplify existing ones. Protocols must be designed to be secure even when attackers have unlimited capital for a single transaction.
 
 ## Key Takeaways
 
-This journey through DeFi's core mechanisms reveals both the innovation and the risks of programmable finance. Each protocol we've examined represents an evolution in how we think about financial services—from automated market makers that provide instant liquidity to yield strategies that didn't exist in traditional finance.
+This journey through DeFi's core mechanisms reveals both the innovation and the risks of programmable finance. Each protocol we've examined represents an evolution in how we think about financial services, from automated market makers that provide instant liquidity to yield strategies that didn't exist in traditional finance.
 
 ### The Evolution Theme
 
@@ -369,7 +369,7 @@ DeFi consistently offers higher potential returns than traditional finance, but 
 - **Governance risk**: Token holders can change protocol rules
 - **Composability risk**: Failures in one protocol can propagate through the ecosystem
 
-Understanding these risks quantitatively—not just qualitatively—is essential for professional DeFi participation.
+Understanding these risks quantitatively (not just qualitatively) is essential for professional DeFi participation.
 
 ### The Infrastructure Dependencies
 
@@ -383,6 +383,6 @@ The security of any DeFi strategy is only as strong as its weakest dependency.
 
 ### Looking Forward
 
-DeFi's composability enables financial products impossible in traditional systems—from flash loans that provide unlimited capital for single transactions to yield tokens that let you trade time itself. But this same composability amplifies both opportunities and risks.
+DeFi's composability enables financial products impossible in traditional systems, from flash loans that provide unlimited capital for single transactions to yield tokens that let you trade time itself. But this same composability amplifies both opportunities and risks.
 
 The protocols that survive and thrive will be those that best balance innovation with robust risk management, creating sustainable value for users while maintaining security in an adversarial environment.

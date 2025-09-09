@@ -1,6 +1,6 @@
 # Chapter V: Custody Fundamentals
 
-Operational security bridges cryptography to reality: who holds keys, how policy is enforced, and what evidence proves control. This chapter explores how theoretical security primitives translate into practical custody systems—from multisig and MPC platforms to qualified custodians—and the layered controls that make them disaster-ready.
+Operational security bridges cryptography to reality: who holds keys, how policy is enforced, and what evidence proves control. This chapter explores how theoretical security primitives translate into practical custody systems, from multisig and MPC platforms to qualified custodians, and the layered controls that make them disaster-ready.
 
 ## Section I: Custody Core Concepts
 
@@ -10,7 +10,7 @@ Operational security bridges cryptography to reality: who holds keys, how policy
 
 Cryptocurrency fundamentally transforms value into information. This shift eliminates the need for physical trucks and armored vaults but replaces them with a starker reality: **keys equal control**. If a party can authorize a transaction, they effectively own the asset, creating both unprecedented opportunities for self-sovereignty and entirely new categories of risk.
 
-This keys-as-control paradigm immediately reveals why most custody failures don't stem from cryptographic weaknesses—they emerge from **policy failures**: approvals granted too easily, segregation boundaries blurred, evidence trails missing. Sophisticated custody operations become a discipline of **least hotness** (keeping the minimum online), engineered **recovery**, and **provable operations**. The philosophy mirrors Bitcoin's own ethos: don't trust, verify.
+This keys-as-control paradigm immediately reveals why most custody failures don't stem from cryptographic weaknesses but rather emerge from **policy failures**: approvals granted too easily, segregation boundaries blurred, evidence trails missing. Sophisticated custody operations become a discipline of **least hotness** (keeping the minimum online), engineered **recovery**, and **provable operations**. The philosophy mirrors Bitcoin's own ethos: don't trust, verify.
 
 The critical question shifts from "Is it air-gapped?" to "Can we prove how keys were created, who can move funds, and what evidence shows the rules were followed?" In a trustless system, if you can't demonstrate it happened, it effectively didn't happen.
 
@@ -22,7 +22,7 @@ Four distinct threat categories shape every custody system's design. **External 
 
 But the more insidious danger often comes from within. **Insider risk** lurks in privileged access and the temptation of convenient policy downgrades during stressful situations. The human element remains the weakest link in most systems, whether through malicious intent or seemingly innocent mistakes that compound into catastrophic failures. A single administrator with excessive privileges can undo millions of dollars in security infrastructure.
 
-**Operational failures** represent the third major category, encompassing lost key shards, untested disaster recovery procedures, and weak change management processes. These vulnerabilities often remain hidden until crisis situations place systems under maximum stress—precisely when reliable operation becomes most critical.
+**Operational failures** represent the third major category, encompassing lost key shards, untested disaster recovery procedures, and weak change management processes. These vulnerabilities often remain hidden until crisis situations place systems under maximum stress, precisely when reliable operation becomes most critical.
 
 Finally, **legal and jurisdictional risks** can neutralize even the most sophisticated technical defenses. Asset seizures, sanctions compliance requirements, disclosure regimes, and capital controls can effectively freeze or confiscate assets regardless of cryptographic security measures. Geography matters as much as cryptography in determining true asset control.
 
@@ -30,13 +30,13 @@ Finally, **legal and jurisdictional risks** can neutralize even the most sophist
 
 These threat realities drive sophisticated custody systems toward four foundational principles that have proven essential across all successful implementations.
 
-**Layered controls** ensure that no single mistake can cause total loss. This principle, borrowed from traditional security, becomes even more critical when dealing with irreversible cryptocurrency transactions. Multiple independent barriers must fail simultaneously before assets become vulnerable—a philosophy that acknowledges human fallibility while engineering around it.
+**Layered controls** ensure that no single mistake can cause total loss. This principle, borrowed from traditional security, becomes even more critical when dealing with irreversible cryptocurrency transactions. Multiple independent barriers must fail simultaneously before assets become vulnerable, a philosophy that acknowledges human fallibility while engineering around it.
 
 **Temperature segregation** forms the operational backbone of institutional custody. Most value stays **cold** (completely offline), a small buffer remains **warm** (requiring manual intervention), and only the absolute minimum stays **hot** (online and automated). This approach minimizes exposure to online threats while maintaining the operational flexibility needed for business operations.
 
-Emergency preparedness demands engineered **freeze and rotation capabilities**. When something goes wrong—and something always eventually goes wrong—the ability to instantly halt all operations and rotate compromised keys can mean the difference between a minor incident and total loss. These capabilities must be tested regularly and executable under stress.
+Emergency preparedness demands engineered **freeze and rotation capabilities**. When something goes wrong (and something always eventually goes wrong), the ability to instantly halt all operations and rotate compromised keys can mean the difference between a minor incident and total loss. These capabilities must be tested regularly and executable under stress.
 
-Finally, **immutable evidence** through attestations, comprehensive logs, and regular audits provides the proof that operations followed established procedures. In a trustless system, verifiable evidence of proper procedures isn't just good practice—it's the only way to demonstrate that security policies were actually followed rather than merely intended.
+Finally, **immutable evidence** through attestations, comprehensive logs, and regular audits provides the proof that operations followed established procedures. In a trustless system, verifiable evidence of proper procedures isn't just good practice but rather the only way to demonstrate that security policies were actually followed rather than merely intended.
 
 These principles shape every aspect of custody architecture, from the choice of underlying technology platforms to the daily operational procedures that govern asset movement.
 
@@ -72,7 +72,7 @@ The risk profile shifts toward platform and vendor quality, making evidence and 
 
 The regulatory approach addresses risks that technical solutions cannot: bankruptcy remoteness, clear legal title, and compliance with evolving regulatory requirements. When a qualified custodian holds assets, clients benefit from established legal precedents, regulatory oversight, and private crime/specie policies; digital assets are not FDIC-insured.
 
-Operational processes typically move slower than purely technical solutions, and DeFi composability remains limited due to regulatory constraints around permissible activities. However, fiduciaries with regulatory obligations—pension funds, insurance companies, registered investment advisors—often find this the only acceptable path forward for significant allocations.
+Operational processes typically move slower than purely technical solutions, and DeFi composability remains limited due to regulatory constraints around permissible activities. However, fiduciaries with regulatory obligations (pension funds, insurance companies, registered investment advisors) often find this the only acceptable path forward for significant allocations.
 
 Leading providers include **Anchorage Digital** (the first federally chartered digital asset bank), **BitGo Trust**, and **Coinbase Custody**, each offering different service levels, regulatory frameworks, and integration capabilities. The choice often depends on specific regulatory requirements, insurance needs, and desired levels of DeFi access.
 
@@ -94,9 +94,9 @@ Despite these limitations, smart contract wallets offer compelling solutions for
 
 ### Key Generation and Hardware Security
 
-Everything starts at key generation—the foundational moment that determines whether a custody system can provide genuine security or merely security theater. In institutional settings, best practice demands **Hardware Security Modules (HSMs)** or attested secure enclaves, typically targeting **FIPS 140-2/-3 Level 3 or higher** certification or equivalent security standards.
+Everything starts at key generation, the foundational moment that determines whether a custody system can provide genuine security or merely security theater. In institutional settings, best practice demands **Hardware Security Modules (HSMs)** or attested secure enclaves, typically targeting **FIPS 140-2/-3 Level 3 or higher** certification or equivalent security standards.
 
-These hardware requirements aren't arbitrary bureaucracy—they provide the cryptographic foundation that makes all subsequent security measures meaningful. HSMs generate truly random entropy, protect keys from extraction even by privileged users, and provide measured boot capabilities that prove the system hasn't been tampered with.
+These hardware requirements aren't arbitrary bureaucracy but rather provide the cryptographic foundation that makes all subsequent security measures meaningful. HSMs generate truly random entropy, protect keys from extraction even by privileged users, and provide measured boot capabilities that prove the system hasn't been tampered with.
 
 Enterprise key ceremonies implement **split knowledge** and **dual control** protocols, ensuring no single person can act alone during critical operations. These ceremonies are typically witnessed by multiple parties, recorded for audit purposes, and conducted according to pre-approved procedures that have been reviewed by security teams and auditors.
 
@@ -104,7 +104,7 @@ The evidence trail begins at key generation and continues through every subseque
 
 ### Policy Engines and Access Control
 
-Sophisticated custody systems require more than just secure key generation—they need comprehensive **policy engines** that translate organizational security requirements into enforceable technical controls. These systems provide the operational framework that governs who can do what, when, and under which circumstances.
+Sophisticated custody systems require more than just secure key generation; they need comprehensive **policy engines** that translate organizational security requirements into enforceable technical controls. These systems provide the operational framework that governs who can do what, when, and under which circumstances.
 
 **Role-based access control** forms the foundation, ensuring that users can only perform actions appropriate to their organizational function. Treasury managers might approve payments up to certain limits, while executives retain authority for larger transactions or policy changes. **Quorum approvals** require multiple parties to agree before sensitive operations proceed, preventing any single individual from acting unilaterally.
 
@@ -116,11 +116,11 @@ Production environments typically operate dedicated signing networks with carefu
 
 ### Evidence and Monitoring Systems
 
-The difference between intention and reality lies in evidence—the verifiable proof that security policies were actually followed rather than merely intended. Enterprise custody systems emphasize **Write-Once-Read-Many (WORM)** immutable logs with NTP-synchronized timestamps, ensuring that evidence cannot be altered after the fact. For example, S3 Object Lock can enforce WORM retention, and time sources should be NTP-synchronized per NIST guidance (e.g., SP 800-92).
+The difference between intention and reality lies in evidence: the verifiable proof that security policies were actually followed rather than merely intended. Enterprise custody systems emphasize **Write-Once-Read-Many (WORM)** immutable logs with NTP-synchronized timestamps, ensuring that evidence cannot be altered after the fact. For example, S3 Object Lock can enforce WORM retention, and time sources should be NTP-synchronized per NIST guidance (e.g., SP 800-92).
 
 These comprehensive logs capture device attestations proving hardware integrity, signer participation records showing exactly who approved each transaction, and complete approval trails documenting the decision-making process. When a $50 million transaction moves from cold storage, the evidence trail shows which HSM generated the signature, which administrators provided approval, and exactly when each step occurred.
 
-All evidence feeds into **Security Information and Event Management (SIEM)** systems capable of detecting anomalies and policy violations in real-time. These systems might flag unusual transaction patterns, detect attempts to bypass approval workflows, or identify suspicious access patterns that could indicate compromised credentials. The goal extends beyond compliance—creating an audit trail that can withstand legal scrutiny, regulatory examination, and forensic investigation.
+All evidence feeds into **Security Information and Event Management (SIEM)** systems capable of detecting anomalies and policy violations in real-time. These systems might flag unusual transaction patterns, detect attempts to bypass approval workflows, or identify suspicious access patterns that could indicate compromised credentials. The goal extends beyond compliance by creating an audit trail that can withstand legal scrutiny, regulatory examination, and forensic investigation.
 
 ### Disaster Recovery and Business Continuity
 
@@ -212,13 +212,13 @@ Custody frameworks must address **bankruptcy remoteness** and clear title establ
 
 Historical failures follow predictable patterns that inform current best practices, revealing how seemingly sophisticated operations can collapse due to fundamental custody failures.
 
-**Mt. Gox** (2014) demonstrated the catastrophic results of blurred hot/cold segregation and absent reconciliation procedures. The exchange operated for years with inadequate controls and no real-time visibility into actual versus reported balances. When the collapse finally came, investigators discovered that hackers had been slowly draining funds since 2011, while the exchange continued operating normally. Approximately 850,000 BTC were initially reported lost; roughly 200,000 BTC were later found, leaving ~650,000 BTC missing—losses that proper segregation and daily reconciliation could have detected and limited.
+**Mt. Gox** (2014) demonstrated the catastrophic results of blurred hot/cold segregation and absent reconciliation procedures. The exchange operated for years with inadequate controls and no real-time visibility into actual versus reported balances. When the collapse finally came, investigators discovered that hackers had been slowly draining funds since 2011, while the exchange continued operating normally. Approximately 850,000 BTC were initially reported lost; roughly 200,000 BTC were later found, leaving ~650,000 BTC missing. These losses could have been detected and limited through proper segregation and daily reconciliation.
 
-**Parity Multisig** (2017) revealed how shared dependencies create systemic risks in smart contract systems. A single library bug affected multiple wallets simultaneously, freezing ~513,000 ETH across hundreds of organizations. The incident emphasized that formal verification and careful dependency management aren't optional luxuries—they're essential safeguards when smart contracts control significant value.
+**Parity Multisig** (2017) revealed how shared dependencies create systemic risks in smart contract systems. A single library bug affected multiple wallets simultaneously, freezing ~513,000 ETH across hundreds of organizations. The incident emphasized that formal verification and careful dependency management aren't optional luxuries but rather essential safeguards when smart contracts control significant value.
 
 **Ronin Bridge** (2022) concentrated validator control in too few hands while missing critical anomaly detection opportunities. Attackers compromised 5 of 9 validator keys and drained $625 million over six days before anyone noticed. The incident highlighted how decentralized systems can become centralized through operational shortcuts, and why robust monitoring systems must detect unusual patterns even when they appear technically valid.
 
-**FTX** (2022) commingled customer and proprietary assets while operating without proper segregation or independent oversight. Despite sophisticated technical infrastructure, the fundamental custody failure—using customer deposits for proprietary trading—created systemic risk that no amount of technical security could address. The collapse demonstrated why regulatory frameworks and independent auditing remain essential even for technically sophisticated operations.
+**FTX** (2022) commingled customer and proprietary assets while operating without proper segregation or independent oversight. Despite sophisticated technical infrastructure, the fundamental custody failure of using customer deposits for proprietary trading created systemic risk that no amount of technical security could address. The collapse demonstrated why regulatory frameworks and independent auditing remain essential even for technically sophisticated operations.
 
 ### Operational Excellence
 
