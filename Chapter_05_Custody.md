@@ -1,10 +1,6 @@
 # Chapter V: Custody Fundamentals
 
-Operational security bridges cryptography to reality: who holds keys, how policy is enforced, and what evidence proves control. This chapter explores how theoretical security primitives translate into practical custody systems, from multisig and MPC platforms to qualified custodians, and the layered controls that make them disaster-ready.
-
 ## Section I: Custody Core Concepts
-
-*This section establishes the philosophical foundation of cryptocurrency custody and maps the threat landscape that shapes all subsequent design decisions.*
 
 ### Genesis and Philosophy
 
