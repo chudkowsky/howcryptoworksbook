@@ -112,15 +112,13 @@ Competition among issuers has driven expense ratios low—for example, BITB ~0.2
 
 #### Custody concentration and counterparty risk
 
-Most U.S. spot BTC ETFs rely on a small set of qualified custodians—most prominently Coinbase Custody for several of the largest funds, and Fidelity Digital Assets for FBTC. This concentration introduces systemic counterparty risk: a severe custodian failure, operational freeze, or regulatory action could impair primary-market creations/redemptions and disrupt price discovery, with spillovers across spot and derivatives. Common mitigants include segregated on-chain addresses, SOC audits, insurance policies, and bankruptcy‑remote trust structures, but these reduce rather than eliminate tail risk.
+Most U.S. spot BTC ETFs rely on a small set of qualified custodians—most prominently Coinbase Custody for several of the largest funds. This concentration introduces systemic counterparty risk: a severe custodian failure, operational freeze, or regulatory action could impair primary-market creations/redemptions and disrupt price discovery, with spillovers across spot and derivatives. Common mitigants include segregated on-chain addresses, SOC audits, insurance policies, and bankruptcy‑remote trust structures, but these reduce rather than eliminate tail risk.
 
 ---
 
 ## Section II: Order Management and Market Microstructure
 
-Understanding exchange products sets the foundation, but fully understanding market structure requires knowing how orders interact with market infrastructure.
-
-### Order Book Dynamics and Liquidity Assessment
+### Order Book Dynamics 
 
 An **order book** reveals the supply and demand structure of a market by displaying resting limit orders ranked by price and size. The **best bid and offer (BBO)** represents the highest buy order and lowest sell order, with their difference forming the **bid-ask spread**, a key measure of market liquidity and trading costs.
 
@@ -172,15 +170,25 @@ Understanding these mechanics is essential for developing sophisticated executio
 
 ## Section III: Market Makers
 
-Behind the tight bid-ask spreads and deep order books that define efficient crypto markets stand market makers—specialized trading firms that earn small, consistent profits while supplying the liquidity that keeps exchanges functioning. Although natural two-sided flow can also create order book depth, professional market makers remain central to liquidity on CEXs.
+Behind the tight bid-ask spreads and deep order books that define efficient crypto markets stand market makers. They are specialized trading firms that earn small, consistent profits while supplying the liquidity that keeps exchanges functioning. Their goal is typically to maintain near-flat risk exposure. By continuously quoting both buy and sell prices, they manage the delicate balance between inventory and risk while enabling smoother trading for everyone else.
 
-Their goal is typically to maintain near-flat risk exposure. By continuously quoting both buy and sell prices, they manage the delicate balance between inventory and risk while enabling smoother trading for everyone else.
+### Revenue Sources
 
-Market makers draw revenue from a variety of sources, with the **core income stream being spread capture**. They capture spreads and, depending on the venue, may receive maker rebates—note that maker rebates/negative fees can be a material PNL line on some venues, and fees can flip signs under volume tiers. They also profit from **arbitrage**, taking advantage of price discrepancies between different exchanges, and from basis when hedging inventory positions—where the PnL comes from the basis differential or funding payments themselves. The two main cases are cash-and-carry (locking futures basis vs. spot) and perp funding (earning funding while delta-hedged). Additional streams include inventory lending and borrowing, as well as yield earned on the holdings, whether through staking rewards, treasury bills, or similar instruments. A lot of market makers also operate OTC desks for their clients.
+Market makers draw revenue from a variety of sources, with the core income stream being spread capture. They capture spreads and, depending on the venue, may receive maker rebates—note that maker rebates/negative fees can be a material PNL line on some venues, and fees can flip signs under volume tiers. 
 
-Significant source of market maker's revenue can be by market making tokens for projects. The most common structure of such deals is the **loan/options model**, where the protocol loans a few percent of their tokens. This is economically a call option on the loaned tokens (often with tranches/strikes, vesting/cliffs, hedging permissions, and reporting SLAs). The market maker and protocol agree on how many tokens and at what **strike price** the market maker can purchase them in the future. For example, if a protocol provides 100,000 tokens at a $1 strike, the market maker can, after 12 months, either return the tokens or pay $100,000. This is often also done in tranches where there could be several strike prices and not just one. The market maker uses its own cash to create liquidity, taking on the risk of price fluctuations. If the token’s price falls, they can return the cheaper tokens; if it soars, they can opt to pay cash instead, potentially profiting significantly.
+They also profit from arbitrage, taking advantage of price discrepancies between different exchanges, and from basis when hedging inventory positions—where the PnL comes from the basis differential or funding payments themselves. The two main cases are cash-and-carry (locking futures basis vs. spot) and perp funding (earning funding while delta-hedged). Additional streams include inventory lending and borrowing, as well as yield earned on the holdings, whether through staking rewards, treasury bills, or similar instruments. A lot of market makers also operate OTC desks for their clients.
 
-This structure benefits protocols by providing liquidity but it introduces risk: if the strike price is set too low or the market maker becomes a large token holder, they could exert selling pressure later. For market makers, the risk is using their own capital if the price dumps. Incentives should be generally aligned (a rising token benefits everyone). Market makers often commit to certain spreads and provide a **report detailing its activities on exchanges including volume numbers**.
+#### Token Options
+
+Market makers can generate significant revenue by providing liquidity for projects with tokens through structured agreements. The most common structure of such deals is the loan/options model, where the protocol loans a few percent of their tokens. This is economically a call option on the loaned tokens (often with tranches/strikes, vesting/cliffs, hedging permissions, and reporting SLAs). The market maker and protocol agree on how many tokens and at what strike price the market maker can purchase them in the future. 
+
+For example, if a protocol provides 100,000 tokens at a $1 strike, the market maker can, after 12 months, either return the tokens or pay $100,000. This is often also done in tranches where there could be several strike prices and not just one. The market maker uses its own cash to create liquidity, taking on the risk of price fluctuations. If the token’s price falls, they can return the cheaper tokens; if it soars, they can opt to pay cash instead, potentially profiting significantly.
+
+Importantly, since only the project's tokens are borrowed, the market maker must also borrow the other side of the quote—generally stablecoins, but also BTC and SOL—which incurs borrowing costs that may exceed the money made on the call options. This additional cost pressure is compounded by intense competition: there may be more than 10 market makers competing for the same token deal, which makes terms very competitive. Projects generally favor known market makers with strong PNL track records but compare across multiple offers, which pushes down the strike prices and overall profitability.
+
+This structure benefits protocols by providing liquidity but it introduces risk: if the strike price is set too low or the market maker becomes a large token holder, they could exert selling pressure later. For market makers, the risk is using their own capital if the price dumps. Incentives should be generally aligned (a rising token benefits everyone). Market makers often commit to certain spreads and provide a report detailing its activities on exchanges including volume numbers.
+
+### Risks
 
 Market making activities carry significant risks. Traditional challenges include exposure to volatility and potential inventory losses from sudden price movements, adverse selection by informed traders with better data or faster execution, and operational issues such as exchange outages or system failures.
 
@@ -190,7 +198,7 @@ The primary competitive challenges for market makers involve technical execution
 
 ---
 
-## Section IV: Risk Management and Margining Systems
+## Section IV: Risk Management
 
 ### Understanding Margin Modes
 

@@ -4,11 +4,11 @@ Control over transaction ordering creates and redistributes value on‑chain. Th
 
 ## Section I: The Market Chaos - Understanding MEV Fundamentals
 
-Picture a bustling marketplace with a peculiar setup: there's a big whiteboard where everyone must post their intended purchases before they can buy anything. You write "buying 10 tomatoes from Stall A," and suddenly chaos erupts.
+Picture a busy marketplace with a peculiar setup: there's a big whiteboard where everyone must post their intended purchases before they can buy anything. You write "buying 10 tomatoes from Stall A," and suddenly chaos erupts.
 
 A fast-moving reseller spots your order, sprints to Stall A, buys the tomatoes first, then offers them back to you at a markup. Another reseller notices you're about to make a large purchase that will drive up tomato prices, so they buy just before you and sell immediately after, pocketing the price difference your trade created. Meanwhile, the market manager starts auctioning off the right to decide who gets served first: whoever pays the highest tip jumps to the front of the line.
 
-This market chaos isn't just an analogy but rather exactly what happens in Ethereum's **mempool**, creating what researchers call a "dark forest" where revealing profitable trades attracts predators.
+This market chaos isn't just an analogy but rather exactly what happens in **mempool**, creating what researchers call a "dark forest" where revealing profitable trades attracts predators.
 
 **Maximal Extractable Value (MEV)** is the profit that emerges from this system. Originally called "Miner Extractable Value" during Ethereum's proof-of-work era, MEV represents revenue extracted beyond standard block rewards and transaction fees by strategically ordering, including, or excluding transactions within blocks.
 
