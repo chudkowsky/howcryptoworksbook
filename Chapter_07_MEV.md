@@ -2,7 +2,7 @@
 
 Control over transaction ordering creates and redistributes value on‑chain. This chapter connects market microstructure to MEV: who extracts it, how it impacts users, and what mitigations (private order flow, batch auctions, PBS) can return value or reduce harm.
 
-## Section I: The Market Chaos - Understanding MEV Fundamentals
+## Section I: The Market Chaos: Understanding MEV Fundamentals
 
 Picture a busy marketplace with a peculiar setup: there's a big whiteboard where everyone must post their intended purchases before they can buy anything. You write "buying 10 tomatoes from Stall A," and suddenly chaos erupts.
 
@@ -34,7 +34,7 @@ Priority-gas-auction bidding historically spiked gas costs as bots competed for 
 
 The response has been innovation in execution methods. **Frequent batch auctions** and **intent-based settlement** (like CoW Swap and Uniswap X) **remove the continuous-time priority that enables classic sandwiching**. Instead of processing trades one-by-one in a race, these systems collect orders and execute them together, greatly reducing the timing games that create MEV opportunities. While batch auctions effectively mitigate sandwiching attacks, they don't eliminate all forms of MEV such as liquidations or oracle-based extraction.
 
-## Section III: Flashbots - Taming the Dark Forest
+## Section III: Flashbots: Taming the Dark Forest
 
 By 2020, Ethereum faced exactly this market chaos at scale. The priority gas auctions described earlier were creating network congestion, while miners were capturing MEV through opaque, off-chain deals that favored sophisticated actors.
 
@@ -48,7 +48,7 @@ The system worked like creating a separate, organized auction house for our mark
 
 The system evolved from individual miners making direct deals to a sophisticated auction where multiple builders compete for validator selection, with relays facilitating the bidding process.
 
-**User Protection Through Flashbots Protect**: Recognizing that infrastructure alone wasn't enough, Flashbots launched Flashbots Protect, a service that routes user transactions through private mempools. This shields regular users from the MEV extraction strategies detailed earlier while potentially providing rebates from captured MEV—essentially bypassing the public mempool and reducing sandwich/frontrunning risk. These transactions still compete in the builder auction but are not exposed to public mempool predation.
+**User Protection Through Flashbots Protect**: Recognizing that infrastructure alone wasn't enough, Flashbots launched Flashbots Protect, a service that routes user transactions through private mempools. This shields regular users from the MEV extraction strategies detailed earlier while potentially providing rebates from captured MEV. The service works by bypassing the public mempool and reducing sandwich/frontrunning risk. These transactions still compete in the builder auction but are not exposed to public mempool predation.
 
 The Flashbots approach represents a pragmatic philosophy: since MEV extraction is inevitable in any system with transaction ordering, the goal should be making it transparent, efficient, and less harmful to users. Rather than fighting the economic forces, they built infrastructure to channel them constructively.
 
@@ -56,7 +56,7 @@ The Flashbots approach represents a pragmatic philosophy: since MEV extraction i
 
 Despite Flashbots' innovations, the MEV ecosystem still creates a brutal reality: success in MEV requires both deep pockets and technical expertise. You need capital to compete in liquidation auctions, sophisticated infrastructure to detect opportunities faster than competitors, and the technical knowledge to navigate an increasingly complex landscape. The result? Dangerous concentration.
 
-In 2024, block building was highly concentrated; for example, in mid-October two builders produced ~89% of blocks over a two-week window, and over Oct 2023–Mar 2024 three builders produced ~80% of MEV-Boost blocks. Over the same period, a sizable share of blocks were relayed via OFAC-compliant infrastructure, often around ~40–60% (and sometimes higher) depending on the measurement window. The pattern is clear: a small number of sophisticated actors dominate MEV extraction, undermining the decentralized ethos of blockchain networks.
+In 2024, block building was highly concentrated; for example, in mid-October two builders produced ~89% of blocks over a two-week window, and from October 2023 through March 2024 three builders produced ~80% of MEV-Boost blocks. Over the same period, a sizable share of blocks were relayed via OFAC-compliant infrastructure, often around 40 to 60% (and sometimes higher) depending on the measurement window. The pattern is clear: a small number of sophisticated actors dominate MEV extraction, undermining the decentralized ethos of blockchain networks.
 
 This concentration sparked innovation. In 2024, major players announced **BuilderNet**, a decentralized block-building network launched Nov 2024 and jointly operated (at launch) by Flashbots, Beaverbuild, and Nethermind. BuilderNet uses **Trusted Execution Environments (TEEs)** to allow multiple operators to share transaction order flow and coordinate block building while keeping contents private until finalized. Think of it as allowing multiple market managers to collaborate on organizing the optimal serving order without revealing their strategies to competitors.
 
