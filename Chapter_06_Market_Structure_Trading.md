@@ -52,11 +52,37 @@ Additional operational risks include auto-deleveraging (ADL) events where profit
 
 While perpetuals dominate derivatives volumes, options contribute a smaller but growing share (~1–3% by notional in 2025) and remain essential to market structure for volatility pricing, hedging, and risk transfer.
 
-**Options** provide the right, but not obligation, to buy (calls) or sell (puts) at predetermined strikes before or at expiry. In crypto, options are primarily concentrated on Deribit, which was recently acquired by Coinbase. Options primarily serve to hedge tail events, express volatility views, create structured payoffs, and generate yield through covered strategies. Deribit remains the dominant venue for BTC options with >80-90% share of open interest in 2025.
+**Options** provide the right, but not obligation, to buy (calls) or sell (puts) at predetermined strikes before or at expiry. Options primarily serve to hedge tail events, express volatility views, create structured payoffs, and generate yield through covered strategies.
 
-**Dated futures** maintain the traditional structure of expiring on specific dates (typically quarterly). On regulated venues—most prominently CME—BTC and ETH futures (standard and micro) are cash-settled to reference indices and attract substantial institutional volume and open interest, serving as a primary gateway for hedging, price discovery, and basis trades. CME's BTC futures, launched in December 2017, have grown alongside the broader crypto complex (BTC+ETH futures, micros, options) to command significant notional volumes, with CME's total crypto average daily volume exceeding $10B in 2025. These provide a regulated alternative to CEX offerings, with tighter oversight and surveillance. At expiry, CME contracts are always cash-settled to benchmark rates, while some CEX dated futures may settle in the underlying coin or cash to an index. These instruments are essential for calendar spread strategies, carry trades, and matching hedge horizons to specific time periods. They are significantly less common than perps in crypto, but CME's established presence was pivotal in enabling broader market developments.
+**Dated futures** maintain the traditional structure of expiring on specific dates (typically quarterly). On regulated venues—most prominently CME—BTC and ETH futures are cash-settled to reference indices and attract substantial institutional volume and open interest, serving as a primary gateway for hedging, price discovery, and basis trades. CME's BTC futures, launched in 2017, have grown alongside the broader crypto complex to command significant notional volumes, with CME's total crypto average daily volume exceeding $10B in 2025. These provide a regulated alternative to CEX offerings, with tighter oversight and surveillance. At expiry, CME contracts are always cash-settled to benchmark rates, while some CEX dated futures may settle in the underlying coin or cash to an index.
 
 CME's Bitcoin futures market and surveillance-sharing arrangements with listing exchanges were central to the SEC's rationale for approving spot Bitcoin ETFs, providing regulatory comfort through established oversight mechanisms and demonstrated price correlation.
+
+### Exchange Landscape and Regulation
+
+The cryptocurrency exchange ecosystem comprises a diverse array of platforms, from heavily regulated entities operating within traditional financial frameworks to offshore venues offering broader product suites and higher leverage. Understanding these differences is crucial for navigating market structure, assessing counterparty risks, and selecting appropriate venues for specific trading needs.
+
+A regulated exchange operates under the oversight of financial authorities, typically holding licenses such as money transmitter status, BitLicense in New York, or full derivatives exchange authorization from bodies like the CFTC. This involves rigorous compliance with Know Your Customer (KYC) and Anti-Money Laundering (AML) requirements, regular audits, customer fund segregation, and robust risk management protocols. 
+
+For instance, regulated platforms often restrict product offerings to comply with local laws—such as limiting leverage or prohibiting certain derivatives for retail users. In regulated futures markets, risk is managed through clearinghouses and default funds with strict segregation of customer assets under CFTC rules, while some crypto exchanges maintain separate insurance funds (like Binance's SAFU fund) as additional protection mechanisms.
+
+The main benefit of regulation is robust access to traditional banking rails for fiat on/off-ramps. However, this comes at the cost of slower innovation, higher operational overhead, and geographical restrictions; many regulated exchanges cannot serve users in certain jurisdictions without proper licensing. In the U.S., platforms must navigate a complex patchwork of state and federal regulations, which has historically limited their product scope compared to global competitors.
+
+U.S.-regulated exchanges like Coinbase and Kraken prioritize compliance and institutional appeal, often at the expense of product breadth and leverage. Coinbase, for example, operates as a publicly traded company with SEC oversight, offering spot trading, limited derivatives through Coinbase International, and custodial services while maintaining strong fiat integration. Kraken similarly emphasizes security and regulatory adherence, providing spot markets, futures (outside the U.S.), and staking services with a focus on transparency through proof-of-reserves audits.
+
+In contrast, offshore exchanges such as Binance, OKX, and Bybit cater to a global audience with fewer restrictions, enabling higher leverage (up to 100x or more on some products), broader token listings, and products that enable token sales. These platforms often operate from jurisdictions with lighter regulatory touch, such as the Seychelles, Caymans or British Virgin Islands, allowing them to list new tokens quickly and offer perps quickly. However, this flexibility introduces higher counterparty risks, including potential for sudden regulatory crackdowns, as seen with Binance's 2023 settlement with U.S. authorities over AML violations. Offshore venues dominate in trading volume due to their accessibility and product depth.
+
+The trade-off is evident in user bases: regulated exchanges attract institutions and compliance-focused retail traders, while offshore platforms draw high-risk appetite users seeking leverage and exotic instruments. As of 2025, this dichotomy persists, though increasing global regulatory harmonization—such as the EU's MiCA framework—is blurring the lines.
+
+#### Market Leaders by Product Category
+
+- **Spot Markets**: Binance remains the undisputed leader in spot trading volume, commanding approximately 30-40% market share in 2025. Coinbase follows as the top U.S.-regulated option, particularly strong in BTC and ETH pairs with institutional flows. Other notables include Bybit and OKX for token diversity, while Kraken excels in fiat-to-crypto gateways.
+
+- **Perpetual Futures**: Binance, Bybit, and OKX together command approximately 70% of BTC perpetual open interest and volume. Binance leads, while Bybit and OKX compete closely for second position, all known for high leverage and features like unified margin. Offshore dominance is pronounced here, though regulated venues offer alternatives: CME provides dated futures and options, while since July 2025, Coinbase Derivatives offers the first U.S.-listed perpetual futures (BTC/ETH perps).
+
+- **Options**: Deribit maintains its stronghold with approximately 80-90% of crypto options open interest, specializing in BTC and ETH with sophisticated tools for volatility trading. Coinbase acquired Deribit in August 2025, though Deribit continues to operate as the dominant options venue under Coinbase's umbrella. Binance and OKX offer growing options books, but Deribit's focus on institutional-grade execution and risk management keeps it ahead. Regulated options remain limited, with CME providing a smaller but compliant alternative.
+
+This landscape underscores crypto's hybrid nature: a blend of traditional regulation and borderless innovation, where venue choice directly impacts trading strategies, risk exposure, and potential returns.
 
 ### Spot Bitcoin ETFs
 
@@ -116,6 +142,14 @@ Advanced order types include **stop-loss orders** that trigger market orders whe
 
 Understanding **time-in-force** instructions is crucial: Good-Till-Canceled (GTC) orders rest until filled or manually canceled, Immediate-or-Cancel (IOC) orders fill what they can immediately then cancel the rest, and Fill-or-Kill (FOK) orders execute completely or not at all.
 
+### Latency
+
+**Latency**, the end-to-end delay from decision to trade acknowledgment, shapes market dynamics well beyond high-frequency trading. In CEX environments, latency encompasses network transmission, gateway processing, risk checks, and matching engine cycles.
+
+This matters in practice: Bitcoin’s best bid is $100,000 with 10 BTC available, and news breaks that could drive prices higher. A trader with 10 ms latency can place a buy order and secure that liquidity before the market moves. A trader with 100 ms latency arrives to find the best bid is now $100,020, having missed the opportunity entirely. That 90-millisecond difference can be the line between a profitable trade and a costly miss.
+
+To minimize this, traders often place their servers within the same physical data center as an exchange’s systems (co-location) to reduce round-trip time and achieve faster acknowledgments. Ultra-low latency lets automated strategies react in fractions of a second, improving fill probability and reducing slippage during fast markets.
+
 ### Advanced Execution Techniques
 
 An order to buy $200 million in Bitcoin shows an expected price of $100,000. By the time it executes, the average paid price is $100,250, costing an extra $500,000. This gap between expectation and reality is **slippage**, and understanding its sources can save significant money over time. **Market impact** happens when large orders walk through multiple price levels in the order book.
@@ -136,39 +170,23 @@ Understanding these mechanics is essential for developing sophisticated executio
 
 ---
 
-## Section III: Market Participants and Information Flow
+## Section III: Market Makers
 
-Order mechanics matter, but they operate within an ecosystem of competing participants, each with different advantages, constraints, and objectives. The interplay between these participants (and the information that drives their decisions) shapes the market structure in which trading occurs.
+Behind the tight bid-ask spreads and deep order books that define efficient crypto markets stand market makers—specialized trading firms that earn small, consistent profits while supplying the liquidity that keeps exchanges functioning. Although natural two-sided flow can also create order book depth, professional market makers remain central to liquidity on CEXs.
 
-### The Role of Latency in Modern Markets
+Their goal is typically to maintain near-flat risk exposure. By continuously quoting both buy and sell prices, they manage the delicate balance between inventory and risk while enabling smoother trading for everyone else.
 
-**Latency**, the end-to-end delay from decision to trade acknowledgment, shapes market dynamics in ways that extend far beyond high-frequency trading. In CEX environments, latency includes network transmission, gateway processing, risk checks, and matching engine cycles.
+Market makers draw revenue from a variety of sources, with the **core income stream being spread capture**. They capture spreads and, depending on the venue, may receive maker rebates—note that maker rebates/negative fees can be a material PNL line on some venues, and fees can flip signs under volume tiers. They also profit from **arbitrage**, taking advantage of price discrepancies between different exchanges, and from basis when hedging inventory positions—where the PnL comes from the basis differential or funding payments themselves. The two main cases are cash-and-carry (locking futures basis vs. spot) and perp funding (earning funding while delta-hedged). Additional streams include inventory lending and borrowing, as well as yield earned on the holdings, whether through staking rewards, treasury bills, or similar instruments. A lot of market makers also operate OTC desks for their clients.
 
-This matters in practice: In one scenario, Bitcoin's best bid is $100,000 with 10 BTC available, and news breaks that could drive prices higher. A trader with 10ms latency can place a buy order and secure that liquidity before the market moves. A trader with 100ms latency arrives to find the best bid is now $100,020, having missed the opportunity entirely. This 90-millisecond difference can mean the difference between a profitable trade and a costly miss.
+Significant source of market maker's revenue can be by market making tokens for projects. The most common structure of such deals is the **loan/options model**, where the protocol loans a few percent of their tokens. This is economically a call option on the loaned tokens (often with tranches/strikes, vesting/cliffs, hedging permissions, and reporting SLAs). The market maker and protocol agree on how many tokens and at what **strike price** the market maker can purchase them in the future. For example, if a protocol provides 100,000 tokens at a $1 strike, the market maker can, after 12 months, either return the tokens or pay $100,000. This is often also done in tranches where there could be several strike prices and not just one. The market maker uses its own cash to create liquidity, taking on the risk of price fluctuations. If the token’s price falls, they can return the cheaper tokens; if it soars, they can opt to pay cash instead, potentially profiting significantly.
 
-**Queue priority** in most exchanges follows price-time precedence, meaning earlier arrivals at the same price level receive fills first. This creates significant advantages for low-latency participants who can secure fills without paying taker fees and quickly cancel orders when market conditions change.
+This structure benefits protocols by providing liquidity but it introduces risk: if the strike price is set too low or the market maker becomes a large token holder, they could exert selling pressure later. For market makers, the risk is using their own capital if the price dumps. Incentives should be generally aligned (a rising token benefits everyone). Market makers often commit to certain spreads and provide a **report detailing its activities on exchanges including volume numbers**.
 
-**Adverse selection** affects slower market participants who find their resting orders hit just as prices move unfavorably. Fast participants can adjust quotes or cancel orders before being picked off by informed flow, while slower participants bear the cost of providing liquidity to better-informed traders.
+Market making activities carry significant risks. Traditional challenges include exposure to volatility and potential inventory losses from sudden price movements, adverse selection by informed traders with better data or faster execution, and operational issues such as exchange outages or system failures.
 
-Cross-exchange **arbitrage opportunities** persist briefly as price information propagates between venues, creating profit opportunities for participants with superior latency and connectivity.
+In crypto, additional issues arise: funding-rate reversals on perpetual contracts can turn profitable positions into losses; borrow shortages can squeeze short trades or hedges; and auto-deleveraging mechanisms. Counterparty and custody risks—including exchange hacks remain ever-present, as do latency or infrastructure issues that can erode a firm's competitive edge.
 
-### Market Makers: The Liquidity Providers
-
-Behind the tight bid-ask spreads and deep order books that define efficient crypto markets stand market makers—specialized trading firms that earn small, consistent profits while supplying the liquidity that keeps exchanges functioning. Although natural two-sided flow can also create order book depth, professional market makers remain central to liquidity on centralized exchanges.
-
-Their goal is typically to maintain near-flat risk exposure, but they may also engage in directional or statistical arbitrage strategies. By continuously quoting both buy and sell prices, they manage the delicate balance between inventory and risk while enabling smoother trading for everyone else.
-
-Market makers draw revenue from a variety of sophisticated sources, with the **core income stream being spread capture plus maker rebates, net of fees and adverse selection**. They capture spreads and, depending on the venue, may receive maker rebates—though these rebates and fees vary widely, with some exchanges offering incentives, others using inverted fee models, and certain conditions even making spread capture temporarily unprofitable during toxic order flow.
-
-They also profit from cross-venue arbitrage, exploiting price discrepancies between exchanges, and from futures basis or perpetual funding rates when hedging inventory positions—where the PnL comes from the basis differential or funding payments themselves, which can be positive or negative. These revenue streams can become co-equal or even larger contributors during favorable market regimes, though they tend to be more cyclical and regime-dependent.
-
-Additional streams include inventory lending and borrowing, rebates from request-for-quote (RFQ) platforms, and yield earned on their holdings—whether through staking rewards, treasury bills, or similar instruments. In crypto markets specifically, exchanges and projects may offer token incentives, options, or warrants to attract liquidity, often tied to performance targets such as quoting width, trade size, uptime, vesting schedules, lockup periods, and clawback provisions.
-
-These activities carry significant risks. Traditional challenges include exposure to volatility and potential inventory losses from sudden price movements, adverse selection by informed traders with better data or faster execution, and operational issues such as exchange outages or system failures.
-
-In crypto, additional hazards arise: funding-rate reversals on perpetual contracts can turn profitable positions into losses; borrow shortages can squeeze short trades or hedges; and auto-deleveraging mechanisms or insurance fund deficiencies can amplify losses. Counterparty and custody risks—including exchange failures—remain ever-present, as do latency or infrastructure issues that can erode a firm's competitive edge.
-
-Unlike traditional equity markets where retail flow is often routed to privileged internalizers, most crypto CLOBs operate with more transparent order flow. The primary competitive challenges for market makers involve technical execution capabilities: network latency, exchange connectivity quality, data feed reliability, and system performance during high-volatility periods. However, adverse selection from better-informed traders and the challenge of avoiding toxic flow remain important considerations, particularly on RFQ and OTC venues where information imbalances can be more pronounced.
+The primary competitive challenges for market makers involve technical execution capabilities: network latency, exchange connectivity quality, data feed reliability, and system performance during high-volatility periods. However, adverse selection from better-informed traders and the challenge of avoiding toxic flow remain important considerations.
 
 ---
 
@@ -224,7 +242,33 @@ The **volatility risk premium** (IV minus RV) captures whether option sellers de
 
 ---
 
-## Section VI: The Corporate Treasury Trend
+## Section VI: Token Economics and Vesting
+
+Vesting schedules control the release of locked tokens to teams, investors, and other stakeholders over time. Understanding these mechanics is crucial for anticipating supply-side pressures. Cliff periods represent initial lockup phases with zero token releases, followed by linear vesting over subsequent periods. The most common vesting schedule for legitimate projects is "1+3," which indicates a 1-year cliff followed by 3 years of linear releases, meaning no tokens unlock in Year 1, then approximately 1/36th of the allocation unlocks monthly throughout Years 2-4. Supply overhang models combine vesting calendars with holder behavior analysis and exchange inventory tracking to anticipate potential selling pressure, recognizing that not all unlocked tokens hit markets immediately due to varying time preferences and price sensitivities among recipients.
+
+### Why Vesting Matters for Traders
+
+Token unlocks represent one of the most predictable sources of potential selling pressure in crypto markets, directly impacting a project's market structure and creating both risks and opportunities for traders. When large volumes of tokens become available to insiders or early investors, it can increase circulating supply, potentially driving prices lower if demand doesn't keep pace. 
+
+This is especially relevant in less liquid altcoin markets, where a single unlock event might represent a significant percentage of daily trading volume. For example, consider a DeFi project with a major unlock: if venture capitalists receive millions of tokens after a cliff period, they might choose to sell portions to realize gains, hedge their exposure, or rebalance portfolios. Historical events like the 2021 unlocks for projects such as Uniswap or Aave demonstrated how vesting calendars can create recurring price ceilings, as sophisticated participants position ahead of known supply events.
+
+Traders should care because these schedules create asymmetric information edges: while public calendars are often available through tools like TokenUnlocks or Messari, interpreting their impact requires understanding participant incentives. Institutional investors might hedge their vested positions by shorting perpetual futures, collecting funding rates while protecting against downside—essentially turning unlocks into basis trading opportunities. Retail holders, conversely, might simply sell on unlock days, amplifying volatility.
+
+### Hedging Behaviors and Market Impact
+
+Sophisticated recipients often employ hedging strategies to manage unlock risks without immediate selling. A common approach is shorting perpetuals against their vesting allocation: if an investor is set to receive 100,000 tokens over the next quarter, they might short an equivalent notional value in perps to lock in current prices. This creates downward pressure on futures basis and can lead to negative funding rates, signaling heavy hedging activity.
+
+Not everyone hedges—some teams or advisors might HODL for long-term belief in the project, while others dump immediately for liquidity. This behavioral diversity creates fascinating market dynamics: pre-unlock rallies from speculators front-running perceived selling, followed by post-unlock dips if pressure materializes. Traders can exploit this through strategies like monitoring on-chain transfers from vesting contracts or tracking exchange inflows around unlock dates.
+
+### Risks and Strategic Considerations
+
+Ignoring vesting can lead to painful surprises, such as getting caught in an "unlock cascade" where multiple projects release supply simultaneously, correlating drawdowns across the sector. On the opportunity side, persistent hedging from unlocks can create attractive carry trades: going long spot while shorting overpriced perps, profiting from basis convergence as unlocks pass without catastrophe.
+
+Ultimately, vesting schedules are more than just calendar events—they're windows into project maturity, team alignment, and market efficiency. By tracking them alongside metrics like funding rates, open interest changes, and on-chain flows, traders can better anticipate supply shocks and position accordingly in this high-stakes game of information and incentives.
+
+---
+
+## Section VII: The Corporate Treasury Trend
 
 Beginning in 2020, a few public companies spearheaded by Michael Saylor began allocating portions of their corporate cash reserves to Bitcoin. They viewed it as a long-duration, non-sovereign monetary asset that could serve multiple purposes: portfolio diversification, inflation hedging, and brand alignment with digital-native finance.
 
@@ -259,27 +303,3 @@ The flywheel mechanism faces several critical vulnerabilities:
 The model exhibits **diminishing returns at scale**: the company required just 2.6 Bitcoin to generate one basis point of yield in 2021 but needed 58 Bitcoin by 2025 for the same result.
 
 Strategy's success depends on three key conditions: Bitcoin maintaining its long term upward trajectory, the stock preserving high volatility to attract convertible arbitrageurs, and continued access to capital markets for refinancing operations. While these conditions persist, the company appears positioned to continue its Bitcoin accumulation strategy with structural protections against forced liquidation.
-
-## Section VII: Token Economics and Vesting
-
-Vesting schedules control the release of locked tokens to teams, investors, and other stakeholders over time. Understanding these mechanics is crucial for anticipating supply-side pressures. Cliff periods represent initial lockup phases with zero token releases, followed by linear vesting over subsequent periods. The most common vesting schedule for legitimate projects is "1+3," which indicates a 1-year cliff followed by 3 years of linear releases, meaning no tokens unlock in Year 1, then approximately 1/36th of the allocation unlocks monthly throughout Years 2-4. Supply overhang models combine vesting calendars with holder behavior analysis and exchange inventory tracking to anticipate potential selling pressure, recognizing that not all unlocked tokens hit markets immediately due to varying time preferences and price sensitivities among recipients.
-
-### Why Vesting Matters for Traders
-
-Token unlocks represent one of the most predictable sources of potential selling pressure in crypto markets, directly impacting a project's market structure and creating both risks and opportunities for traders. When large volumes of tokens become available to insiders or early investors, it can increase circulating supply, potentially driving prices lower if demand doesn't keep pace. 
-
-This is especially relevant in less liquid altcoin markets, where a single unlock event might represent a significant percentage of daily trading volume. For example, consider a DeFi project with a major unlock: if venture capitalists receive millions of tokens after a cliff period, they might choose to sell portions to realize gains, hedge their exposure, or rebalance portfolios. Historical events like the 2021 unlocks for projects such as Uniswap or Aave demonstrated how vesting calendars can create recurring price ceilings, as sophisticated participants position ahead of known supply events.
-
-Traders should care because these schedules create asymmetric information edges: while public calendars are often available through tools like TokenUnlocks or Messari, interpreting their impact requires understanding participant incentives. Institutional investors might hedge their vested positions by shorting perpetual futures, collecting funding rates while protecting against downside—essentially turning unlocks into basis trading opportunities. Retail holders, conversely, might simply sell on unlock days, amplifying volatility.
-
-### Hedging Behaviors and Market Impact
-
-Sophisticated recipients often employ hedging strategies to manage unlock risks without immediate selling. A common approach is shorting perpetuals against their vesting allocation: if an investor is set to receive 100,000 tokens over the next quarter, they might short an equivalent notional value in perps to lock in current prices. This creates downward pressure on futures basis and can lead to negative funding rates, signaling heavy hedging activity.
-
-Not everyone hedges—some teams or advisors might HODL for long-term belief in the project, while others dump immediately for liquidity. This behavioral diversity creates fascinating market dynamics: pre-unlock rallies from speculators front-running perceived selling, followed by post-unlock dips if pressure materializes. Traders can exploit this through strategies like monitoring on-chain transfers from vesting contracts or tracking exchange inflows around unlock dates.
-
-### Risks and Strategic Considerations
-
-Ignoring vesting can lead to painful surprises, such as getting caught in an "unlock cascade" where multiple projects release supply simultaneously, correlating drawdowns across the sector. On the opportunity side, persistent hedging from unlocks can create attractive carry trades: going long spot while shorting overpriced perps, profiting from basis convergence as unlocks pass without catastrophe.
-
-Ultimately, vesting schedules are more than just calendar events—they're windows into project maturity, team alignment, and market efficiency. By tracking them alongside metrics like funding rates, open interest changes, and on-chain flows, traders can better anticipate supply shocks and position accordingly in this high-stakes game of information and incentives.
