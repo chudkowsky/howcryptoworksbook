@@ -253,7 +253,7 @@ Security is achieved through confirmation depth; each subsequent block exponenti
 
 Bitcoin is designed to be antifragile; it grows stronger from stress and attacks. Its resilience stems from several factors: geographic distribution of nodes and miners resists localized disruptions, protocol ossification or resistance to change enhances stability and predictability, and its design assumes an adversarial environment, built to function despite malicious actors. The network has survived numerous technical, political, and economic challenges, demonstrating its robust and self healing nature.
 
-#### Chain Reorganizations (Reorgs)
+#### Chain Reorgs
 
 Chain reorganizations are a normal and expected part of Bitcoin's operation. When two miners find valid blocks around the same time, the network can briefly have competing tips. Nodes follow the chain with the most accumulated work; blocks on the losing tip become stale. One block reorgs occur occasionally; two block reorgs are rare; three or more are extremely rare absent an attack or severe network partition. This probabilistic behavior is why confirmations matter: the probability that a transaction is affected by a reorg falls exponentially with each additional block.
 

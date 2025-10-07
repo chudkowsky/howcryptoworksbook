@@ -1,6 +1,4 @@
-## Crypto 201: Advanced Study Curriculum
-
-This is an advanced study plan to take you from competent to expert in the parts of crypto that matter. It focuses on clear explanations, current design trade-offs, and the mechanics you need to operate in production and markets.
+## How Crypto Actually Works: The Missing Manual
 
 ## Chapters and sections
 
