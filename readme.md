@@ -36,10 +36,8 @@
 - [Section IV: The Trilemma in Practice](./Chapter_04_Layer_1_Blockchains.md#section-iv-the-trilemma-in-practice)
 - [Section V: Scaling Patterns](./Chapter_04_Layer_1_Blockchains.md#section-v-scaling-patterns)
 - [Section VI: Interoperability & Cross-Chain Architecture](./Chapter_04_Layer_1_Blockchains.md#section-vi-interoperability--cross-chain-architecture)
-- [Section VII: Fees & Security Budget](./Chapter_04_Layer_1_Blockchains.md#section-vii-fees--security-budget)
-- [Section VIII: Governance & Upgrades](./Chapter_04_Layer_1_Blockchains.md#section-viii-governance--upgrades)
-- [Section IX: Attention Game](./Chapter_04_Layer_1_Blockchains.md#section-ix-attention-game)
-- [Section X: Key Takeaways](./Chapter_04_Layer_1_Blockchains.md#section-x-key-takeaways)
+- [Section VII: Attention Game](./Chapter_04_Layer_1_Blockchains.md#section-vii-attention-game)
+- [Section VIII: Key Takeaways](./Chapter_04_Layer_1_Blockchains.md#section-viii-key-takeaways)
 
 ### Chapter V: Custody Fundamentals
 - [Section I: Cryptographic Foundations](./Chapter_05_Custody.md#section-i-cryptographic-foundations)
