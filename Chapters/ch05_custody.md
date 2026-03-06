@@ -72,9 +72,41 @@ Regardless of which security philosophy or device you choose, maximizing these h
 
 For individuals managing significant holdings, advanced custody strategies can eliminate single points of failure through redundancy and geographic distribution. The foundation of this approach involves creating multiple copies of seed phrases and storing them in different secure locations. If one backup is destroyed in a fire or in a flood, others remain accessible. These backups require either exceptional concealment or storage in fireproof safes to prevent theft while ensuring disaster resilience. For sophisticated backup strategies involving secret splitting across multiple geographic locations, institutions typically employ cryptographic techniques discussed in Section III.
 
+### Physical Coercion: The $5 Wrench Attack
+
+The threat models above focus on digital adversaries: malware, phishing, supply chain compromise. But the most practical danger for anyone known to hold significant cryptocurrency is physical: someone threatening violence to compel key surrender. The crypto community calls this the "$5 wrench attack" because no amount of cryptographic sophistication withstands a cheap tool applied to someone's kneecaps.
+
+This is not theoretical. There are documented home invasions, kidnappings, and torture cases targeting crypto holders specifically. The attacker's calculus is straightforward: cryptocurrency transfers are irreversible, fast, and require no intermediary approval. Unlike robbing a bank, there is no vault door, no silent alarm, no delay. A victim can transfer their entire net worth under duress in minutes with no institution to intervene or reverse the transaction.
+
+The first line of defense is operational, not technical: never publicly disclose holdings. This means avoiding specific portfolio discussions on social media, not displaying crypto wealth signals, and treating position size as sensitive information. The most effective protection against a targeted physical attack is not being identified as a target in the first place.
+
+For holders who cannot fully avoid visibility, several technical mitigations reduce exposure under duress. The BIP-39 passphrase (25th word) described in Section I enables plausible deniability: a seed phrase without the passphrase opens a wallet with a small, credible balance, while actual holdings remain hidden behind a passphrase the attacker doesn't know to ask for. Trezor's wipe code serves a complementary purpose: entering it under duress destroys the device's data while appearing to the attacker as a normal failed PIN attempt.
+
+Multisig and time-locked transactions provide structural defenses. A 2-of-3 multisig arrangement means the victim physically cannot comply with a demand for immediate transfer, since additional signers are required. Time-locks can enforce mandatory delays between initiating and completing a transfer, creating a window for intervention. Both shift the situation from "give me your keys" to a problem the attacker cannot solve on the spot.
+
+These mitigations improve the odds but do not eliminate the threat. A sophisticated attacker who knows about decoy wallets may not stop at the first balance they see. Time-locks and multisig deter opportunistic attacks but cannot protect against prolonged captivity. Physical security (home security systems, varying routines, awareness of social engineering that precedes physical attacks) remains the unglamorous but essential foundation. Technology can raise the cost and complexity of coercion; it cannot make a person invulnerable.
+
 ### Recovery Testing and Maintenance
 
 Regardless of the backup strategy chosen, testing recovery procedures is non-negotiable. At minimum, perform an initial test restore on a second device to verify backups work correctly and to familiarize yourself with emergency procedures before they're actually needed. More sophisticated operators implement periodic recovery drills that simulate complete loss scenarios. These drills involve restoring from backups on fresh devices, measuring how long recovery takes and whether any recent data is lost, documenting any issues encountered, and updating procedures annually or after significant changes to holdings or infrastructure.
+
+### Inheritance and Incapacitation Planning
+
+Death is one of the most devastating failure modes in crypto custody. The core problem is unique: heirs may hold clear legal title to digital assets while having zero cryptographic access. A court order cannot compel a blockchain to release funds. If the keys die with the holder, the assets die too.
+
+The central tension is that any arrangement giving heirs pre-death access to seed phrases creates a live security vulnerability. A will enters public record in probate, a copy at an attorney's office sits in an accessible filing cabinet. Every convenience for heirs introduces a corresponding attack surface.
+
+Sealed executor instructions are the minimum viable starting point: a document describing what assets exist, where hardware wallets and backups are located, and how to recover them. Critically, it describes *where* seed phrases are stored rather than containing them directly.
+
+Shamir's Secret Sharing (SSS, detailed in Section III) is the stronger approach. Splitting a seed phrase into shares distributed among trusted parties (e.g., spouse, adult child, attorney) with a 2-of-3 threshold means no individual can steal assets unilaterally, but any two can recover them when needed.
+
+Multisig for incapacitation applies the same logic differently: a 2-of-3 setup where the holder controls two keys and a trusted party holds one lets the holder transact normally in life, while the third-party key plus one recovered holder key enables heir access after death.
+
+Two common failure modes: (1) Heirs find a seed phrase but not the optional passphrase (25th word), reaching an empty wallet. Store them separately with a documented link. (2) Relying on dead man's switch services as a primary mechanism introduces platform risk; use them only as a supplementary notification layer.
+
+The legal layer is not optional. Estate plans must explicitly name digital assets and include access procedures. Most attorneys lack crypto expertise, so brief your counsel directly rather than assuming standard estate language covers self-custodied keys.
+
+The minimum viable plan combines three things: sealed access instructions with a trusted person, SSS-distributed shares among parties who know they may be called upon, and a briefed estate attorney. None of it is technically complex, but all of it must be done before it's needed. There is no recovery from failure.
 
 Individual self-custody through hardware wallets and tested backup procedures works well for personal holdings. However, as holdings grow beyond $1M, operational complexity increases (active trading, DeFi, multi-chain operations), or organizational needs emerge (businesses, DAOs, investment funds), individual custody models reach their limits. These situations require multi-party approval processes, institutional-grade security measures, compliance capabilities, and audit trails that hardware wallets cannot provide. Section III explores the specialized custody architectures designed to address these fundamentally different challenges.
 

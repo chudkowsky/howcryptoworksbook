@@ -124,9 +124,45 @@ More advanced attacks also require attention. **Time-bandit attacks**, where val
 
 While these solutions show promise, results in practice remain mixed, and the arms race between MEV extraction and protection continues to evolve.
 
-## Section V: The Cross-Domain Challenge
+## Section V: MEV on L2s
 
-But even as these solutions emerge for single-chain MEV, a far larger threat looms. Just as the industry began addressing extraction within individual blockchains, a new challenge emerged that threatens to dwarf the current problems.
+Chapter II established that most major rollups rely on centralized sequencers and noted how this concentrates MEV power. This section examines what that concentration actually means in practice, names who the operators are today, and addresses what protections users have.
+
+The MEV dynamics on rollups have an important two-sided quality that the Chapter II overview did not develop. Because users submit transactions directly to the sequencer rather than broadcasting to a public mempool, the sandwiching bots that prowl Ethereum's broadcast queue largely cannot operate on L2. In that narrow sense, rollup users are shielded from a class of MEV that is endemic on L1. The tradeoff is that the sequencer itself holds unchecked authority that no single party ever occupies on L1: it sees every transaction before inclusion and decides their order with no external oversight, no auction, and no competing bids.
+
+As of early 2026, Arbitrum's sequencer is operated by Offchain Labs, Optimism and Base run on a sequencer operated by OP Labs (a subsidiary of the Optimism Foundation), zkSync's sequencer is run by Matter Labs, and Starknet's is run by StarkWare. These networks collectively process a substantial share of all DeFi transactions, making centralized sequencing one of the most practically significant governance questions in the ecosystem.
+
+### The Sequencer's MEV Advantage
+
+A centralized sequencer could extract MEV in ways that are structurally different from L1. On Ethereum mainnet, a builder who wants to sandwich a user's trade must win a competitive auction, pay a significant portion of the MEV to validators, and operate sophisticated simulation infrastructure. On a rollup with a centralized sequencer, the operator could simply insert its own transaction before or after the user's transaction, with no auction to win and no share to pay out.
+
+The sequencer also controls latency asymmetry. By offering faster confirmation to preferred counterparties (high-frequency trading firms that pay for private API access), a sequencer can create a two-tier system where professional traders consistently receive ordering priority unavailable to ordinary users. This is economically equivalent to the payment-for-order-flow arrangements that drew regulatory scrutiny in traditional equity markets, but on a blockchain where the practice is encoded in infrastructure rather than disclosed in fee disclosures.
+
+Most sequencer operators counter that they have voluntarily committed to **fair ordering policies**. Arbitrum's sequencer operates on a first-in-first-out principle; Optimism and Base have made similar pledges not to front-run or reorder for profit. These policies appear to be followed in practice, as far as on-chain analysis can verify. But they are trust-based rather than protocol-enforced. There is no cryptographic proof that the sequencer's timestamp records are accurate, no on-chain enforcement mechanism, and no competitive process to discipline a sequencer that begins quietly reordering transactions. The commitment is a governance choice, not a technical guarantee.
+
+### Decentralization Roadmaps
+
+Chapter II surveyed the decentralization roadmaps for major rollup sequencers. The proposal most directly relevant to MEV is **based sequencing** (sometimes called "based rollups"), where L1 validators, rather than a designated L2 sequencer, order L2 transactions. Because L1 validators are already a large, distributed, economically bonded set, based sequencing inherits Ethereum's existing decentralization without requiring each rollup to bootstrap its own. The tradeoff is latency: L2 blocks can only finalize as fast as L1 blocks (~12 seconds), which may be too slow for latency-sensitive DeFi, but as a trust model it is substantially stronger than relying on a single operator.
+
+### Shared Sequencing Networks
+
+Chapter II mentioned shared sequencing networks in brief. Two specific implementations deserve attention here for what they offer on the MEV front.
+
+**Espresso Systems** has developed the most mature shared sequencing product, using a proof-of-stake consensus mechanism among sequencer nodes to establish ordering that no single party controls. Rollups that integrate Espresso effectively outsource their sequencer to this decentralized network while retaining their own execution environment and bridge security. **Astria** takes a similar approach, operating as a shared sequencer layer that multiple rollups can use simultaneously.
+
+Shared sequencing also opens the door to **atomic cross-rollup composability**: if two rollups use the same sequencer, it can guarantee that related transactions on each are included in the same ordering round, enabling cross-rollup arbitrage with the same atomicity as same-block L1 arbitrage. As of early 2026, no major rollup has migrated its production sequencer to an external shared sequencing network, though several have announced integration plans or pilots.
+
+### What Protections Users Have Today
+
+The user protection toolkit from Section II applies with important limitations on L2. Private mempool routing (Flashbots Protect and similar services) is largely irrelevant on rollups where transactions go directly to the sequencer by design; there is no public mempool to hide from.
+
+Batch auction systems like CoW Swap, however, work independently of who runs the sequencer, because they determine execution through an off-chain solver competition rather than on-chain ordering. This makes intent-based trading systems (discussed in Chapter VII) particularly valuable on L2 for users who prioritize execution quality over speed. Slippage controls also remain useful, though on L2 the sequencer itself is the potential adversary: tight tolerances limit how much you lose if the sequencer reorders, but they do not prevent the sequencer from observing your transaction and acting on that information. The choice of which L2 to transact on is itself a protection decision: sequencer policies, FIFO commitments, and decentralization timelines vary meaningfully across rollups, and users with large or frequent trades have reason to prefer networks whose ordering guarantees are strongest.
+
+The honest assessment is that users transacting on major L2s today have weaker structural protections against sequencer-level MEV than they have against builder-level MEV on L1. The L1 system, for all its flaws catalogued in Section IV, at least enforces competition through an auction. On L2, the protection is the sequencer operator's stated policy and its reputational stake in honoring it. For most major L2s, that reputational stake is substantial: Offchain Labs, OP Labs, and their equivalents have billions of dollars of protocol value and significant venture backing dependent on user trust. But "trust the well-capitalized company" is a weaker guarantee than "trust the protocol's competitive structure," and it is worth being clear-eyed about the distinction.
+
+## Section VI: The Cross-Domain Challenge
+
+But even as these solutions emerge for single-chain L1 MEV and the ecosystem works toward decentralized L2 sequencing, a far larger threat looms. Just as the industry began addressing extraction within individual blockchains, a new challenge emerged that threatens to dwarf the current problems.
 
 **Cross-Domain MEV** represents extraction strategies that span multiple blockchains simultaneously, exploiting price differences and timing advantages across separate domains.
 
