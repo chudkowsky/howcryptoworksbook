@@ -1,2 +1,8 @@
 # Tests (not ready for public release yet)
 Tests/
+
+# Generated book output (built by build_book.py)
+book/
+
+# Old monolithic build artifact
+book.html
